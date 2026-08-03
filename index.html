@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>영광군의회 열린소통 ON | 군민과 함께하는 참여 의정</title>
+  <meta name="description" content="영광군의회 군민소통 전용 웹플랫폼 - 군민청원, 1:1 의원 소통, 조례안 입법 의견 제출, 11개 읍면 소통지도, 의정 생중계 및 참관 예약" />
+  <meta name="keywords" content="영광군의회, 영광군, 군민청원, 의정소통, 영광군의원, 열린의회, 읍면소통지도, 조례의견" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="영광군의회 열린소통 ON" />
+  <meta property="og:description" content="군민의 소리를 담다, 함께 만드는 영광! 영광군의회 군민소통 전용 웹플랫폼" />
+  <meta property="og:type" content="website" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 1. Top Accessibility Bar -->
+  <div class="top-accessibility-bar">
+    <div class="accessibility-left">
+      <span class="official-badge">🏛️ 대한민국 전라남도 영광군의회 공식 소통 포털</span>
+      <span>|</span>
+      <span>대표전화: 061-350-5500</span>
+    </div>
+    <div class="accessibility-right">
+      <button id="senior-mode-btn" class="senior-toggle-btn" aria-label="어르신 쉬운 모드 전환">
+        👵 어르신 쉬운 모드 (글자확대·고대비)
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. Main Header & Navigation -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="#" class="logo-area" aria-label="영광군의회 열린소통 ON 홈으로 이동">
+        <div class="logo-symbol">영</div>
+        <div class="logo-text-group">
+          <span class="logo-title">영광군의회 열린소통 ON</span>
+          <span class="logo-subtitle">Yeonggwang County Council Open Portal</span>
+        </div>
+      </a>
+
+      <nav aria-label="주 메뉴">
+        <ul class="nav-menu">
+          <li><a href="#petitions" class="nav-link active">군민청원·제안</a></li>
+          <li><a href="#members" class="nav-link">열린 의원실</a></li>
+          <li><a href="#map" class="nav-link">우리동네 소통지도</a></li>
+          <li><a href="#legislation" class="nav-link">입법의견수렴</a></li>
+          <li><a href="#live-booking" class="nav-link">생중계·참관예약</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-action-group">
+        <button class="btn-primary-header trigger-petition-modal">
+          <span>✍️</span> 청원 작성하기
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Hero Banner & Real-time Communication Ticker -->
+  <section class="hero-section">
+    <div class="hero-bg-shapes">
+      <div class="shape-circle-1"></div>
+      <div class="shape-circle-2"></div>
+    </div>
+
+    <div class="hero-container">
+      <div class="hero-left-content">
+        <div class="hero-badge">
+          <span>✨</span> 제9대 영광군의회 열린소통 파트너십
+        </div>
+        <h1 class="hero-title">
+          군민의 소리를 담다,<br />
+          <span>함께 만드는 영광의 미래</span>
+        </h1>
+        <p class="hero-desc">
+          영광군민 누구나 자유롭게 청원을 제출하고, 조례안에 직접 투표하며,<br />
+          지역구 의원과 1:1로 소통하는 열린 참여 의정 플랫폼입니다.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="hero-search-box">
+          <input type="text" placeholder="관심 있는 청원 키워드나 읍·면 지역명을 검색해보세요 (예: 영광읍, 도로, 굴비)" aria-label="청원 및 안건 검색" />
+          <button class="btn-search-trigger">검색하기</button>
+        </div>
+
+        <div class="hero-quick-tags">
+          <span>인기 키워드:</span>
+          <a href="#petitions" class="tag-item">#농어업인수당</a>
+          <a href="#petitions" class="tag-item">#보행로안전</a>
+          <a href="#petitions" class="tag-item">#청년창업지원</a>
+          <a href="#petitions" class="tag-item">#백수해안도로</a>
+        </div>
+      </div>
+
+      <!-- Real-time Stats Panel -->
+      <div class="hero-stats-panel">
+        <div class="stats-panel-header">
+          <span class="stats-panel-title">
+            <span class="pulse-dot"></span> 실시간 소통 현황
+          </span>
+          <span style="font-size: 0.82rem; color: #94a3b8;">2026년 8월 기준</span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">1,248</div>
+            <div class="stat-label">누적 군민제안·청원</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">96.4%</div>
+            <div class="stat-label">의회 답변 및 검토율</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">312건</div>
+            <div class="stat-label">조례/예산 안건 반영</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">18,520</div>
+            <div class="stat-label">군민 동의 참여수</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Ticker Bar -->
+  <div class="live-ticker-bar">
+    <div class="ticker-container">
+      <span class="ticker-label">실시간 소통 속보</span>
+      <div class="ticker-content">
+        <span class="ticker-text">
+          [청원 달성] '영광읍 중앙시장 보행로 안전펜스 설치 청원' 군민 100명 동의 달성 ➔ 의장단 및 건설도시위원회 안건 전달 예정 | [의정 소식] 법성포 굴비 특화 지원 조례안 입법 예고 의견 수렴 중 | [참관 안내] 8월 10일 임시회 본회의 참관 접수 진행 중
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- Section 1: 군민청원 & 열린 제안 마당 -->
+    <section id="petitions" class="section-wrapper">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-tag">CITIZEN PETITIONS</span>
+          <h2 class="section-title">📢 군민청원 & 열린 제안 마당</h2>
+          <p class="section-desc">군민 100명의 동의를 얻은 청원은 영광군의회가 공식 답변 및 조례/예산에 우선 반영합니다.</p>
+        </div>
+        <button class="btn-primary trigger-petition-modal">
+          <span>✍️</span> 청원 등록하기
+        </button>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="filter-bar">
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-filter="all">전체 청원 (6)</button>
+          <button class="tab-btn" data-filter="ongoing">🔥 동의 진행 중</button>
+          <button class="tab-btn" data-filter="answered">💬 의회 답변 완료</button>
+          <button class="tab-btn" data-filter="reflect">✨ 안건 반영 완료</button>
+        </div>
+      </div>
+
+      <!-- Petition Cards Grid -->
+      <div class="petition-grid">
+        <!-- Card 1 -->
+        <article class="petition-card status-ongoing">
+          <div class="petition-header-info">
+            <span class="petition-category">건설 / 교통</span>
+            <span class="petition-status-badge badge-ongoing">🔥 동의 진행 중</span>
+          </div>
+          <h3 class="petition-title">영광읍 중앙시장 보행자 안전 강화를 위한 속도제한 및 안심 펜스 설치</h3>
+          <p class="petition-excerpt">중앙시장 앞 도로의 잦은 무단횡단과 속도위반으로 어르신 안전사고 위험이 높습니다. 속도제한 조치와 보행펜스 설치를 청원합니다.</p>
+          <div class="petition-progress-area">
+            <div class="progress-info-row">
+              <span class="progress-count">88명 동의</span>
+              <span class="progress-target">목표 100명 (88%)</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 88%;"></div>
+            </div>
+          </div>
+          <div class="petition-footer">
+            <span>마감일: 2026.08.20</span>
+            <button class="btn-agree-action">👍 동의하기</button>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="petition-card status-ongoing">
+          <div class="petition-header-info">
+            <span class="petition-category">농림 / 수산</span>
+            <span class="petition-status-badge badge-ongoing">🔥 동의 진행 중</span>
+          </div>
+          <h3 class="petition-title">영광 찰보리 및 쌀 농가 재해 대비 영농 자재 직접 보조금 확대</h3>
+          <p class="petition-excerpt">기후 변화로 인한 농가 피해가 가중됨에 따라 찰보리 농가 등에 영농 자재비를 직접 지원하는 의회 조례 개정이 필요합니다.</p>
+          <div class="petition-progress-area">
+            <div class="progress-info-row">
+              <span class="progress-count">94명 동의</span>
+              <span class="progress-target">목표 100명 (94%)</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 94%;"></div>
+            </div>
+          </div>
+          <div class="petition-footer">
+            <span>마감일: 2026.08.15</span>
+            <button class="btn-agree-action">👍 동의하기</button>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="petition-card status-answered">
+          <div class="petition-header-info">
+            <span class="petition-category">문화 / 관광</span>
+            <span class="petition-status-badge badge-answered">💬 의회 답변 완료</span>
+          </div>
+          <h3 class="petition-title">백수해안도로 노을전망대 어르신 및 장애인 무장애 쉼터 조성</h3>
+          <p class="petition-excerpt">관광객 및 지역 어르신들이 백수해안도로 노을을 편안하게 조망할 수 있는 엘리베이터 및 무장애 경사로 설치 요청 청원.</p>
+          <div class="petition-progress-area">
+            <div class="progress-info-row">
+              <span class="progress-count">142명 동의</span>
+              <span class="progress-target">목표 달성 (100%)</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div class="petition-footer">
+            <span>답변: 영광군의회 의장단</span>
+            <span style="font-weight: 700; color: var(--primary);">답변보기 ➔</span>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="petition-card status-reflect">
+          <div class="petition-header-info">
+            <span class="petition-category">보건 / 복지</span>
+            <span class="petition-status-badge badge-reflect">✨ 안건 반영 완료</span>
+          </div>
+          <h3 class="petition-title">염산면·낙월면 섬 지역 어르신 찾아가는 보건의료버스 운영 확대</h3>
+          <p class="petition-excerpt">의료 취약 도서지역 어르신들을 위한 보건의료 버스 운행 횟수를 주 1회에서 주 3회로 확대 편성을 요구한 군민 청원.</p>
+          <div class="petition-progress-area">
+            <div class="progress-info-row">
+              <span class="progress-count">210명 동의</span>
+              <span class="progress-target">2026년 추경예산 반영</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 100%; background: var(--accent);"></div>
+            </div>
+          </div>
+          <div class="petition-footer">
+            <span>반영: 2026년 제1차 추경예산</span>
+            <span style="font-weight: 700; color: var(--accent);">의결결과 ➔</span>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="petition-card status-ongoing">
+          <div class="petition-header-info">
+            <span class="petition-category">교육 / 환경</span>
+            <span class="petition-status-badge badge-ongoing">🔥 동의 진행 중</span>
+          </div>
+          <h3 class="petition-title">불갑사 수변공원 청소년 생태 체험학습장 및 야외 교실 조성</h3>
+          <p class="petition-excerpt">영광 지역 초중고등학생들이 자연 속에서 생태 교육을 받을 수 있도록 불갑사 수변공원 인근 체험 시설 확충을 제안합니다.</p>
+          <div class="petition-progress-area">
+            <div class="progress-info-row">
+              <span class="progress-count">62명 동의</span>
+              <span class="progress-target">목표 100명 (62%)</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 62%;"></div>
+            </div>
+          </div>
+          <div class="petition-footer">
+            <span>마감일: 2026.08.28</span>
+            <button class="btn-agree-action">👍 동의하기</button>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="petition-card status-answered">
+          <div class="petition-header-info">
+            <span class="petition-category">지역 경제</span>
+            <span class="petition-status-badge badge-answered">💬 의회 답변 완료</span>
+          </div>
+          <h3 class="petition-title">법성포 굴비거리 야간 경관 조명 및 굴비 축제 야시장 연례화</h3>
+          <p class="petition-excerpt">법성포 굴비 상가를 방문하는 외지 관광객 유치와 지역 상권 활성화를 위해 야간 조명 조성 및 야시장 정례 운영 요청.</p>
+          <div class="petition-progress-area">
+            <div class="progress-info-row">
+              <span class="progress-count">118명 동의</span>
+              <span class="progress-target">목표 달성 (100%)</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div class="petition-footer">
+            <span>답변: 산업건설위원회</span>
+            <span style="font-weight: 700; color: var(--primary);">답변보기 ➔</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 2: 1:1 열린 의원실 & 우리 동네 의원 찾기 -->
+    <section id="members" class="section-wrapper council-members-section" style="border-radius: var(--radius-lg); margin-bottom: 70px;">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-tag">COUNCIL MEMBERS</span>
+          <h2 class="section-title">👥 1:1 열린 의원실 & 의원 소통</h2>
+          <p class="section-desc">영광군의회 의장단 및 지역구 의원에게 직접 1:1 건의사항을 전달할 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="members-grid">
+        <!-- Member 1 -->
+        <div class="member-card">
+          <div class="member-photo-frame">
+            <div class="member-photo">김</div>
+          </div>
+          <span class="member-role">영광군의회 의장</span>
+          <h3 class="member-name">김강헌 의원</h3>
+          <span class="member-district">영광군 가선거구 (영광·대마·묘량·불갑)</span>
+          <p class="member-pledge">"군민의 뜻을 최우선으로 받드는 열린 경청 의정을 펼치겠습니다."</p>
+          <button class="btn-member-contact" data-member="김강헌 의장">✉️ 1:1 직접 건의하기</button>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="member-card">
+          <div class="member-photo-frame">
+            <div class="member-photo">조</div>
+          </div>
+          <span class="member-role">영광군의회 부의장</span>
+          <h3 class="member-name">조일영 의원</h3>
+          <span class="member-district">영광군 나선거구 (백수·홍농·법성)</span>
+          <p class="member-pledge">"서해안 해양 관광 및 농어민 소득 증대에 앞장서겠습니다."</p>
+          <button class="btn-member-contact" data-member="조일영 부의장">✉️ 1:1 직접 건의하기</button>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="member-card">
+          <div class="member-photo-frame">
+            <div class="member-photo">강</div>
+          </div>
+          <span class="member-role">자치행정위원장</span>
+          <h3 class="member-name">강필구 의원</h3>
+          <span class="member-district">영광군 가선거구 (영광·대마·묘량·불갑)</span>
+          <p class="member-pledge">"어르신 복지와 청년 정주 여건 개선 조례 발의 주도."</p>
+          <button class="btn-member-contact" data-member="강필구 위원장">✉️ 1:1 직접 건의하기</button>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="member-card">
+          <div class="member-photo-frame">
+            <div class="member-photo">장</div>
+          </div>
+          <span class="member-role">산업건설위원장</span>
+          <h3 class="member-name">장영진 의원</h3>
+          <span class="member-district">영광군 다선거구 (군서·군남·염산·낙월)</span>
+          <p class="member-pledge">"도서 지역 교통 인프라 개선 및 어항 시설 현대화."</p>
+          <button class="btn-member-contact" data-member="장영진 위원장">✉️ 1:1 직접 건의하기</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: 우리 동네 소통 지도 (11개 읍·면) -->
+    <section id="map" class="section-wrapper">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-tag">REGIONAL MAP</span>
+          <h2 class="section-title">🗺️ 우리 동네 소통 지도 (영광 11개 읍·면)</h2>
+          <p class="section-desc">내가 사는 읍·면을 클릭하면 해당 지역의 의정 소식과 민원 처리 현황을 한눈에 보실 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="map-section-container">
+        <!-- 11 Towns Grid -->
+        <div class="towns-grid-selector">
+          <button class="town-btn active" data-town="yeonggwang">📍 영광읍</button>
+          <button class="town-btn" data-town="baeksu">📍 백수읍</button>
+          <button class="town-btn" data-town="hongnong">📍 홍농읍</button>
+          <button class="town-btn" data-town="daema">📍 대마면</button>
+          <button class="town-btn" data-town="myoryang">📍 묘량면</button>
+          <button class="town-btn" data-town="bulgap">📍 불갑면</button>
+          <button class="town-btn" data-town="gunseo">📍 군서면</button>
+          <button class="town-btn" data-town="gunnam">📍 군남면</button>
+          <button class="town-btn" data-town="yeomsan">📍 염산면</button>
+          <button class="town-btn" data-town="beobseong">📍 법성면</button>
+          <button class="town-btn" data-town="nakwol">📍 낙월면</button>
+        </div>
+
+        <!-- Display Panel -->
+        <div class="map-display-panel">
+          <div>
+            <div class="map-town-title" id="map-town-title">영광읍</div>
+            <div class="map-town-sub" id="map-town-desc">영광군의 행정 및 상업 중심지 (인구 21,500여 명)</div>
+            
+            <div class="map-issues-list" id="map-issues-list">
+              <div class="map-issue-item">
+                <span class="issue-title">📍 영광 중앙시장 주차타워 건립 및 보행환경 개선안</span>
+                <span class="issue-status">의회 안건상정</span>
+              </div>
+              <div class="map-issue-item">
+                <span class="issue-title">📍 학정리 청소년 문화의 거리 조성 조례 수립 지원</span>
+                <span class="issue-status">군민의견 수렴중</span>
+              </div>
+              <div class="map-issue-item">
+                <span class="issue-title">📍 신하리 아파트 단지 앞 밤길 안심 귀가 조명 설치</span>
+                <span class="issue-status">처리완료 (반영)</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 20px; font-size: 0.88rem; color: #cbd5e1;">
+            * 클릭하신 지역의 주민 청원 및 의회 활동 현황이 주기적으로 갱신됩니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: 열린 입법 & 예산 군민 의견 수렴 -->
+    <section id="legislation" class="section-wrapper">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-tag">PUBLIC LEGISLATION VOTE</span>
+          <h2 class="section-title">⚖️ 열린 입법 & 예산 군민 의견 수렴</h2>
+          <p class="section-desc">영광군의회에서 발의 중인 조례안에 군민의 직접 찬반 투표와 의견을 반영합니다.</p>
+        </div>
+      </div>
+
+      <div class="legislation-grid">
+        <!-- Item 1 -->
+        <div class="legislation-card">
+          <div class="leg-badge-row">
+            <span class="leg-badge">입법예고 중</span>
+            <span class="leg-badge" style="background: rgba(0, 168, 150, 0.1); color: var(--teal);">의원 발의</span>
+          </div>
+          <h3 class="leg-title">영광군 농어업인 수당 지원 및 경영 안정 조례 일부개정조례안</h3>
+          <p class="leg-desc">농어업 경영 자재 가격 상승에 대응하여 연 60만원이던 농어업인 수당 지원금을 연 80만원으로 인상하고 대상자 범위를 연차별 확대하는 조례안입니다.</p>
+          
+          <div class="vote-container">
+            <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 6px; font-weight: 700;">
+              <span>군민 찬반 투표 현황 (참여 480명)</span>
+            </div>
+            <div class="vote-progress-bar">
+              <div class="vote-fill-agree" style="width: 84%;">찬성 84%</div>
+              <div class="vote-fill-disagree" style="width: 16%;">반대 16%</div>
+            </div>
+            <div class="vote-buttons-row">
+              <button class="btn-vote-agree">👍 찬성 의견 제출</button>
+              <button class="btn-vote-disagree">👎 반대/수정 의견</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="legislation-card">
+          <div class="leg-badge-row">
+            <span class="leg-badge">입법예고 중</span>
+            <span class="leg-badge" style="background: rgba(224, 169, 109, 0.15); color: #b45309;">청년 정책</span>
+          </div>
+          <h3 class="leg-title">영광군 청년 창업 육성 및 정주 여건 개선 지원 조례안</h3>
+          <p class="leg-desc">영광군 내 청년 창업자에 대한 사업화 자금 최대 2,000만원 지원 및 주거 임차료 월 20만원 지원 보조금 신설을 주요 골자로 합니다.</p>
+          
+          <div class="vote-container">
+            <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 6px; font-weight: 700;">
+              <span>군민 찬반 투표 현황 (참여 320명)</span>
+            </div>
+            <div class="vote-progress-bar">
+              <div class="vote-fill-agree" style="width: 92%;">찬성 92%</div>
+              <div class="vote-fill-disagree" style="width: 8%;">반대 8%</div>
+            </div>
+            <div class="vote-buttons-row">
+              <button class="btn-vote-agree">👍 찬성 의견 제출</button>
+              <button class="btn-vote-disagree">👎 반대/수정 의견</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: 의정 생중계 & AI 회의록 & 참관 신청 -->
+    <section id="live-booking" class="section-wrapper" style="background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-tag">LIVE STREAM & VISIT</span>
+          <h2 class="section-title">📺 의정 실시간 방송 & 회의 참관 예약</h2>
+          <p class="section-desc">본회의 생중계와 AI 실시간 회의 요약을 확인하고, 의회 견학을 온라인으로 쉽게 예약하세요.</p>
+        </div>
+        <button class="btn-teal trigger-booking-modal">
+          <span>🏛️</span> 의회 참관 예약 신청
+        </button>
+      </div>
+
+      <div class="live-stream-grid">
+        <!-- Screen Card -->
+        <div class="stream-player-card">
+          <div class="stream-screen">
+            <div class="stream-live-badge">
+              <span class="pulse-dot" style="background: white;"></span> LIVE BROADCAST
+            </div>
+            <div class="stream-overlay-info">
+              <div class="stream-session-title">제284회 영광군의회 임시회 제2차 본회의</div>
+              <div class="stream-session-sub">안건: 2026년도 제1회 추가경정예산안 및 조례안 의결</div>
+              <button class="btn-primary" style="font-size: 0.9rem; padding: 8px 18px;">▶️ 고화질 방송 시청하기</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Transcript Card -->
+        <div class="ai-transcript-card">
+          <div>
+            <div class="ai-header">
+              <span class="ai-icon-badge">AI REALTIME</span>
+              <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--primary);">AI 실시간 발언 요약</h3>
+            </div>
+            <div class="ai-transcript-content" id="ai-transcript-box">
+              <p style="margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid #00a896; padding-left: 8px;">
+                🎙️ <strong>[시작]</strong> : 제284회 임시회 본회의가 성원되어 개회되었습니다.
+              </p>
+              <p style="margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid #00a896; padding-left: 8px;">
+                📜 <strong>[농업 안건]</strong> : 농어업인 수당 연 80만원 인상안 표결 시작.
+              </p>
+            </div>
+          </div>
+          <button class="btn-secondary trigger-booking-modal" style="width: 100%; justify-content: center;">
+            🏛️ 본회의 현장 참관 신청하기
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo-title">영광군의회 열린소통 ON</div>
+        <p class="footer-info-text">
+          주소: (57036) 전라남도 영광군 영광읍 중앙로 203 영광군의회<br />
+          대표전화: 061-350-5500 | 팩스: 061-350-5599<br />
+          운영시간: 평일 09:00 ~ 18:00 (토/일/공휴일 제외)
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-nav-title">주요 서비스</div>
+        <ul class="footer-links-list">
+          <li><a href="#petitions">군민청원 작성 및 동의</a></li>
+          <li><a href="#members">1:1 의원 열린 건의함</a></li>
+          <li><a href="#map">11개 읍·면 소통지도</a></li>
+          <li><a href="#legislation">조례안 입법 찬반 투표</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-nav-title">군민 접근성 안내</div>
+        <ul class="footer-links-list">
+          <li><a href="#">어르신 쉬운모드 이용안내</a></li>
+          <li><a href="#">개인정보 처리방침</a></li>
+          <li><a href="#">저작권 보호 정책</a></li>
+          <li><a href="#">의회 오시는 길</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Copyright © 2026 Yeonggwang County Council. All Rights Reserved.</span>
+      <span>군민 소통 전용 웹플랫폼 (글로컬소프트 제작 지원)</span>
+    </div>
+  </footer>
+
+  <!-- Modal Overlay -->
+  <div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button id="modal-close-btn" class="modal-close-btn" aria-label="창 닫기">✕</button>
+      <h3 id="modal-title" class="modal-title">모달 제목</h3>
+      <p id="modal-desc" class="modal-desc">모달 설명</p>
+      <div id="modal-body-form">
+        <!-- Dynamic Form Inserted Here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
