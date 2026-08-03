@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>영광군의회 군민소통 전용 웹플랫폼 '열린소통 ON' 제안 발표 슬라이드</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: 'Pretendard', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .slide-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .slide-card {
+      background: white;
+      color: var(--text-main);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      margin-bottom: 50px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .slide-cover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+    }
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 30px;
+    }
+    .slide-num {
+      background: var(--teal);
+      color: white;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+    .slide-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .box-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .box-card.teal {
+      background: var(--teal-light);
+      border-color: var(--teal);
+    }
+    .print-bar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <button onclick="window.print()" class="btn-primary" style="font-size: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+      🖨️ 발표 슬라이드 인쇄 / PDF 저장
+    </button>
+  </div>
+
+  <div class="slide-container">
+
+    <!-- Slide 1: 표지 -->
+    <div class="slide-card slide-cover">
+      <div>
+        <span style="background: var(--accent); color: var(--primary-dark); padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 0.95rem;">
+          🏛️ 제9대·제10대 영광군의회 맞춤 소통 제안
+        </span>
+        <h1 style="font-size: 3.2rem; font-weight: 900; margin-top: 24px; line-height: 1.2;">
+          영광군의회 군민소통 전용 웹플랫폼<br />
+          <span style="color: var(--accent);">'열린소통 ON'</span> 구축 제안서
+        </h1>
+        <p style="font-size: 1.4rem; color: #cbd5e1; margin-top: 20px; font-style: italic;">
+          "군민의 소리를 담다, 함께 만드는 영광의 미래"
+        </p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px;">
+        <div>
+          <div style="font-size: 1.1rem; font-weight: 700; color: white;">제안자: 글로컬소프트</div>
+          <div style="font-size: 0.9rem; color: #94a3b8;">영광군의회 실무자 발표 및 수주용 공식 슬라이드</div>
+        </div>
+        <div style="font-size: 0.9rem; color: var(--teal); font-weight: 700;">
+          🌐 데모 시연: http://localhost:8085/ (관리자: /admin.html)
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: 추진 배경 -->
+    <div class="slide-card">
+      <div>
+        <div class="slide-header">
+          <h2 class="slide-title">1. 추진 배경 및 도입 필요성</h2>
+          <span class="slide-num">SLIDE 02</span>
+        </div>
+        <div class="grid-2">
+          <div class="box-card">
+            <h3 style="color: var(--danger); font-size: 1.3rem; margin-bottom: 16px;">❌ 기존 의정 홈페이지의 한계점</h3>
+            <ul style="line-height: 2; color: var(--text-main); font-size: 1.05rem;">
+              <li><strong>단방향 정보 전달 중심</strong>: 공지사항 및 텍스트 회의록 열람 위주로 군민 참여율 저조</li>
+              <li><strong>고령층 접근성 부족</strong>: 작은 글씨와 복잡한 메뉴 구조로 어르신 군민 소통 소외</li>
+              <li><strong>지역 밀착 소통 미흡</strong>: 영광 11개 읍·면별 맞춤 이슈 파악 및 의견 수렴 한계</li>
+              <li><strong>민원 처리 불투명성</strong>: 청원 접수 후 처리 단계와 안건 반영 과정 확인 어려움</li>
+            </ul>
+          </div>
+
+          <div class="box-card teal">
+            <h3 style="color: var(--teal); font-size: 1.3rem; margin-bottom: 16px;">⭕ '열린소통 ON'의 혁신적 해결책</h3>
+            <ul style="line-height: 2; color: var(--primary); font-size: 1.05rem; font-weight: 600;">
+              <li><strong>쌍방향 참여 포털</strong>: 군민청원 100명 동의 시 의회 안건 자동 반영 프로세스</li>
+              <li><strong>어르신 쉬운 모드 지원</strong>: 글자 120% 확대 & 고대비 모드 원클릭 전환 기능</li>
+              <li><strong>11개 읍·면 소통지도</strong>: 법성, 백수, 염산 등 동네별 맞춤 민원 시각화</li>
+              <li><strong>실시간 처리 시각화</strong>: [접수➔동의➔답변➔반영] 4단계 프로그레스 바 공개</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: 5대 핵심 차별화 기능 -->
+    <div class="slide-card">
+      <div>
+        <div class="slide-header">
+          <h2 class="slide-title">2. '열린소통 ON' 5대 핵심 차별화 기능</h2>
+          <span class="slide-num">SLIDE 03</span>
+        </div>
+        <div class="grid-3">
+          <div class="box-card">
+            <h4 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 10px;">① 군민청원 100명 동의</h4>
+            <p style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.6;">100명 동의 시 의장단 및 상임위 공식 안건 지정 & 실시간 진행바 제공</p>
+          </div>
+          <div class="box-card">
+            <h4 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 10px;">② 어르신 쉬운 모드</h4>
+            <p style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.6;">영광군 고령층 인구 특성을 고려한 원클릭 글자 확대 & 고대비 접근성 특화 UI</p>
+          </div>
+          <div class="box-card">
+            <h4 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 10px;">③ 11개 읍·면 소통지도</h4>
+            <p style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.6;">영광읍부터 낙월면 도서 지역까지 11개 지역별 민원 및 의정활동 핀포인트 안내</p>
+          </div>
+          <div class="box-card">
+            <h4 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 10px;">④ 조례안 라이브 투표</h4>
+            <p style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.6;">발의 중인 조례안에 군민이 직접 찬반 투표 및 파이차트 실시간 시각화</p>
+          </div>
+          <div class="box-card">
+            <h4 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 10px;">⑤ 생중계 & AI 요약</h4>
+            <p style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.6;">본회의 실시간 방송시청과 주요 발언 4초 간격 AI 라이브 요약 & 참관 예약 통합</p>
+          </div>
+          <div class="box-card teal">
+            <h4 style="color: var(--teal); font-size: 1.15rem; margin-bottom: 10px;">⑥ 의회 통합 관리자</h4>
+            <p style="font-size: 0.95rem; color: var(--primary); font-weight: 700; line-height: 1.6;">청원 답변, 1:1 의원 건의 SMS 알림, 생중계 및 읍면 지도 원스톱 관리</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: 현역 의원 연동 -->
+    <div class="slide-card">
+      <div>
+        <div class="slide-header">
+          <h2 class="slide-title">3. 제10대 영광군의회 현역 의장단 & 의원 연동</h2>
+          <span class="slide-num">SLIDE 04</span>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--teal); font-weight: 700; margin-bottom: 20px;">
+          ※ 영광군의회 공식 홈페이지(https://www.yeonggwang.go.kr/ygcouncil) 최신 현역 의원 데이터 100% 반영 완료
+        </p>
+        <div class="grid-4">
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">의장</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">조일영 의장</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">가선거구 (영광·대마·묘량·불갑)</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">부의장</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">김관필 부의장</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">나선거구 (백수·홍농·법성)</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">의회운영위원장</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">정용호 의원</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">가선거구</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">자치행정위원장</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">김홍재 의원</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">가선거구</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">산업건설위원장</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">박진구 의원</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">나선거구</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">군의원</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">임영민 의원</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">가선거구</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">군의원</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">정선우 의원</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">나선거구</p>
+          </div>
+          <div class="box-card">
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--teal);">비례대표</div>
+            <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--primary);">김선옥 의원</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub);">비례대표</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: 관리자 포털 및 기대효과 -->
+    <div class="slide-card">
+      <div>
+        <div class="slide-header">
+          <h2 class="slide-title">4. 의회 통합 관리자 포털 & 구축 기대효과</h2>
+          <span class="slide-num">SLIDE 05</span>
+        </div>
+        <div class="grid-2">
+          <div class="box-card">
+            <h3 style="color: var(--primary); font-size: 1.3rem; margin-bottom: 16px;">⚙️ 사무과 전용 관리자 포털 (`admin.html`)</h3>
+            <ul style="line-height: 1.8; color: var(--text-main); font-size: 0.98rem;">
+              <li><strong>청원 답변 등록</strong>: 100명 달성 안건 공식 의회 답변 게재</li>
+              <li><strong>1:1 의원실 답변 & SMS 알림</strong>: 신청자에게 알림 문자 자동 발송</li>
+              <li><strong>생중계 & AI 요약 라이브 등록</strong>: 1초 만에 포털 실시간 반영</li>
+              <li><strong>11개 읍면 소통 지도 이슈 관리</strong>: 동네별 민원 처리 갱신</li>
+            </ul>
+          </div>
+
+          <div class="box-card teal">
+            <h3 style="color: var(--teal); font-size: 1.3rem; margin-bottom: 16px;">📈 영광군의회 3대 기대 효과</h3>
+            <ul style="line-height: 1.8; color: var(--primary); font-size: 0.98rem; font-weight: 600;">
+              <li><strong>1. 소통 1등 의회 브랜딩</strong>: 전남 지자체 최초 군민 중심 소통 포털 성과 홍보</li>
+              <li><strong>2. 전 계층 포용적 의정</strong>: 청년층(온라인 청원/투표) + 어르신(쉬운 모드) 통합</li>
+              <li><strong>3. 의정 활동 성과 극대화</strong>: 1:1 열린 의원실 및 읍면 지도를 통한 공약 홍보</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
