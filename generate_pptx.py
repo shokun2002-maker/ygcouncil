@@ -123,7 +123,6 @@ def create_presentation():
     slide2 = prs.slides.add_slide(blank_layout)
     add_header(slide2, "1. 추진 배경 및 도입 필요성", "BACKGROUND & NEED")
 
-    # Left Box: Problem
     box_left = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.2))
     box_left.fill.solid()
     box_left.fill.fore_color.rgb = WHITE
@@ -150,7 +149,6 @@ def create_presentation():
         p.font.color.rgb = DARK_GRAY
         p.space_before = Pt(14)
 
-    # Right Box: Solution
     box_right = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.2))
     box_right.fill.solid()
     box_right.fill.fore_color.rgb = LIGHT_TEAL
@@ -373,7 +371,6 @@ def create_presentation():
     slide7 = prs.slides.add_slide(blank_layout)
     add_header(slide7, "6. 모바일 앱 확장성 및 구축 기대효과", "EXPECTED IMPACT")
 
-    # Left: App Extension
     app_card = slide7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.2))
     app_card.fill.solid()
     app_card.fill.fore_color.rgb = WHITE
@@ -399,7 +396,6 @@ def create_presentation():
         p.font.color.rgb = DARK_GRAY
         p.space_before = Pt(16)
 
-    # Right: Impact
     imp_card = slide7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.2))
     imp_card.fill.solid()
     imp_card.fill.fore_color.rgb = DARK_NAVY
@@ -426,15 +422,102 @@ def create_presentation():
         p.space_before = Pt(16)
 
     # ==========================================
-    # SLIDE 8: Closing & Demo Info
+    # SLIDE 8: Budget & Maintenance Cost (신규 추가!)
     # ==========================================
     slide8 = prs.slides.add_slide(blank_layout)
-    bg8 = slide8.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
-    bg8.fill.solid()
-    bg8.fill.fore_color.rgb = DARK_NAVY
-    bg8.line.fill.background()
+    add_header(slide8, "7. 사업 소요 예산 및 유지관리 견안", "PRICING & BUDGET")
 
-    close_box = slide8.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(11.333), Inches(3.5))
+    # Left Pricing Box: Initial Build Cost
+    cost_left = slide8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.2))
+    cost_left.fill.solid()
+    cost_left.fill.fore_color.rgb = WHITE
+    cost_left.line.color.rgb = TEAL
+    cost_left.line.width = Pt(2)
+
+    tf_cl = cost_left.text_frame
+    tf_cl.word_wrap = True
+    p = tf_cl.paragraphs[0]
+    p.text = "💻 플랫폼 초기 구축비 (1회성)"
+    p.font.size = Pt(18)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    p_num1 = tf_cl.add_paragraph()
+    p_num1.text = "10,000,000 원"
+    p_num1.font.size = Pt(32)
+    p_num1.font.bold = True
+    p_num1.font.color.rgb = TEAL
+    p_num1.space_before = Pt(10)
+
+    p_sub1 = tf_cl.add_paragraph()
+    p_sub1.text = "(일천만 원 / VAT 별도)"
+    p_sub1.font.size = Pt(13)
+    p_sub1.font.color.rgb = DARK_GRAY
+
+    details1 = [
+      "군민소통 전용 웹플랫폼 맞춤 개발 일체",
+      "어르신 쉬운 모드 UI & 11개 읍면 소통지도",
+      "조례안 군민 찬반 투표 & AI 요약 모듈",
+      "의회 사무과 통합 관리자 포털(admin.html)"
+    ]
+    for d in details1:
+        p = tf_cl.add_paragraph()
+        p.text = "✔ " + d
+        p.font.size = Pt(12)
+        p.font.color.rgb = DARK_GRAY
+        p.space_before = Pt(10)
+
+    # Right Pricing Box: Monthly Maintenance Cost
+    cost_right = slide8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.2))
+    cost_right.fill.solid()
+    cost_right.fill.fore_color.rgb = LIGHT_TEAL
+    cost_right.line.color.rgb = GOLD
+    cost_right.line.width = Pt(2)
+
+    tf_cr = cost_right.text_frame
+    tf_cr.word_wrap = True
+    p = tf_cr.paragraphs[0]
+    p.text = "⚙️ 서버 운영 및 유지관리비 (월 단위)"
+    p.font.size = Pt(18)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    p_num2 = tf_cr.add_paragraph()
+    p_num2.text = "1,000,000 원 / 월"
+    p_num2.font.size = Pt(32)
+    p_num2.font.bold = True
+    p_num2.font.color.rgb = GOLD
+    p_num2.space_before = Pt(10)
+
+    p_sub2 = tf_cr.add_paragraph()
+    p_sub2.text = "(월 일백만 원 / VAT 별도)"
+    p_sub2.font.size = Pt(13)
+    p_sub2.font.color.rgb = DARK_GRAY
+
+    details2 = [
+      "클라우드 보안 서버 호스팅 & DB 백업 관리",
+      "실시간 기술 지원 & 긴급 장애 대응 24/7",
+      "스마트폰 PWA 및 푸시 알림 서버 관리",
+      "월별 군민 소통 통계 보고서 발행"
+    ]
+    for d in details2:
+        p = tf_cr.add_paragraph()
+        p.text = "✔ " + d
+        p.font.size = Pt(12)
+        p.font.bold = True
+        p.font.color.rgb = NAVY
+        p.space_before = Pt(10)
+
+    # ==========================================
+    # SLIDE 9: Closing & Demo Info
+    # ==========================================
+    slide9 = prs.slides.add_slide(blank_layout)
+    bg9 = slide9.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
+    bg9.fill.solid()
+    bg9.fill.fore_color.rgb = DARK_NAVY
+    bg9.line.fill.background()
+
+    close_box = slide9.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(11.333), Inches(3.5))
     tf_close = close_box.text_frame
     
     p = tf_close.paragraphs[0]
@@ -460,7 +543,7 @@ def create_presentation():
 
     output_path = "/Users/glocalsoft/Desktop/코딩/ygcouncil/yeonggwang_proposal.pptx"
     prs.save(output_path)
-    print(f"Successfully generated PowerPoint presentation at: {output_path}")
+    print(f"Successfully generated PowerPoint presentation with budget slide at: {output_path}")
 
 if __name__ == "__main__":
     create_presentation()
