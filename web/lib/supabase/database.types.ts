@@ -1007,6 +1007,13 @@ export type Database = {
         }
         Returns: Json
       }
+      get_proposal_empathy_status: {
+        Args: {
+          p_proposal_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
       request_residence_verification: {
         Args: {
           p_region_id: string
@@ -1023,6 +1030,13 @@ export type Database = {
           p_title: string
         }
         Returns: string
+      }
+      toggle_proposal_empathy: {
+        Args: {
+          p_proposal_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
       }
       review_residence_verification: {
         Args: {
