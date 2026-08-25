@@ -1000,6 +1000,13 @@ export type Database = {
         }
         Returns: Json
       }
+      get_ask_vote_results: {
+        Args: {
+          p_ask_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
       request_residence_verification: {
         Args: {
           p_region_id: string
