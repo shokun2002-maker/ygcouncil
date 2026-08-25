@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Outcome } from '../lib/types';
@@ -8,48 +10,64 @@ interface OutcomeCardProps {
 
 export default function OutcomeCard({ item }: OutcomeCardProps) {
   let sourceBadgeText = '군민 제안에서 시작';
-  let sourceBadgeClass = 'source-listen';
+  let sourceBg = '#E6F7F5';
+  let sourceColor = '#00A896';
 
   if (item.sourceType === 'ask') {
     sourceBadgeText = '의회 의견수렴에서 시작';
-    sourceBadgeClass = 'source-ask';
+    sourceBg = '#EBF5FF';
+    sourceColor = '#0066CC';
   } else if (item.sourceType === 'listen-to-ask') {
     sourceBadgeText = '공론화 연결 사례';
-    sourceBadgeClass = 'source-listen-to-ask';
+    sourceBg = '#F3E8FF';
+    sourceColor = '#7E22CE';
   }
 
   const pipelineSteps = item.steps ? item.steps.slice(0, 4) : [];
 
   return (
-    <article className="content-card">
-      <div className="card-meta-top">
-        <span className="card-category">{item.region} · {item.category}</span>
-        <span className={`source-type-badge ${sourceBadgeClass}`}>{sourceBadgeText}</span>
+    <article className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '16px', height: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+        <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: sourceColor, backgroundColor: sourceBg, padding: '4px 10px', borderRadius: '6px' }}>
+          {sourceBadgeText}
+        </span>
+        <span className="badge-apple" style={{ backgroundColor: '#D1FAE5', color: '#059669' }}>
+          {item.statusText || '추진완료'}
+        </span>
       </div>
-      <h3 className="card-title">{item.title}</h3>
-      <p className="card-body-text">{item.summary}</p>
-      
+
+      <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1D1D1F', lineHeight: 1.35, letterSpacing: '-0.3px' }}>
+        {item.title}
+      </h3>
+
+      <p style={{ fontSize: '0.9375rem', color: '#6E6E73', lineHeight: 1.6, flex: 1, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        {item.summary}
+      </p>
+
+      {/* Mini Pipeline Steps */}
       {pipelineSteps.length > 0 && (
-        <div className="outcome-pipeline-bar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#F5F5F7', padding: '8px 12px', borderRadius: '10px', overflowX: 'auto' }}>
           {pipelineSteps.map((st, idx) => (
             <React.Fragment key={idx}>
-              <span className={`pipeline-step ${st.status === 'completed' ? 'active' : ''}`}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: st.status === 'completed' ? '#0066CC' : '#86868B', whiteSpace: 'nowrap' }}>
                 {st.status === 'completed' ? '✓' : '●'} {st.label}
               </span>
-              {idx < pipelineSteps.length - 1 && <span className="pipeline-arrow">→</span>}
+              {idx < pipelineSteps.length - 1 && <span style={{ fontSize: '0.75rem', color: '#C7C7CC' }}>➔</span>}
             </React.Fragment>
           ))}
         </div>
       )}
 
-      <div className="card-footer">
-        <span>🏁 {item.statusText} ({item.outcomeDate})</span>
+      <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(0, 0, 0, 0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>
+          {item.region} · {item.outcomeDate}
+        </span>
         <Link
           href={`/outcomes/${item.id}`}
-          className="btn-card-action"
-          style={{ background: 'var(--navy)', color: 'white' }}
+          className="btn-apple btn-apple-primary"
+          style={{ height: '36px', padding: '0 16px', fontSize: '0.8125rem', backgroundColor: '#0066CC' }}
         >
-          과정 보기 →
+          과정 및 성과 보기 ➔
         </Link>
       </div>
     </article>
