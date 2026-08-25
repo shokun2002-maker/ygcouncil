@@ -988,6 +988,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_outcome: {
+        Args: {
+          p_category: string
+          p_content?: string
+          p_region_id?: string
+          p_result: string
+          p_source_ask_id?: string
+          p_source_proposal_id?: string
+          p_status?: string
+          p_summary: string
+          p_tenant_id: string
+          p_title: string
+        }
+        Returns: string
+      }
       delete_my_proposal_comment: {
         Args: {
           p_comment_id: string
@@ -1024,6 +1039,19 @@ export type Database = {
       get_proposal_empathy_status: {
         Args: {
           p_proposal_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
+      get_public_outcome_by_id: {
+        Args: {
+          p_outcome_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
+      get_public_outcomes: {
+        Args: {
           p_tenant_id: string
         }
         Returns: Json
@@ -1067,6 +1095,22 @@ export type Database = {
           p_tenant_id: string
         }
         Returns: Json
+      }
+      update_outcome: {
+        Args: {
+          p_category: string
+          p_content?: string
+          p_outcome_id: string
+          p_region_id?: string
+          p_result: string
+          p_source_ask_id?: string
+          p_source_proposal_id?: string
+          p_status?: string
+          p_summary: string
+          p_tenant_id: string
+          p_title: string
+        }
+        Returns: boolean
       }
       review_residence_verification: {
         Args: {

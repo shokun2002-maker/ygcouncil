@@ -14,9 +14,6 @@ export default async function OutcomesListPage() {
         <div className="subpage-banner-container">
           <div className="subpage-title-badge">
             <span>🤝 묻고, 듣고, 함께 바꿉니다</span>
-            <span className="demo-tag-pill" style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}>
-              시연용
-            </span>
           </div>
           <h1 className="subpage-main-title">함께 바꿨습니다.</h1>
           <p className="subpage-main-desc">
