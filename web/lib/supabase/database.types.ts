@@ -1014,6 +1014,16 @@ export type Database = {
         }
         Returns: Json
       }
+      submit_citizen_proposal: {
+        Args: {
+          p_category: string
+          p_content: string
+          p_region_id: string
+          p_tenant_id: string
+          p_title: string
+        }
+        Returns: string
+      }
       review_residence_verification: {
         Args: {
           p_decision: string
