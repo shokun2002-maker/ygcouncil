@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { UserSessionProfile } from '@/lib/auth/types';
 
 interface UserMenuProps {
@@ -80,17 +81,55 @@ export default function UserMenu({ user }: UserMenuProps) {
           <div style={{ paddingBottom: '8px', marginBottom: '8px', borderBottom: '1px solid #F1F5F9' }}>
             <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A' }}>{user.displayName}</div>
             <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '2px' }}>
-              상태: {user.isVerifiedResident ? '영광군민 인증완료' : '카카오 로그인 (군민미인증)'}
+              상태: {user.isVerifiedResident ? '영광군민 인증완료' : '일반회원 (군민미인증)'}
             </div>
           </div>
+
+          <div style={{ display: 'grid', gap: '4px', marginBottom: '8px', borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+            <Link
+              href="/verification"
+              onClick={() => setIsOpen(false)}
+              style={{
+                display: 'block',
+                padding: '6px 10px',
+                fontSize: '0.8125rem',
+                color: user.isVerifiedResident ? '#059669' : '#2563EB',
+                fontWeight: 700,
+                textDecoration: 'none',
+                borderRadius: '6px',
+                background: user.isVerifiedResident ? '#ECFDF5' : '#EFF6FF'
+              }}
+            >
+              {user.isVerifiedResident ? '✓ 군민인증 상태보기' : '🪪 군민인증 신청하기'}
+            </Link>
+
+            {(user.role === 'admin' || user.role === 'council_staff') && (
+              <Link
+                href="/admin/verifications"
+                onClick={() => setIsOpen(false)}
+                style={{
+                  display: 'block',
+                  padding: '6px 10px',
+                  fontSize: '0.8125rem',
+                  color: '#475569',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  borderRadius: '6px'
+                }}
+              >
+                🏛️ 군민인증 관리 (관리자)
+              </Link>
+            )}
+          </div>
+
           <button
             type="button"
             onClick={handleLogout}
             style={{
               width: '100%',
               textAlign: 'left',
-              padding: '8px 12px',
-              fontSize: '0.875rem',
+              padding: '6px 10px',
+              fontSize: '0.8125rem',
               color: '#EF4444',
               background: 'none',
               border: 'none',

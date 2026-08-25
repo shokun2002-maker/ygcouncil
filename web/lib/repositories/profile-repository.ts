@@ -42,8 +42,13 @@ export async function getProfileByUserId(userId: string | undefined): Promise<Us
       .maybeSingle();
 
     const role = (membership?.role as 'member' | 'council_staff' | 'admin') || 'member';
-    const isIdentityVerified = verification?.identity_status === 'verified' || !!verification?.identity_verified_at;
-    const isResidenceVerified = verification?.residence_status === 'verified' || !!verification?.residence_verified_at;
+    const isIdentityVerified = verification?.identity_status === 'verified';
+
+    const now = new Date();
+    const expiresAtDate = verification?.expires_at ? new Date(verification.expires_at) : null;
+    const isExpired = expiresAtDate ? expiresAtDate <= now : false;
+
+    const isResidenceVerified = verification?.residence_status === 'verified' && !isExpired;
     const regionId = verification?.region_id ?? null;
 
     return {

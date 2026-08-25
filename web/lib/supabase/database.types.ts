@@ -988,8 +988,30 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      demo_verify_identity: {
+        Args: {
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
       ensure_member_registration: {
         Args: {
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
+      request_residence_verification: {
+        Args: {
+          p_region_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
+      review_residence_verification: {
+        Args: {
+          p_decision: string
+          p_reason?: string
+          p_target_user_id: string
           p_tenant_id: string
         }
         Returns: Json
