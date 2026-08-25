@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Proposal, Ask, Outcome, ProposalComment } from '@/lib/types';
+import { Proposal, Ask, Outcome } from '@/lib/types';
 import { UserSessionProfile } from '@/lib/auth/types';
 import { ProposalEmpathyState, toggleProposalEmpathy } from '@/lib/repositories/proposal-empathy-repository';
+import { ProposalCommentItem, getProposalComments, submitProposalComment, deleteMyProposalComment } from '@/lib/repositories/proposal-comment-repository';
 import AskCard from '@/components/AskCard';
 import Modal from '@/components/Modal';
 
@@ -12,19 +13,22 @@ interface ProposalDetailClientProps {
   proposal: Proposal;
   currentUser: UserSessionProfile | null;
   initialEmpathyState: ProposalEmpathyState;
+  initialComments: ProposalCommentItem[];
 }
 
 export default function ProposalDetailClient({
   proposal,
   currentUser,
   initialEmpathyState,
+  initialComments,
 }: ProposalDetailClientProps) {
   const [empathized, setEmpathized] = useState(initialEmpathyState.empathized);
   const [empathyCount, setEmpathyCount] = useState(initialEmpathyState.empathyCount);
   const [isToggling, setIsToggling] = useState(false);
 
-  const [comments, setComments] = useState<ProposalComment[]>([]);
+  const [comments, setComments] = useState<ProposalCommentItem[]>(initialComments);
   const [commentInput, setCommentInput] = useState('');
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const handleToggleEmpathy = async () => {
@@ -69,26 +73,57 @@ export default function ProposalDetailClient({
     }
   };
 
-  const handleAddComment = (e: React.FormEvent) => {
+  const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!commentInput.trim()) {
-      alert('⚠️ 의견 내용을 입력해 주세요.');
+
+    if (!currentUser) {
+      alert('🔒 댓글 작성은 카카오 로그인이 필요합니다.');
       return;
     }
-    const newComment: ProposalComment = {
-      commentId: `cmt-${Date.now()}`,
-      authorDisplay: currentUser?.displayName || '시연 참여자',
-      text: commentInput.trim(),
-      createdAt: new Date().toLocaleDateString('ko-KR'),
-      isLocalUser: true,
-    };
-    setComments([...comments, newComment]);
-    setCommentInput('');
+
+    if (!currentUser.isVerifiedResident) {
+      alert('🪪 댓글 작성은 영광군민 인증이 완료된 계정만 가능합니다.\n[군민인증 신청하기] 화면으로 이동합니다.');
+      window.location.href = '/verification';
+      return;
+    }
+
+    if (!commentInput.trim()) {
+      alert('⚠️ 댓글 내용을 입력해 주세요.');
+      return;
+    }
+
+    if (isSubmittingComment) return;
+    setIsSubmittingComment(true);
+
+    try {
+      const res = await submitProposalComment(proposal.id, commentInput.trim());
+      if (!res.success) {
+        alert(`댓글 작성 실패: ${res.error}`);
+      } else {
+        setCommentInput('');
+        // 최신 댓글 목록 재조회
+        const updatedList = await getProposalComments(proposal.id);
+        setComments(updatedList);
+      }
+    } catch (err: any) {
+      alert('오류 발생: ' + err?.message);
+    } finally {
+      setIsSubmittingComment(false);
+    }
   };
 
-  const handleDeleteComment = (cid: string) => {
-    if (confirm('작성하신 의견을 삭제하시겠습니까?')) {
-      setComments(comments.filter((c) => c.commentId !== cid));
+  const handleDeleteComment = async (cid: string) => {
+    if (!confirm('작성하신 댓글을 삭제하시겠습니까?')) return;
+
+    try {
+      const res = await deleteMyProposalComment(cid);
+      if (!res.success) {
+        alert(`댓글 삭제 실패: ${res.error}`);
+      } else {
+        setComments(comments.filter((c) => c.commentId !== cid));
+      }
+    } catch (err: any) {
+      alert('오류 발생: ' + err?.message);
     }
   };
 
@@ -248,12 +283,13 @@ export default function ProposalDetailClient({
                 <div key={cmt.commentId} className="comment-item">
                   <div className="comment-meta">
                     <span className="comment-author">
-                      👤 {cmt.authorDisplay} <span className="demo-tag-pill" style={{ fontSize: '0.6875rem' }}>시연 참여자</span>
+                      👤 {cmt.authorDisplay}
                     </span>
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       <span>{cmt.createdAt}</span>
-                      {cmt.isLocalUser && (
+                      {cmt.isMyComment && (
                         <button
+                          type="button"
                           className="btn-delete-comment"
                           onClick={() => handleDeleteComment(cmt.commentId)}
                         >
@@ -262,7 +298,7 @@ export default function ProposalDetailClient({
                       )}
                     </div>
                   </div>
-                  <p className="comment-body">{cmt.text}</p>
+                  <p className="comment-body">{cmt.content}</p>
                 </div>
               ))}
             </div>

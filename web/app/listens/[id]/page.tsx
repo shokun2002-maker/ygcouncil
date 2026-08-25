@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getProposalById } from '@/lib/repositories/listen-repository';
 import { getCurrentUser } from '@/lib/auth/get-current-user';
 import { getProposalEmpathyStatus } from '@/lib/repositories/proposal-empathy-repository';
+import { getProposalComments } from '@/lib/repositories/proposal-comment-repository';
 import ProposalDetailClient from './ProposalDetailClient';
 
 interface ProposalDetailPageProps {
@@ -19,6 +20,7 @@ export default async function ProposalDetailPage({ params }: ProposalDetailPageP
 
   const { user } = await getCurrentUser();
   const empathyState = await getProposalEmpathyStatus(proposalId);
+  const comments = await getProposalComments(proposalId);
 
   return (
     <main className="ask-detail-container">
@@ -26,6 +28,7 @@ export default async function ProposalDetailPage({ params }: ProposalDetailPageP
         proposal={proposal}
         currentUser={user}
         initialEmpathyState={empathyState}
+        initialComments={comments}
       />
     </main>
   );

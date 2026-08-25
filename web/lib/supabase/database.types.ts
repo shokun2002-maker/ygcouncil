@@ -988,6 +988,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_my_proposal_comment: {
+        Args: {
+          p_comment_id: string
+          p_tenant_id: string
+        }
+        Returns: boolean
+      }
       demo_verify_identity: {
         Args: {
           p_tenant_id: string
@@ -1007,12 +1014,27 @@ export type Database = {
         }
         Returns: Json
       }
+      get_proposal_comments: {
+        Args: {
+          p_proposal_id: string
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
       get_proposal_empathy_status: {
         Args: {
           p_proposal_id: string
           p_tenant_id: string
         }
         Returns: Json
+      }
+      hide_proposal_comment: {
+        Args: {
+          p_comment_id: string
+          p_reason?: string
+          p_tenant_id: string
+        }
+        Returns: boolean
       }
       request_residence_verification: {
         Args: {
@@ -1028,6 +1050,14 @@ export type Database = {
           p_region_id: string
           p_tenant_id: string
           p_title: string
+        }
+        Returns: string
+      }
+      submit_proposal_comment: {
+        Args: {
+          p_content: string
+          p_proposal_id: string
+          p_tenant_id: string
         }
         Returns: string
       }
