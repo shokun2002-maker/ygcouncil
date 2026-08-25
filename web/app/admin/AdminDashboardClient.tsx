@@ -11,162 +11,237 @@ interface AdminDashboardClientProps {
 }
 
 export default function AdminDashboardClient({
-  currentUser,
   metrics,
 }: AdminDashboardClientProps) {
+  // Audit log action mapper
+  const formatAuditAction = (action: string) => {
+    switch (action) {
+      case 'RESIDENCE_VERIFICATION_APPROVED':
+        return '군민 거주인증 승인';
+      case 'RESIDENCE_VERIFICATION_REJECTED':
+        return '군민 거주인증 반려';
+      case 'PROPOSAL_COMMENT_HIDDEN':
+        return '댓글 숨김 처리';
+      case 'OUTCOME_CREATED':
+        return '성과 신규 등록';
+      case 'OUTCOME_UPDATED':
+        return '성과 정보 수정';
+      default:
+        return action;
+    }
+  };
+
+  const hasPendingItems = metrics.verificationsPendingCount > 0 || metrics.outcomesDraftCount > 0;
+
   return (
-    <div style={{ display: 'grid', gap: '32px' }}>
-      {/* 1. 핵심 수치 KPI Grid */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      {/* Pending Work Highlights Banner */}
+      {hasPendingItems ? (
+        <div
+          style={{
+            backgroundColor: '#FFFBEB',
+            border: '1px solid #FCD34D',
+            borderRadius: '16px',
+            padding: '20px 24px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '16px',
+          }}
+        >
+          <div>
+            <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>⚠️ 검토 및 조치가 필요한 항목이 있습니다</strong>
+            <p style={{ color: '#B45309', fontSize: '0.875rem', marginTop: '4px' }}>
+              거주인증 신청 대기 <strong style={{ color: '#92400E' }}>{metrics.verificationsPendingCount}건</strong> / 임시저장 성과 <strong style={{ color: '#92400E' }}>{metrics.outcomesDraftCount}건</strong>
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {metrics.verificationsPendingCount > 0 && (
+              <Link href="/admin/verifications" className="btn-apple btn-apple-primary" style={{ backgroundColor: '#D97706', height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}>
+                인증 검토하기 ➔
+              </Link>
+            )}
+            {metrics.outcomesDraftCount > 0 && (
+              <Link href="/admin/outcomes" className="btn-apple btn-apple-secondary" style={{ height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}>
+                성과 관리하기 ➔
+              </Link>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div style={{ backgroundColor: '#F5F5F7', padding: '16px 20px', borderRadius: '12px', color: '#6E6E73', fontSize: '0.875rem' }}>
+          ✓ 현재 바로 처리해야 할 대기 안건이 없습니다. (Clean State)
+        </div>
+      )}
+
+      {/* Core Numeric Metrics Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-        <div style={{ background: 'white', padding: '20px', borderRadius: '12px', border: '1px solid #E2E8F0', borderLeft: '4px solid #3B82F6' }}>
-          <div style={{ fontSize: '0.875rem', color: '#64748B', fontWeight: 700 }}>🙋‍♂️ 묻습니다 안건</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginTop: '6px' }}>
-            {metrics.asksCount} <span style={{ fontSize: '1rem', fontWeight: 500, color: '#64748B' }}>건</span>
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#6E6E73' }}>의견수렴 안건</span>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#1D1D1F' }}>
+            {metrics.asksCount}
           </div>
+          <span style={{ fontSize: '0.8125rem', color: '#0066CC' }}>진행중 투표 및 조사</span>
         </div>
 
-        <div style={{ background: 'white', padding: '20px', borderRadius: '12px', border: '1px solid #E2E8F0', borderLeft: '4px solid #0D9488' }}>
-          <div style={{ fontSize: '0.875rem', color: '#64748B', fontWeight: 700 }}>💬 듣습니다 제안</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginTop: '6px' }}>
-            {metrics.proposalsTotalCount} <span style={{ fontSize: '1rem', fontWeight: 500, color: '#64748B' }}>건</span>
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#6E6E73' }}>시민 제안</span>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#1D1D1F' }}>
+            {metrics.proposalsTotalCount}
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '4px' }}>
-            접수: {metrics.proposalsReceivedCount}건 · 검토: {metrics.proposalsReviewCount}건
-          </div>
+          <span style={{ fontSize: '0.8125rem', color: '#6E6E73' }}>
+            접수: {metrics.proposalsReceivedCount} · 검토: {metrics.proposalsReviewCount}
+          </span>
         </div>
 
-        <div style={{ background: 'white', padding: '20px', borderRadius: '12px', border: '1px solid #E2E8F0', borderLeft: '4px solid #EC4899' }}>
-          <div style={{ fontSize: '0.875rem', color: '#64748B', fontWeight: 700 }}>❤️ 제안 공감</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginTop: '6px' }}>
-            {metrics.empathyCount} <span style={{ fontSize: '1rem', fontWeight: 500, color: '#64748B' }}>개</span>
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#6E6E73' }}>제안 공감</span>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#1D1D1F' }}>
+            {metrics.empathyCount}
           </div>
+          <span style={{ fontSize: '0.8125rem', color: '#00A896' }}>군민 공감 참여 총계</span>
         </div>
 
-        <div style={{ background: 'white', padding: '20px', borderRadius: '12px', border: '1px solid #E2E8F0', borderLeft: '4px solid #8B5CF6' }}>
-          <div style={{ fontSize: '0.875rem', color: '#64748B', fontWeight: 700 }}>🗨️ 제안 댓글</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', marginTop: '6px' }}>
-            {metrics.commentsVisibleCount} <span style={{ fontSize: '1rem', fontWeight: 500, color: '#64748B' }}>개</span>
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#6E6E73' }}>제안 댓글</span>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#1D1D1F' }}>
+            {metrics.commentsVisibleCount}
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '4px' }}>
-            Soft Deleted: {metrics.commentsDeletedCount}개 · Hidden: {metrics.commentsHiddenCount}개
-          </div>
+          <span style={{ fontSize: '0.8125rem', color: '#6E6E73' }}>
+            Soft Deleted: {metrics.commentsDeletedCount} · Hidden: {metrics.commentsHiddenCount}
+          </span>
         </div>
       </div>
 
-      {/* 2. 관리자 업무 Quick Links & Status */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-        {/* 군민인증 관리 Card */}
-        <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0F172A' }}>
-              🪪 군민인증 검토 및 승인
+      {/* Control Panels: Verification & Outcomes */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        {/* Verification Control */}
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#1D1D1F' }}>
+              군민인증 검토 및 승인
             </h2>
             <Link
               href="/admin/verifications"
-              style={{ background: '#2563EB', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8125rem', fontWeight: 700, textDecoration: 'none' }}
+              className="btn-apple btn-apple-primary"
+              style={{ backgroundColor: '#0066CC', height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}
             >
               인증 관리 ➔
             </Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', textAlign: 'center' }}>
-            <div style={{ background: '#FEF3C7', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#92400E', fontWeight: 700 }}>대기 (Pending)</div>
+            <div style={{ backgroundColor: '#FEF3C7', padding: '12px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '0.75rem', color: '#D97706', fontWeight: 700 }}>대기</div>
               <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#B45309', marginTop: '2px' }}>
-                {metrics.verificationsPendingCount}건
+                {metrics.verificationsPendingCount}
               </div>
             </div>
-            <div style={{ background: '#DEF7EC', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#03543F', fontWeight: 700 }}>승인 (Verified)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#046C4E', marginTop: '2px' }}>
-                {metrics.verificationsVerifiedCount}건
+            <div style={{ backgroundColor: '#D1FAE5', padding: '12px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700 }}>승인</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#047857', marginTop: '2px' }}>
+                {metrics.verificationsVerifiedCount}
               </div>
             </div>
-            <div style={{ background: '#FDE8E8', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#9B1C1C', fontWeight: 700 }}>반려 (Rejected)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#C81E1E', marginTop: '2px' }}>
-                {metrics.verificationsRejectedCount}건
+            <div style={{ backgroundColor: '#FEE2E2', padding: '12px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '0.75rem', color: '#DC2626', fontWeight: 700 }}>반려</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#B91C1C', marginTop: '2px' }}>
+                {metrics.verificationsRejectedCount}
               </div>
             </div>
           </div>
         </div>
 
-        {/* 성과 관리 Card */}
-        <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0F172A' }}>
-              🤝 함께 바꿨습니다 성과 관리
+        {/* Outcomes Control */}
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#1D1D1F' }}>
+              함께 바꿨습니다 성과 관리
             </h2>
             <Link
               href="/admin/outcomes"
-              style={{ background: '#0F172A', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8125rem', fontWeight: 700, textDecoration: 'none' }}
+              className="btn-apple btn-apple-secondary"
+              style={{ height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}
             >
               성과 관리 ➔
             </Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', textAlign: 'center' }}>
-            <div style={{ background: '#E0E7FF', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#3730A3', fontWeight: 700 }}>공개 성과 (Published)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#4338CA', marginTop: '2px' }}>
-                {metrics.outcomesPublishedCount}건
+            <div style={{ backgroundColor: '#EBF5FF', padding: '12px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '0.75rem', color: '#0066CC', fontWeight: 700 }}>공개 성과</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#004080', marginTop: '2px' }}>
+                {metrics.outcomesPublishedCount}
               </div>
             </div>
-            <div style={{ background: '#F1F5F9', padding: '12px', borderRadius: '8px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 700 }}>임시저장 (Draft)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#334155', marginTop: '2px' }}>
-                {metrics.outcomesDraftCount}건
+            <div style={{ backgroundColor: '#F5F5F7', padding: '12px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '0.75rem', color: '#6E6E73', fontWeight: 700 }}>임시저장</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1D1D1F', marginTop: '2px' }}>
+                {metrics.outcomesDraftCount}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. 최근 관리자 활동 (Audit Logs) & Public Health */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
-        <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-          <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
-            📜 최근 관리자 감사 로그 (Audit Logs)
+      {/* Audit Log & Service Health */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        {/* Audit Log Panel */}
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#1D1D1F' }}>
+            최근 관리자 감사 로그
           </h2>
 
           {metrics.recentAuditLogs.length === 0 ? (
-            <div style={{ color: '#94A3B8', fontSize: '0.875rem', padding: '20px 0', textAlign: 'center' }}>
+            <div style={{ color: '#86868B', fontSize: '0.875rem', padding: '24px 0', textAlign: 'center' }}>
               최근 관리자 활동 내역이 없습니다. (Clean State)
             </div>
           ) : (
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {metrics.recentAuditLogs.map((log) => (
-                <li key={log.id} style={{ background: '#F8FAFC', padding: '12px 16px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  key={log.id}
+                  style={{
+                    backgroundColor: '#F5F5F7',
+                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    fontSize: '0.875rem',
+                  }}
+                >
                   <div>
-                    <strong style={{ fontSize: '0.875rem', color: '#0F172A' }}>{log.action}</strong>
-                    <span style={{ fontSize: '0.8125rem', color: '#64748B', marginLeft: '8px' }}>Target: {log.targetTable}</span>
+                    <strong style={{ color: '#1D1D1F' }}>{formatAuditAction(log.action)}</strong>
+                    <span style={{ color: '#86868B', fontSize: '0.8125rem', marginLeft: '8px' }}>({log.targetTable})</span>
                   </div>
-                  <span style={{ fontSize: '0.8125rem', color: '#94A3B8' }}>{log.createdAt}</span>
-                </li>
+                  <span style={{ color: '#86868B', fontSize: '0.8125rem' }}>{log.createdAt}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </div>
 
-        {/* Public Health Summary */}
-        <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-          <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
-            ⚙️ 서비스 Health 요약
+        {/* Service Health Panel */}
+        <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <h2 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#1D1D1F' }}>
+            서비스 Health 요약
           </h2>
-          <div style={{ display: 'grid', gap: '10px', fontSize: '0.875rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '6px' }}>
-              <span>Supabase DB</span>
-              <strong style={{ color: '#059669' }}>✅ CONNECTED</strong>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.875rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+              <span style={{ color: '#6E6E73' }}>Supabase DB</span>
+              <strong style={{ color: '#059669' }}>✓ 정상 연결</strong>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '6px' }}>
-              <span>영광군 행정구역</span>
-              <strong>11개 읍·면</strong>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+              <span style={{ color: '#6E6E73' }}>영광군 행정구역</span>
+              <strong style={{ color: '#1D1D1F' }}>11개 읍·면</strong>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '6px' }}>
-              <span>보안 RLS / GRANT</span>
-              <strong style={{ color: '#059669' }}>✅ ENFORCED</strong>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+              <span style={{ color: '#6E6E73' }}>보안 RLS / GRANT</span>
+              <strong style={{ color: '#059669' }}>✓ 적용됨</strong>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '6px' }}>
-              <span>시연용 RPC (Demo)</span>
-              <strong style={{ color: '#D97706' }}>⚠️ DEMO ACTIVE</strong>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '4px' }}>
+              <span style={{ color: '#6E6E73' }}>시연용 RPC (Demo)</span>
+              <strong style={{ color: '#D97706' }}>※ 활성중</strong>
             </div>
           </div>
         </div>

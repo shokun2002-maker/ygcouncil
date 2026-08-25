@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { UserSessionProfile } from '@/lib/auth/types';
-import { OutcomeRecord, createOutcome, updateOutcome } from '@/lib/repositories/outcome-repository';
+import { OutcomeRecord, createOutcome } from '@/lib/repositories/outcome-repository';
 
 interface AdminOutcomesClientProps {
   currentUser: UserSessionProfile;
@@ -10,10 +10,9 @@ interface AdminOutcomesClientProps {
 }
 
 export default function AdminOutcomesClient({
-  currentUser,
   initialOutcomes,
 }: AdminOutcomesClientProps) {
-  const [outcomes, setOutcomes] = useState<OutcomeRecord[]>(initialOutcomes);
+  const [outcomes] = useState<OutcomeRecord[]>(initialOutcomes);
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [result, setResult] = useState('');
@@ -46,7 +45,7 @@ export default function AdminOutcomesClient({
       if (!res.success) {
         alert(`성과 등록 실패: ${res.error}`);
       } else {
-        alert('🎉 성과 항목이 성공적으로 등록되었습니다.');
+        alert('성과 항목이 성공적으로 등록되었습니다.');
         setTitle('');
         setSummary('');
         setResult('');
@@ -62,183 +61,273 @@ export default function AdminOutcomesClient({
   };
 
   return (
-    <div style={{ display: 'grid', gap: '32px' }}>
-      {/* 등록 Form Card */}
-      <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
-          ➕ 신규 성과 등록
-        </h2>
-
-        <form onSubmit={handleCreateOutcome} style={{ display: 'grid', gap: '16px' }}>
-          <div>
-            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.875rem', marginBottom: '6px' }}>
-              성과 제목 *
-            </label>
-            <input
-              type="text"
-              required
-              maxLength={100}
-              placeholder="예: 영광읍 중앙시장 보행자 안심 펜스 설치 및 속도제한 완료"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              style={{ width: '100%', padding: '10px 14px', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-            />
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-            <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.875rem', marginBottom: '6px' }}>
-                카테고리 *
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                style={{ width: '100%', padding: '10px 14px', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-              >
-                <option value="교통">교통</option>
-                <option value="청년">청년</option>
-                <option value="문화·관광">문화·관광</option>
-                <option value="복지">복지</option>
-                <option value="환경">환경</option>
-                <option value="기타">기타</option>
-              </select>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.875rem', marginBottom: '6px' }}>
-                공개 상태 *
-              </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                style={{ width: '100%', padding: '10px 14px', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-              >
-                <option value="published">공개 (Published)</option>
-                <option value="draft">임시저장 (Draft)</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.875rem', marginBottom: '6px' }}>
-              요약 설명 *
-            </label>
-            <textarea
-              required
-              maxLength={500}
-              rows={2}
-              placeholder="군민제안 및 의견수렴을 통해 의회가 반영한 성과 요약"
-              value={summary}
-              onChange={(e) => setSummary(e.target.value)}
-              style={{ width: '100%', padding: '10px 14px', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.875rem', marginBottom: '6px' }}>
-              의회 처리 및 예산 반영 상세 결과 *
-            </label>
-            <textarea
-              required
-              rows={4}
-              placeholder="조례 제·개정, 예산 확보액, 현장 공사 완료 등 상세 결과"
-              value={result}
-              onChange={(e) => setResult(e.target.value)}
-              style={{ width: '100%', padding: '10px 14px', borderRadius: '6px', border: '1px solid #CBD5E1' }}
-            />
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', background: '#F8FAFC', padding: '16px', borderRadius: '8px' }}>
-            <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '4px', color: '#475569' }}>
-                🌱 시작된 시민 제안 UUID (선택)
-              </label>
-              <input
-                type="text"
-                placeholder="예: 20000000-0000-0000-0000-000000000001"
-                value={sourceProposalId}
-                onChange={(e) => setSourceProposalId(e.target.value)}
-                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.875rem' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.8125rem', marginBottom: '4px', color: '#475569' }}>
-                🙋‍♂️ 연관된 군민 의견수렴 UUID (선택)
-              </label>
-              <input
-                type="text"
-                placeholder="예: 10000000-0000-0000-0000-000000000001"
-                value={sourceAskId}
-                onChange={(e) => setSourceAskId(e.target.value)}
-                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.875rem' }}
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            style={{
-              background: '#0F172A',
-              color: 'white',
-              padding: '12px 24px',
-              borderRadius: '6px',
-              fontWeight: 700,
-              fontSize: '1rem',
-              border: 'none',
-              cursor: 'pointer',
-              opacity: isSubmitting ? 0.7 : 1
-            }}
-          >
-            {isSubmitting ? '등록 처리 중...' : '성과 등록하기'}
-          </button>
-        </form>
-      </div>
-
-      {/* 성과 목록 Table */}
-      <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
-          📑 등록된 성과 목록 ({outcomes.length}건)
-        </h2>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      {/* 1. Outcomes Admin List */}
+      <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1D1D1F' }}>
+            등록된 의정 성과 사례 ({outcomes.length}건)
+          </h2>
+          <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>
+            ※ Public 정책: published / completed / active
+          </span>
+        </div>
 
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', textAlign: 'left' }}>
             <thead>
-              <tr style={{ background: '#F1F5F9', textAlign: 'left' }}>
-                <th style={{ padding: '10px 12px', borderBottom: '1px solid #CBD5E1' }}>제목</th>
-                <th style={{ padding: '10px 12px', borderBottom: '1px solid #CBD5E1' }}>분야</th>
-                <th style={{ padding: '10px 12px', borderBottom: '1px solid #CBD5E1' }}>상태</th>
-                <th style={{ padding: '10px 12px', borderBottom: '1px solid #CBD5E1' }}>완료일</th>
-                <th style={{ padding: '10px 12px', borderBottom: '1px solid #CBD5E1' }}>연결 정보</th>
+              <tr style={{ backgroundColor: '#F5F5F7', borderBottom: '1px solid rgba(0,0,0,0.06)', color: '#6E6E73', fontSize: '0.8125rem' }}>
+                <th style={{ padding: '12px 16px' }}>성과 제목</th>
+                <th style={{ padding: '12px 16px' }}>분야</th>
+                <th style={{ padding: '12px 16px' }}>상태</th>
+                <th style={{ padding: '12px 16px' }}>완료 및 공개일</th>
+                <th style={{ padding: '12px 16px' }}>스토리 연결 정보</th>
               </tr>
             </thead>
             <tbody>
               {outcomes.map((item) => (
-                <tr key={item.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                  <td style={{ padding: '12px', fontWeight: 700, color: '#0F172A' }}>{item.title}</td>
-                  <td style={{ padding: '12px', color: '#475569' }}>{item.category}</td>
-                  <td style={{ padding: '12px' }}>
-                    <span style={{
-                      background: item.status === 'published' ? '#DEF7EC' : '#FEF08A',
-                      color: item.status === 'published' ? '#03543F' : '#854D0E',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                      fontWeight: 700,
-                      fontSize: '0.75rem'
+                <tr key={item.id} style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
+                  <td style={{ padding: '12px 16px', fontWeight: 700, color: '#1D1D1F' }}>{item.title}</td>
+                  <td style={{ padding: '12px 16px', color: '#6E6E73' }}>{item.category}</td>
+                  <td style={{ padding: '12px 16px' }}>
+                    <span className="badge-apple" style={{
+                      backgroundColor: item.status === 'published' ? '#D1FAE5' : '#FEF3C7',
+                      color: item.status === 'published' ? '#059669' : '#D97706'
                     }}>
-                      {item.status}
+                      {item.status === 'published' ? '공개' : '임시저장'}
                     </span>
                   </td>
-                  <td style={{ padding: '12px', color: '#64748B' }}>{item.outcomeAt}</td>
-                  <td style={{ padding: '12px', fontSize: '0.8125rem', color: '#64748B' }}>
-                    {item.sourceProposalId ? '💬 제안 연결' : ''} {item.sourceAskId ? '🙋‍♂️ 투표 연결' : ''}
+                  <td style={{ padding: '12px 16px', color: '#86868B', fontSize: '0.8125rem' }}>{item.outcomeAt}</td>
+                  <td style={{ padding: '12px 16px', fontSize: '0.8125rem', color: '#6E6E73' }}>
+                    {item.sourceProposalId ? '💬 시민 제안' : ''} {item.sourceAskId ? ' 🙋‍♂️ 군민 의견수렴' : ''}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* 2. Outcome Creation Form with 4 Visual Sections */}
+      <div className="card-apple" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        <div>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1D1D1F' }}>
+            신규 성과 등록
+          </h2>
+          <p style={{ fontSize: '0.875rem', color: '#6E6E73', marginTop: '4px' }}>
+            군민의 참여가 만든 실제 성과 스토리를 등록하고 공개합니다.
+          </p>
+        </div>
+
+        <form onSubmit={handleCreateOutcome} style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          {/* Section 1: Basic Info */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0066CC', borderBottom: '1px solid rgba(0,0,0,0.06)', paddingBottom: '8px' }}>
+              01 기본 정보
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                성과 제목 <span style={{ color: '#DC2626' }}>*</span>
+              </label>
+              <input
+                type="text"
+                required
+                maxLength={100}
+                placeholder="예: 영광읍 중앙시장 보행자 안심 펜스 설치 및 속도제한 완료"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                style={{
+                  width: '100%',
+                  height: '44px',
+                  padding: '0 16px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  fontSize: '0.9375rem',
+                  color: '#1D1D1F',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                  카테고리 <span style={{ color: '#DC2626' }}>*</span>
+                </label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  style={{
+                    width: '100%',
+                    height: '44px',
+                    padding: '0 14px',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    fontSize: '0.875rem',
+                    color: '#1D1D1F',
+                    backgroundColor: '#FFFFFF',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="교통">교통</option>
+                  <option value="청년">청년</option>
+                  <option value="문화·관광">문화·관광</option>
+                  <option value="복지">복지</option>
+                  <option value="환경">환경</option>
+                  <option value="기타">기타</option>
+                </select>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                  공개 설정 <span style={{ color: '#DC2626' }}>*</span>
+                </label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  style={{
+                    width: '100%',
+                    height: '44px',
+                    padding: '0 14px',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    fontSize: '0.875rem',
+                    color: '#1D1D1F',
+                    backgroundColor: '#FFFFFF',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="published">공개 (Published)</option>
+                  <option value="draft">임시저장 (Draft)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2: Content */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0066CC', borderBottom: '1px solid rgba(0,0,0,0.06)', paddingBottom: '8px' }}>
+              02 성과 및 결과 내용
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                요약 설명 <span style={{ color: '#DC2626' }}>*</span>
+              </label>
+              <textarea
+                required
+                maxLength={500}
+                rows={2}
+                placeholder="군민제안 및 의견수렴을 통해 의회가 반영한 성과 요약"
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '14px 16px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  fontSize: '0.9375rem',
+                  lineHeight: 1.5,
+                  color: '#1D1D1F',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                의회 처리 및 예산 반영 결과 (무엇이 달라졌나요?) <span style={{ color: '#DC2626' }}>*</span>
+              </label>
+              <textarea
+                required
+                rows={4}
+                placeholder="조례 제·개정, 예산 확보액, 현장 공사 완료 등 상세 결과"
+                value={result}
+                onChange={(e) => setResult(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '14px 16px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  fontSize: '0.9375rem',
+                  lineHeight: 1.6,
+                  color: '#1D1D1F',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Section 3: Story Source Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', backgroundColor: '#F5F5F7', padding: '20px', borderRadius: '16px' }}>
+            <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1D1D1F' }}>
+              03 스토리 출발점 연결 (선택)
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#6E6E73' }}>
+                  시작된 시민 제안 ID (UUID)
+                </label>
+                <input
+                  type="text"
+                  placeholder="예: 20000000-0000-0000-0000-000000000001"
+                  value={sourceProposalId}
+                  onChange={(e) => setSourceProposalId(e.target.value)}
+                  style={{
+                    width: '100%',
+                    height: '40px',
+                    padding: '0 12px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    fontSize: '0.875rem',
+                    backgroundColor: '#FFFFFF',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#6E6E73' }}>
+                  연관된 군민 의견수렴 ID (UUID)
+                </label>
+                <input
+                  type="text"
+                  placeholder="예: 10000000-0000-0000-0000-000000000001"
+                  value={sourceAskId}
+                  onChange={(e) => setSourceAskId(e.target.value)}
+                  style={{
+                    width: '100%',
+                    height: '40px',
+                    padding: '0 12px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    fontSize: '0.875rem',
+                    backgroundColor: '#FFFFFF',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn-apple btn-apple-primary"
+            style={{
+              backgroundColor: '#0066CC',
+              height: '48px',
+              fontSize: '1rem',
+              opacity: isSubmitting ? 0.6 : 1,
+            }}
+          >
+            {isSubmitting ? '성과 등록 중...' : '의정 성과 등록하기 ➔'}
+          </button>
+        </form>
       </div>
     </div>
   );

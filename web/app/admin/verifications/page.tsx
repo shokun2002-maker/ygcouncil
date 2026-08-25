@@ -1,24 +1,25 @@
+import React from 'react';
+import Link from 'next/link';
 import { getCurrentUser } from '@/lib/auth/get-current-user';
 import { createClient } from '@/lib/supabase/server';
 import { YGCOUNCIL_TENANT_ID } from '@/lib/config/tenant';
+import AdminNav from '@/components/admin/AdminNav';
 import AdminVerificationClient from './AdminVerificationClient';
-import Link from 'next/link';
 
 export default async function AdminVerificationsPage() {
   const { user } = await getCurrentUser();
 
-  if (!user) {
+  if (!user || (user.role !== 'council_staff' && user.role !== 'admin')) {
     return (
       <main style={{ maxWidth: '600px', margin: '60px auto', padding: '24px', textAlign: 'center' }}>
         <h2>관리자 로그인이 필요합니다.</h2>
-        <Link href="/" style={{ color: '#2563EB', fontWeight: 700 }}>메인으로 이동</Link>
+        <Link href="/" style={{ color: '#0066CC', fontWeight: 700 }}>메인으로 이동</Link>
       </main>
     );
   }
 
   const supabase = await createClient();
 
-  // 신청 목록 조회 (profiles & regions join)
   const { data: verifications, error } = await supabase
     .from('resident_verifications')
     .select('*, profiles(display_name), regions(name)')
@@ -30,25 +31,34 @@ export default async function AdminVerificationsPage() {
   }
 
   return (
-    <main style={{ maxWidth: '1000px', margin: '40px auto', padding: '0 20px', fontFamily: 'sans-serif' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-        <div>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-            🏛️ 군민인증 관리자 검토
-          </h1>
-          <p style={{ fontSize: '0.875rem', color: '#64748B', margin: '4px 0 0 0' }}>
-            군민의 거주확인 신청 내역을 검토하고 승인/반려합니다. (승인 시 1년 유효기간 자동 부여 및 감사로그 기록)
-          </p>
+    <main style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', padding: '40px 24px 80px 24px', color: '#1D1D1F' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
+          <div>
+            <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0066CC', backgroundColor: '#EBF5FF', padding: '4px 10px', borderRadius: '6px', display: 'inline-block', marginBottom: '8px' }}>
+              군민인증 관리 · VERIFICATION
+            </div>
+            <h1 style={{ fontSize: '1.875rem', fontWeight: 800, color: '#1D1D1F', letterSpacing: '-0.5px' }}>
+              거주인증 검토 및 승인
+            </h1>
+            <p style={{ color: '#6E6E73', fontSize: '0.9375rem', marginTop: '4px' }}>
+              신청된 군민 거주인증 내역을 검토하고 승인 또는 반려 처리합니다.
+            </p>
+          </div>
+          <div style={{ backgroundColor: '#F5F5F7', padding: '8px 16px', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.06)', fontSize: '0.875rem', color: '#1D1D1F', fontWeight: 600 }}>
+            👤 {user.displayName} <span style={{ color: '#0066CC', fontSize: '0.8125rem' }}>({user.role})</span>
+          </div>
         </div>
-        <Link href="/admin" style={{ padding: '8px 16px', background: '#F1F5F9', color: '#334155', borderRadius: '6px', textDecoration: 'none', fontWeight: 600, fontSize: '0.875rem' }}>
-          관리자 메인
-        </Link>
-      </div>
 
-      <AdminVerificationClient
-        user={user}
-        initialList={verifications || []}
-      />
+        {/* Common Admin Navigation */}
+        <AdminNav />
+
+        <AdminVerificationClient
+          user={user}
+          initialList={verifications || []}
+        />
+      </div>
     </main>
   );
 }
