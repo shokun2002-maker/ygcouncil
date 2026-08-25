@@ -8,8 +8,10 @@ export default async function ListenWritePage() {
   const regions = await getRegions();
 
   return (
-    <main className="ask-detail-container">
-      <ProposalWriteClient currentUser={user} regions={regions} />
+    <main style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', padding: '48px 24px 80px 24px', color: '#1D1D1F' }}>
+      <div style={{ maxWidth: '820px', margin: '0 auto' }}>
+        <ProposalWriteClient currentUser={user} regions={regions} />
+      </div>
     </main>
   );
 }

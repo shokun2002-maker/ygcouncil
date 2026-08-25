@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Proposal, Ask, Outcome } from '@/lib/types';
+import { Proposal } from '@/lib/types';
 import { UserSessionProfile } from '@/lib/auth/types';
 import { ProposalEmpathyState, toggleProposalEmpathy } from '@/lib/repositories/proposal-empathy-repository';
 import { ProposalCommentItem, getProposalComments, submitProposalComment, deleteMyProposalComment } from '@/lib/repositories/proposal-comment-repository';
-import AskCard from '@/components/AskCard';
 import Modal from '@/components/Modal';
 
 interface ProposalDetailClientProps {
@@ -46,7 +45,6 @@ export default function ProposalDetailClient({
     if (isToggling) return;
     setIsToggling(true);
 
-    // Optimistic Update
     const prevEmpathized = empathized;
     const prevCount = empathyCount;
     setEmpathized(!prevEmpathized);
@@ -55,7 +53,6 @@ export default function ProposalDetailClient({
     try {
       const res = await toggleProposalEmpathy(proposal.id);
       if (!res.success) {
-        // Rollback
         setEmpathized(prevEmpathized);
         setEmpathyCount(prevCount);
         alert(`공감 처리 실패: ${res.error}`);
@@ -64,7 +61,6 @@ export default function ProposalDetailClient({
         if (res.empathyCount !== undefined) setEmpathyCount(res.empathyCount);
       }
     } catch (err: any) {
-      // Rollback
       setEmpathized(prevEmpathized);
       setEmpathyCount(prevCount);
       alert('오류 발생: ' + err?.message);
@@ -101,7 +97,6 @@ export default function ProposalDetailClient({
         alert(`댓글 작성 실패: ${res.error}`);
       } else {
         setCommentInput('');
-        // 최신 댓글 목록 재조회
         const updatedList = await getProposalComments(proposal.id);
         setComments(updatedList);
       }
@@ -129,179 +124,312 @@ export default function ProposalDetailClient({
 
   return (
     <>
-      <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link href="/listens" className="btn-share" style={{ fontSize: '0.9375rem', fontWeight: 700 }}>
-          ← 전체 목록으로 돌아가기
+      {/* Top Back & Action Navigation */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+        <Link
+          href="/listens"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            color: '#6E6E73',
+            fontSize: '0.9375rem',
+            fontWeight: 600,
+            textDecoration: 'none',
+          }}
+        >
+          ← 목록으로 돌아가기
         </Link>
-        <button className="btn-share" onClick={() => setIsShareModalOpen(true)}>
-          ↗ 공유
+        <button
+          type="button"
+          className="btn-apple btn-apple-secondary"
+          onClick={() => setIsShareModalOpen(true)}
+          style={{ height: '36px', padding: '0 14px', fontSize: '0.875rem' }}
+        >
+          공유하기
         </button>
       </div>
 
-      <article className="ask-detail-card">
+      {/* Main Story Proposal Article */}
+      <article style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
         {/* Header */}
-        <div className="ask-detail-header">
-          <div className="ask-detail-meta">
-            <span className="section-tag listen-tag">듣습니다</span>
-            <span className="card-category">{proposal.region} · {proposal.category}</span>
-            <span className="badge-status status-review">{proposal.statusText}</span>
-            {proposal.isDemo && <span className="demo-tag-pill">※ 시연용 예시 제안</span>}
+        <header style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#00A896', backgroundColor: '#E6F7F5', padding: '4px 10px', borderRadius: '6px' }}>
+              {proposal.region} · {proposal.category}
+            </span>
+            <span className="badge-apple" style={{ backgroundColor: '#FEF3C7', color: '#D97706' }}>
+              {proposal.statusText}
+            </span>
+            {proposal.isDemo && (
+              <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>
+                ※ 시연용 예시 제안
+              </span>
+            )}
           </div>
 
-          <h1 className="ask-detail-title">{proposal.title}</h1>
+          <h1
+            style={{
+              fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+              fontWeight: 800,
+              lineHeight: 1.25,
+              letterSpacing: '-0.5px',
+              color: '#1D1D1F',
+            }}
+          >
+            {proposal.title}
+          </h1>
 
-          <div className="ask-detail-info-bar">
-            <span>👤 작성자: <strong>{proposal.authorDisplay}</strong></span>
-            <span>📅 작성일: <strong>{proposal.createdAt}</strong></span>
-            <span>👁️ 조회: <strong>{proposal.viewCount}회</strong></span>
+          <div
+            style={{
+              display: 'flex',
+              gap: '16px',
+              flexWrap: 'wrap',
+              fontSize: '0.875rem',
+              color: '#6E6E73',
+              paddingTop: '12px',
+              borderTop: '1px solid rgba(0,0,0,0.06)',
+            }}
+          >
+            <span>👤 작성자: <strong style={{ color: '#1D1D1F' }}>{proposal.authorDisplay}</strong></span>
+            <span>📅 작성일: <strong style={{ color: '#1D1D1F' }}>{proposal.createdAt}</strong></span>
+            <span>👁️ 조회: <strong style={{ color: '#1D1D1F' }}>{proposal.viewCount}회</strong></span>
           </div>
+        </header>
+
+        {/* Content Story Body */}
+        <div style={{ fontSize: '1.0625rem', color: '#1D1D1F', lineHeight: 1.75, whiteSpace: 'pre-line' }}>
+          {proposal.content}
         </div>
 
-        {/* Content Body */}
-        <div className="ask-detail-body">
-          <div style={{ whiteSpace: 'pre-line', fontSize: '1.0625rem', color: 'var(--text)', lineHeight: 1.8, marginBottom: '36px' }}>
-            {proposal.content}
+        {/* Authorization Guidance Banners */}
+        {!currentUser ? (
+          <div
+            style={{
+              backgroundColor: '#FFFBEB',
+              border: '1px solid #FCD34D',
+              borderRadius: '16px',
+              padding: '20px 24px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '16px',
+            }}
+          >
+            <div>
+              <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>🔒 제안 공감 및 댓글은 군민인증이 필요합니다</strong>
+              <p style={{ color: '#B45309', fontSize: '0.875rem', marginTop: '4px' }}>
+                카카오 간편 로그인 후 영광군민 인증을 완료하시면 공감과 댓글 작성에 참여하실 수 있습니다.
+              </p>
+            </div>
+            <Link href="/" className="btn-apple" style={{ backgroundColor: '#FEE500', color: '#191919', height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
+              카카오 로그인
+            </Link>
           </div>
-
-          {/* 권한 안내 Banner */}
-          {!currentUser ? (
-            <div style={{ background: '#FFFBEB', border: '1px solid #FCD34D', padding: '14px 18px', borderRadius: '10px', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div>
-                <strong style={{ color: '#92400E', fontSize: '0.875rem' }}>🔒 제안 공감은 영광군민 인증이 필요합니다.</strong>
-                <p style={{ margin: '2px 0 0 0', fontSize: '0.8125rem', color: '#B45309' }}>카카오 간편 로그인 후 영광군민 인증을 완료해 주세요.</p>
-              </div>
-              <Link href="/" style={{ background: '#FEE500', color: '#191919', padding: '6px 12px', borderRadius: '6px', textDecoration: 'none', fontWeight: 700, fontSize: '0.8125rem', whiteSpace: 'nowrap' }}>
-                카카오 로그인
-              </Link>
+        ) : !currentUser.isVerifiedResident ? (
+          <div
+            style={{
+              backgroundColor: '#F0F6FF',
+              border: '1px solid #93C5FD',
+              borderRadius: '16px',
+              padding: '20px 24px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '16px',
+            }}
+          >
+            <div>
+              <strong style={{ color: '#1E40AF', fontSize: '0.9375rem' }}>🪪 공감 참여를 위해 영광군민 인증이 필요합니다</strong>
+              <p style={{ color: '#1E3A8A', fontSize: '0.875rem', marginTop: '4px' }}>
+                현재 카카오 로그인 상태({currentUser.displayName})이나 군민 미인증 상태입니다.
+              </p>
             </div>
-          ) : !currentUser.isVerifiedResident ? (
-            <div style={{ background: '#EFF6FF', border: '1px solid #93C5FD', padding: '14px 18px', borderRadius: '10px', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div>
-                <strong style={{ color: '#1E40AF', fontSize: '0.875rem' }}>🪪 제안 공감을 위해 영광군민 인증이 필요합니다.</strong>
-                <p style={{ margin: '2px 0 0 0', fontSize: '0.8125rem', color: '#1E3A8A' }}>현재 일반회원 상태입니다.</p>
-              </div>
-              <Link href="/verification" style={{ background: '#2563EB', color: 'white', padding: '6px 12px', borderRadius: '6px', textDecoration: 'none', fontWeight: 700, fontSize: '0.8125rem', whiteSpace: 'nowrap' }}>
-                군민인증 신청 ➔
-              </Link>
-            </div>
-          ) : null}
-
-          {/* Empathy Action Button */}
-          <div style={{ textAlign: 'center', margin: '36px 0' }}>
-            <button
-              className={`btn-empathy-large ${empathized ? 'active' : ''}`}
-              onClick={handleToggleEmpathy}
-              disabled={isToggling}
-              style={{
-                opacity: isToggling ? 0.7 : 1,
-                cursor: 'pointer'
-              }}
-            >
-              <span>{empathized ? '♥' : '♡'}</span>
-              <span>{empathized ? '이 제안에 공감했습니다' : '이 제안에 공감합니다'}</span>
-              <span className="empathy-badge-count">({empathyCount})</span>
-            </button>
+            <Link href="/verification" className="btn-apple btn-apple-primary" style={{ height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
+              군민인증 신청 ➔
+            </Link>
           </div>
+        ) : null}
 
-          {/* Timeline Steps */}
-          {proposal.timeline && proposal.timeline.length > 0 && (
-            <div className="timeline-container">
-              <div className="timeline-title">
-                <span>🗺️ 의회가 이렇게 듣고 있습니다</span>
-              </div>
-              <div className="timeline-list">
-                {proposal.timeline.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className={`timeline-step-item ${
-                      item.status === 'completed'
-                        ? 'completed'
-                        : item.status === 'current'
-                        ? 'current'
-                        : ''
-                    }`}
-                  >
-                    <div className="timeline-step-icon">
-                      {item.status === 'completed' ? '✓' : item.status === 'current' ? '●' : '○'}
-                    </div>
-                    <div className="timeline-step-content">
-                      <span className="timeline-step-label">{item.step}</span>
-                      <span className="timeline-step-date">{item.date}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+        {/* Empathy Action Box */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '36px 0', borderTop: '1px solid rgba(0,0,0,0.06)', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+          <p style={{ fontSize: '0.9375rem', color: '#6E6E73', fontWeight: 500 }}>
+            이 제안이 영광에 필요한 변화라고 생각하시나요?
+          </p>
+          <button
+            type="button"
+            onClick={handleToggleEmpathy}
+            disabled={isToggling}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              height: '52px',
+              padding: '0 28px',
+              borderRadius: '14px',
+              border: empathized ? '2px solid #00A896' : '1px solid rgba(0,0,0,0.12)',
+              backgroundColor: empathized ? '#E6F7F5' : '#FFFFFF',
+              color: empathized ? '#00A896' : '#1D1D1F',
+              fontSize: '1rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 150ms ease',
+              boxShadow: empathized ? '0 4px 14px rgba(0, 168, 150, 0.15)' : '0 2px 8px rgba(0,0,0,0.03)',
+            }}
+          >
+            <span>{empathized ? '♥' : '♡'}</span>
+            <span>{empathized ? '이 제안에 공감했습니다' : '공감하기'}</span>
+            <span style={{ backgroundColor: empathized ? '#00A896' : '#F5F5F7', color: empathized ? '#FFFFFF' : '#1D1D1F', padding: '2px 8px', borderRadius: '999px', fontSize: '0.8125rem' }}>
+              {empathyCount}
+            </span>
+          </button>
+        </div>
 
-          {/* Official Response Box */}
-          {proposal.adminResponse && (
-            <div className="admin-response-box" style={{ display: 'block', margin: '32px 0' }}>
-              <div className="admin-response-title">
-                <span>🏛️ 영광군의회 공식 답변 및 조치 계획</span>
-                {proposal.isDemo && (
-                  <span className="demo-tag-pill" style={{ background: '#DBEAFE', color: 'var(--blue)' }}>
-                    ※ 시연용 답변 예시입니다.
-                  </span>
-                )}
-              </div>
-              <p className="admin-response-body">{proposal.adminResponse.content}</p>
-              <div className="admin-response-footer">
-                <span>답변 부서: <strong>{proposal.adminResponse.department}</strong></span>
-                <span>답변 일자: <strong>{proposal.adminResponse.date}</strong></span>
-              </div>
-            </div>
-          )}
-
-          {/* Comments Section */}
-          <div style={{ marginTop: '48px', paddingTop: '32px', borderTop: '2px solid var(--navy)' }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '20px' }}>
-              💬 군민 의견 (<span style={{ color: 'var(--teal)' }}>{comments.length}</span>)
-              <span style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 400, marginLeft: '8px' }}>
-                (※ 댓글 작성 기능은 다음 단계 연동 예정)
-              </span>
+        {/* Timeline Steps Section */}
+        {proposal.timeline && proposal.timeline.length > 0 && (
+          <div style={{ backgroundColor: '#F5F5F7', borderRadius: '20px', padding: '32px 28px', border: '1px solid rgba(0,0,0,0.06)' }}>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#1D1D1F', marginBottom: '20px' }}>
+              🗺️ 의회가 이렇게 살펴보는 중입니다
             </h3>
-
-            <form onSubmit={handleAddComment} style={{ marginBottom: '28px' }}>
-              <div className="opinion-textarea-wrapper" style={{ marginBottom: '12px' }}>
-                <textarea
-                  className="survey-textarea"
-                  style={{ minHeight: '80px' }}
-                  maxLength={500}
-                  placeholder="이 제안에 대한 군민 여러분의 의견이나 응원 메시지를 남겨주세요."
-                  value={commentInput}
-                  onChange={(e) => setCommentInput(e.target.value)}
-                />
-              </div>
-              <button type="submit" className="section-btn-action" style={{ background: 'var(--teal)', minHeight: '44px' }}>
-                의견 남기기 (시연)
-              </button>
-            </form>
-
-            <div className="comments-list">
-              {comments.map((cmt) => (
-                <div key={cmt.commentId} className="comment-item">
-                  <div className="comment-meta">
-                    <span className="comment-author">
-                      👤 {cmt.authorDisplay}
-                    </span>
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      <span>{cmt.createdAt}</span>
-                      {cmt.isMyComment && (
-                        <button
-                          type="button"
-                          className="btn-delete-comment"
-                          onClick={() => handleDeleteComment(cmt.commentId)}
-                        >
-                          삭제
-                        </button>
-                      )}
-                    </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {proposal.timeline.map((item, idx) => (
+                <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                  <div
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      backgroundColor: item.status === 'completed' ? '#00A896' : item.status === 'current' ? '#0066CC' : '#E5E5EA',
+                      color: '#FFFFFF',
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      marginTop: '2px',
+                    }}
+                  >
+                    {item.status === 'completed' ? '✓' : idx + 1}
                   </div>
-                  <p className="comment-body">{cmt.content}</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <span style={{ fontSize: '0.9375rem', fontWeight: 700, color: item.status === 'pending' ? '#86868B' : '#1D1D1F' }}>
+                      {item.step}
+                    </span>
+                    <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>{item.date}</span>
+                  </div>
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Official Response Section */}
+        {proposal.adminResponse && (
+          <div style={{ backgroundColor: '#F0F6FF', borderRadius: '20px', padding: '32px 28px', border: '1px solid #93C5FD' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#0066CC' }}>
+                🏛️ 영광군의회 공식 답변 및 조치 계획
+              </h3>
+              {proposal.isDemo && (
+                <span style={{ fontSize: '0.8125rem', color: '#0066CC', backgroundColor: '#FFFFFF', padding: '2px 8px', borderRadius: '6px' }}>
+                  ※ 시연용 답변
+                </span>
+              )}
+            </div>
+            <p style={{ fontSize: '0.9375rem', color: '#1D1D1F', lineHeight: 1.65, marginBottom: '16px', whiteSpace: 'pre-line' }}>
+              {proposal.adminResponse.content}
+            </p>
+            <div style={{ fontSize: '0.8125rem', color: '#6E6E73', display: 'flex', gap: '16px' }}>
+              <span>답변 부서: <strong>{proposal.adminResponse.department}</strong></span>
+              <span>답변 일자: <strong>{proposal.adminResponse.date}</strong></span>
+            </div>
+          </div>
+        )}
+
+        {/* Comments Section */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingTop: '16px' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1D1D1F' }}>
+            💬 군민 의견 (<span style={{ color: '#00A896' }}>{comments.length}</span>)
+          </h3>
+
+          <form onSubmit={handleAddComment} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <textarea
+              rows={3}
+              maxLength={500}
+              placeholder="이 제안에 대한 군민 여러분의 의견이나 응원 메시지를 남겨주세요."
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                borderRadius: '14px',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                fontSize: '0.9375rem',
+                lineHeight: 1.5,
+                color: '#1D1D1F',
+                outline: 'none',
+                resize: 'vertical',
+                boxSizing: 'border-box',
+              }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>{commentInput.length} / 500자</span>
+              <button
+                type="submit"
+                className="btn-apple btn-apple-primary"
+                disabled={isSubmittingComment || !currentUser?.isVerifiedResident}
+                style={{
+                  backgroundColor: '#00A896',
+                  height: '40px',
+                  padding: '0 20px',
+                  fontSize: '0.875rem',
+                  opacity: !currentUser?.isVerifiedResident ? 0.5 : 1,
+                  cursor: !currentUser?.isVerifiedResident ? 'not-allowed' : 'pointer',
+                }}
+              >
+                {isSubmittingComment ? '의견 남기는 중...' : '의견 작성하기 ➔'}
+              </button>
+            </div>
+          </form>
+
+          {/* Comment List */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '12px' }}>
+            {comments.map((cmt) => (
+              <div
+                key={cmt.commentId}
+                style={{
+                  padding: '16px 20px',
+                  borderRadius: '14px',
+                  backgroundColor: '#F5F5F7',
+                  border: '1px solid rgba(0, 0, 0, 0.04)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8125rem', color: '#6E6E73' }}>
+                  <span style={{ fontWeight: 700, color: '#1D1D1F' }}>👤 {cmt.authorDisplay}</span>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <span>{cmt.createdAt}</span>
+                    {cmt.isMyComment && (
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteComment(cmt.commentId)}
+                        style={{ color: '#DC2626', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8125rem', fontWeight: 600 }}
+                      >
+                        삭제
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <p style={{ fontSize: '0.9375rem', color: '#1D1D1F', lineHeight: 1.5, whiteSpace: 'pre-line' }}>
+                  {cmt.content}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </article>

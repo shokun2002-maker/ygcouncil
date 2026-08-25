@@ -83,70 +83,140 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
 
   return (
     <>
-      <div style={{ marginBottom: '24px' }}>
-        <Link href="/listens" className="btn-share" style={{ fontSize: '0.9375rem', fontWeight: 700 }}>
-          ← 전체 제안 목록으로 돌아가기
+      {/* Back Navigation */}
+      <div style={{ marginBottom: '32px' }}>
+        <Link
+          href="/listens"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            color: '#6E6E73',
+            fontSize: '0.9375rem',
+            fontWeight: 600,
+            textDecoration: 'none',
+          }}
+        >
+          ← 목록으로 돌아가기
         </Link>
       </div>
 
-      {/* 권한 안내 Banner */}
+      {/* Authorization Guidance Banners */}
       {!currentUser ? (
-        <div style={{ background: '#FFFBEB', border: '1px solid #FCD34D', padding: '16px 20px', borderRadius: '12px', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            backgroundColor: '#FFFBEB',
+            border: '1px solid #FCD34D',
+            borderRadius: '16px',
+            padding: '20px 24px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '16px',
+            marginBottom: '32px',
+          }}
+        >
           <div>
-            <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>🔒 제안 작성은 군민인증이 필요합니다.</strong>
-            <p style={{ margin: '4px 0 0 0', fontSize: '0.875rem', color: '#B45309' }}>카카오 간편 로그인 후 영광군민 인증을 완료하시면 군민 제안을 등록하실 수 있습니다.</p>
+            <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>🔒 제안 작성은 군민인증이 필요합니다</strong>
+            <p style={{ color: '#B45309', fontSize: '0.875rem', marginTop: '4px' }}>
+              카카오 간편 로그인 후 영광군민 인증을 완료하시면 제안을 등록하실 수 있습니다.
+            </p>
           </div>
-          <Link href="/" style={{ background: '#FEE500', color: '#191919', padding: '8px 14px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '0.8125rem', whiteSpace: 'nowrap' }}>
+          <Link href="/" className="btn-apple" style={{ backgroundColor: '#FEE500', color: '#191919', height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
             카카오 로그인
           </Link>
         </div>
       ) : !currentUser.isVerifiedResident ? (
-        <div style={{ background: '#EFF6FF', border: '1px solid #93C5FD', padding: '16px 20px', borderRadius: '12px', marginBottom: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            backgroundColor: '#F0F6FF',
+            border: '1px solid #93C5FD',
+            borderRadius: '16px',
+            padding: '20px 24px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '16px',
+            marginBottom: '32px',
+          }}
+        >
           <div>
-            <strong style={{ color: '#1E40AF', fontSize: '0.9375rem' }}>🪪 제안 작성을 위해 영광군민 인증이 필요합니다.</strong>
-            <p style={{ margin: '4px 0 0 0', fontSize: '0.875rem', color: '#1E3A8A' }}>현재 카카오 로그인 상태({currentUser.displayName})이나 군민 미인증 상태입니다.</p>
+            <strong style={{ color: '#1E40AF', fontSize: '0.9375rem' }}>🪪 제안 작성을 위해 영광군민 인증이 필요합니다</strong>
+            <p style={{ color: '#1E3A8A', fontSize: '0.875rem', marginTop: '4px' }}>
+              현재 카카오 로그인 상태({currentUser.displayName})이나 군민 미인증 상태입니다.
+            </p>
           </div>
-          <Link href="/verification" style={{ background: '#2563EB', color: 'white', padding: '8px 14px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '0.8125rem', whiteSpace: 'nowrap' }}>
+          <Link href="/verification" className="btn-apple btn-apple-primary" style={{ height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
             군민인증 신청 ➔
           </Link>
         </div>
       ) : null}
 
       {!submittedProposalId ? (
-        <div className="ask-detail-card" style={{ padding: '36px' }}>
-          <div style={{ marginBottom: '28px', borderBottom: '2px solid var(--teal)', paddingBottom: '16px' }}>
-            <span className="section-tag listen-tag" style={{ marginBottom: '8px' }}>
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            borderRadius: '24px',
+            padding: '40px 36px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
+          }}
+        >
+          {/* Header */}
+          <div style={{ marginBottom: '32px' }}>
+            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#00A896', backgroundColor: '#E6F7F5', padding: '4px 10px', borderRadius: '6px' }}>
               이야기 들려주기
             </span>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--navy)' }}>
-              영광군의회에 제안을 들려주세요
+            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#1D1D1F', marginTop: '8px', letterSpacing: '-0.5px' }}>
+              영광의 이야기를 들려주세요.
             </h1>
-            <p style={{ color: 'var(--text-sub)', fontSize: '0.9375rem', marginTop: '6px' }}>
-              군민 여러분의 생활 속 불편사항이나 영광의 발전을 위한 아이디어를 자유롭게 들려주세요.
+            <p style={{ color: '#6E6E73', fontSize: '0.9375rem', marginTop: '6px', lineHeight: 1.5 }}>
+              생활 속 불편사항, 정책 아이디어, 우리 동네 이야기를 자유롭게 제안해 보세요.
             </p>
           </div>
 
-          {/* Form Policy Agree Box */}
-          <div className="policy-agree-box">
-            <div className="policy-agree-title">📌 작성 시 유의사항 안내 (개인정보 보호)</div>
-            <ul style={{ paddingLeft: '18px', marginTop: '6px', listStyleType: 'disc' }}>
-              <li>주민등록번호, 전화번호, 주소 등 개인 식별 정보를 본문에 포함하지 마세요.</li>
-              <li>특정 개인이나 단체에 대한 비방, 명예훼손, 광고성 제안은 예고 없이 숨김 처리될 수 있습니다.</li>
-              <li>제안 내용은 영광군의회 담당 상임위원회 및 관계 부서에서 적극 검토합니다.</li>
+          {/* Privacy Notice Box */}
+          <div
+            style={{
+              backgroundColor: '#F5F5F7',
+              borderRadius: '16px',
+              padding: '20px 24px',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              marginBottom: '32px',
+            }}
+          >
+            <strong style={{ fontSize: '0.875rem', color: '#1D1D1F' }}>📌 작성 시 유의사항 (개인정보 보호)</strong>
+            <ul style={{ paddingLeft: '18px', marginTop: '8px', fontSize: '0.8125rem', color: '#6E6E73', lineHeight: 1.6 }}>
+              <li>주민등록번호, 전화번호, 상세주소 등 개인 식별 정보를 본문에 입력하지 마세요.</li>
+              <li>특정인에 대한 비방, 명예훼손, 광고성 내용은 예고 없이 숨김 처리될 수 있습니다.</li>
+              <li>작성해주신 소중한 제안은 영광군의회 관계 부서에서 적극 검토합니다.</li>
             </ul>
           </div>
 
-          <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '24px' }}>
-              <div>
-                <label className="admin-form-label" style={{ fontWeight: 700, marginBottom: '8px', display: 'block' }}>
-                  카테고리 선택 <span style={{ color: 'red' }}>*</span>
+          {/* Form */}
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+            {/* Category & Region */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                  카테고리 선택 <span style={{ color: '#DC2626' }}>*</span>
                 </label>
                 <select
-                  className="search-input"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  style={{ width: '100%' }}
+                  style={{
+                    width: '100%',
+                    height: '44px',
+                    padding: '0 14px',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    fontSize: '0.875rem',
+                    color: '#1D1D1F',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                  }}
                 >
                   <option value="">카테고리를 선택하세요</option>
                   {CATEGORIES.map((cat) => (
@@ -157,15 +227,24 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
                 </select>
               </div>
 
-              <div>
-                <label className="admin-form-label" style={{ fontWeight: 700, marginBottom: '8px', display: 'block' }}>
-                  해당 읍·면 지역 <span style={{ color: 'red' }}>*</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                  해당 읍·면 지역 <span style={{ color: '#DC2626' }}>*</span>
                 </label>
                 <select
-                  className="search-input"
                   value={selectedRegionId}
                   onChange={(e) => setSelectedRegionId(e.target.value)}
-                  style={{ width: '100%' }}
+                  style={{
+                    width: '100%',
+                    height: '44px',
+                    padding: '0 14px',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    fontSize: '0.875rem',
+                    color: '#1D1D1F',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                  }}
                 >
                   <option value="">지역을 선택하세요</option>
                   {regions.map((reg) => (
@@ -177,88 +256,109 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
               </div>
             </div>
 
-            <div style={{ marginBottom: '24px' }}>
-              <label className="admin-form-label" style={{ fontWeight: 700, marginBottom: '8px', display: 'block' }}>
-                제안 제목 (최대 80자) <span style={{ color: 'red' }}>*</span>
+            {/* Title */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                제안 제목 (최대 80자) <span style={{ color: '#DC2626' }}>*</span>
               </label>
               <input
                 type="text"
-                className="search-input"
                 maxLength={80}
-                placeholder="제안의 핵심 내용을 핵심 제목으로 입력하세요."
+                placeholder="제안하고자 하는 핵심 내용을 제목으로 써주세요."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                style={{ width: '100%' }}
+                style={{
+                  width: '100%',
+                  height: '44px',
+                  padding: '0 16px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  fontSize: '0.9375rem',
+                  color: '#1D1D1F',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
               />
-              <div style={{ textAlign: 'right', fontSize: '0.75rem', color: 'var(--text-sub)', marginTop: '4px' }}>
+              <div style={{ textAlign: 'right', fontSize: '0.8125rem', color: '#86868B' }}>
                 {title.length} / 80자
               </div>
             </div>
 
-            <div style={{ marginBottom: '28px' }}>
-              <label className="admin-form-label" style={{ fontWeight: 700, marginBottom: '8px', display: 'block' }}>
-                제안 내용 (최대 2,000자) <span style={{ color: 'red' }}>*</span>
+            {/* Content Textarea */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                제안 내용 (최대 2,000자) <span style={{ color: '#DC2626' }}>*</span>
               </label>
-              <div className="opinion-textarea-wrapper">
-                <textarea
-                  className="survey-textarea"
-                  style={{ minHeight: '220px' }}
-                  maxLength={2000}
-                  placeholder="### 이런 점이 불편합니다&#10;현장의 문제점이나 불편한 사유를 기술해주세요.&#10;&#10;### 이렇게 바뀌었으면 좋겠습니다&#10;의회나 관공서에 바라는 구체적인 개선 아이디어를 들려주세요."
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
-                <div className="textarea-char-counter">{content.length} / 2000자</div>
+              <textarea
+                rows={8}
+                maxLength={2000}
+                placeholder="### 이런 점이 불편합니다&#10;현장의 문제점이나 불편한 사유를 기술해주세요.&#10;&#10;### 이렇게 바뀌었으면 좋겠습니다&#10;의회나 관공서에 바라는 구체적인 개선 아이디어를 들려주세요."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  borderRadius: '14px',
+                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  fontSize: '0.9375rem',
+                  lineHeight: 1.6,
+                  color: '#1D1D1F',
+                  outline: 'none',
+                  resize: 'vertical',
+                  boxSizing: 'border-box',
+                }}
+              />
+              <div style={{ textAlign: 'right', fontSize: '0.8125rem', color: '#86868B' }}>
+                {content.length} / 2000자
               </div>
             </div>
 
-            <div style={{ marginBottom: '32px' }}>
-              <label className="policy-checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={policyAgreed}
-                  onChange={(e) => setPolicyAgreed(e.target.checked)}
-                />
-                <span>위 유의사항 및 개인정보 보호 지침 안내를 확인하였으며 동의합니다.</span>
-              </label>
-            </div>
+            {/* Privacy Agreement Checkbox */}
+            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#1D1D1F', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={policyAgreed}
+                onChange={(e) => setPolicyAgreed(e.target.checked)}
+                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+              />
+              <span>위 유의사항 및 개인정보 보호 지침 안내를 확인하였으며 동의합니다.</span>
+            </label>
 
-            <div style={{ display: 'flex', gap: '12px' }}>
-              <button
-                type="submit"
-                className="section-btn-action"
-                disabled={isSubmitting || !currentUser?.isVerifiedResident}
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  background: 'var(--teal)',
-                  minHeight: '52px',
-                  fontSize: '1.0625rem',
-                  opacity: !currentUser?.isVerifiedResident ? 0.6 : 1,
-                  cursor: !currentUser?.isVerifiedResident ? 'not-allowed' : 'pointer'
-                }}
-              >
-                {isSubmitting ? '등록 중...' : '의회에 제안 등록하기 ➔'}
-              </button>
-            </div>
+            {/* Submit Action */}
+            <button
+              type="submit"
+              className="btn-apple btn-apple-primary"
+              disabled={isSubmitting || !currentUser?.isVerifiedResident}
+              style={{
+                backgroundColor: '#00A896',
+                width: '100%',
+                height: '52px',
+                fontSize: '1rem',
+                opacity: !currentUser?.isVerifiedResident ? 0.5 : 1,
+                cursor: !currentUser?.isVerifiedResident ? 'not-allowed' : 'pointer',
+              }}
+            >
+              {isSubmitting ? '이야기를 보내는 중...' : '의회에 제안 등록하기 ➔'}
+            </button>
           </form>
         </div>
       ) : (
-        <div className="submitted-result-box" style={{ background: 'white', padding: '60px 24px', textAlign: 'center', borderRadius: 'var(--radius-lg)' }}>
-          <div className="success-icon-circle" style={{ background: 'var(--teal-light)', color: 'var(--teal)', margin: '0 auto 20px' }}>
+        /* Completion State */
+        <div style={{ backgroundColor: '#FFFFFF', padding: '64px 32px', textAlign: 'center', borderRadius: '24px', border: '1px solid rgba(0, 0, 0, 0.08)', boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#E6F7F5', color: '#00A896', fontSize: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
             ✓
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '12px' }}>
-            ✓ 이야기를 들려주셔서 감사합니다.
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1D1D1F', marginBottom: '12px' }}>
+            이야기를 들려주셔서 감사합니다.
           </h2>
-          <p style={{ color: 'var(--text-sub)', fontSize: '1rem', marginBottom: '28px', lineHeight: 1.6 }}>
-            등록해주신 소중한 제안은 영광군의회에 접수되어 담당 부서 및 상임위원회에서 적극 검토할 예정입니다.
+          <p style={{ color: '#6E6E73', fontSize: '1rem', marginBottom: '32px', lineHeight: 1.6 }}>
+            등록해 주신 소중한 제안은 영광군의회에 정상 접수되어 담당 부서 및 상임위원회에서 적극 검토할 예정입니다.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href={`/listens/${submittedProposalId}`} className="section-btn-action" style={{ background: 'var(--teal)' }}>
+            <Link href={`/listens/${submittedProposalId}`} className="btn-apple btn-apple-primary" style={{ backgroundColor: '#00A896' }}>
               내가 작성한 이야기 보기
             </Link>
-            <Link href="/listens" className="section-btn-action" style={{ background: 'var(--navy)' }}>
+            <Link href="/listens" className="btn-apple btn-apple-secondary">
               전체 제안 목록으로 이동
             </Link>
           </div>

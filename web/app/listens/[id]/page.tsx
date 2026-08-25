@@ -23,13 +23,15 @@ export default async function ProposalDetailPage({ params }: ProposalDetailPageP
   const comments = await getProposalComments(proposalId);
 
   return (
-    <main className="ask-detail-container">
-      <ProposalDetailClient
-        proposal={proposal}
-        currentUser={user}
-        initialEmpathyState={empathyState}
-        initialComments={comments}
-      />
+    <main style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', padding: '48px 24px 80px 24px', color: '#1D1D1F' }}>
+      <div style={{ maxWidth: '820px', margin: '0 auto' }}>
+        <ProposalDetailClient
+          proposal={proposal}
+          currentUser={user}
+          initialEmpathyState={empathyState}
+          initialComments={comments}
+        />
+      </div>
     </main>
   );
 }

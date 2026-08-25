@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import Link from 'next/link';
 import { Proposal } from '@/lib/types';
 import ListenCard from '@/components/ListenCard';
 
@@ -52,37 +51,85 @@ export default function ListensListClient({ initialProposals }: ListensListClien
   }, [initialProposals, currentCategory, currentRegion, currentSort, searchQuery]);
 
   return (
-    <>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div className="filter-pills" id="listen-category-pills" style={{ marginBottom: 0 }}>
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              className={`pill-btn ${currentCategory === cat ? 'active' : ''}`}
-              onClick={() => setCurrentCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      {/* Compact Filter Toolbar */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          backgroundColor: '#F5F5F7',
+          padding: '20px 24px',
+          borderRadius: '16px',
+          border: '1px solid rgba(0, 0, 0, 0.06)',
+        }}
+      >
+        {/* Category Pills */}
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          {CATEGORIES.map((cat) => {
+            const isActive = currentCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setCurrentCategory(cat)}
+                style={{
+                  height: '36px',
+                  padding: '0 16px',
+                  borderRadius: '10px',
+                  fontSize: '0.875rem',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? '#FFFFFF' : '#1D1D1F',
+                  backgroundColor: isActive ? '#00A896' : '#FFFFFF',
+                  border: isActive ? 'none' : '1px solid rgba(0, 0, 0, 0.08)',
+                  cursor: 'pointer',
+                  transition: 'all 150ms ease',
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
+        {/* Search, Region & Sort Filters */}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, minWidth: '240px' }}>
             <input
               type="text"
-              className="search-input"
-              placeholder="제목, 내용, 작성자 검색..."
+              placeholder="제목, 내용 검색..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: '100%',
+                height: '40px',
+                padding: '0 16px',
+                borderRadius: '10px',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                backgroundColor: '#FFFFFF',
+                fontSize: '0.875rem',
+                color: '#1D1D1F',
+                outline: 'none',
+              }}
             />
           </div>
 
           <div style={{ width: '160px' }}>
             <select
-              className="search-input"
-              style={{ cursor: 'pointer' }}
               value={currentRegion}
               onChange={(e) => setCurrentRegion(e.target.value)}
+              style={{
+                width: '100%',
+                height: '40px',
+                padding: '0 12px',
+                borderRadius: '10px',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                backgroundColor: '#FFFFFF',
+                fontSize: '0.875rem',
+                color: '#1D1D1F',
+                outline: 'none',
+                cursor: 'pointer',
+              }}
             >
               {REGIONS.map((reg) => (
                 <option key={reg} value={reg}>
@@ -94,10 +141,20 @@ export default function ListensListClient({ initialProposals }: ListensListClien
 
           <div style={{ width: '140px' }}>
             <select
-              className="search-input"
-              style={{ cursor: 'pointer' }}
               value={currentSort}
               onChange={(e) => setCurrentSort(e.target.value)}
+              style={{
+                width: '100%',
+                height: '40px',
+                padding: '0 12px',
+                borderRadius: '10px',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                backgroundColor: '#FFFFFF',
+                fontSize: '0.875rem',
+                color: '#1D1D1F',
+                outline: 'none',
+                cursor: 'pointer',
+              }}
             >
               <option value="latest">최신순</option>
               <option value="empathy">공감순</option>
@@ -107,27 +164,37 @@ export default function ListensListClient({ initialProposals }: ListensListClien
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid var(--teal)', paddingBottom: '12px' }}>
-        <div style={{ fontSize: '0.9375rem', color: 'var(--navy)', fontWeight: 700 }}>
-          총 <strong style={{ color: 'var(--teal)' }}>{filteredListens.length}</strong>건의 군민 이야기가 있습니다.
+      {/* Count Result Bar */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#6E6E73', fontSize: '0.9375rem' }}>
+        <div>
+          총 <strong style={{ color: '#00A896', fontWeight: 800 }}>{filteredListens.length}</strong>건의 군민 이야기가 있습니다.
         </div>
-        <span className="demo-tag-pill">※ 본 제안은 시연용 예시 데이터입니다.</span>
+        <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>※ 시연용 데이터입니다</span>
       </div>
 
+      {/* Grid List */}
       {filteredListens.length > 0 ? (
-        <div className="cards-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
           {filteredListens.map((item) => (
             <ListenCard key={item.id} item={item} />
           ))}
         </div>
       ) : (
-        <div style={{ textAlign: 'center', padding: '60px 20px', background: 'white', borderRadius: 'var(--radius-md)', border: '1px dashed var(--border-strong)' }}>
-          <p style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '8px' }}>
+        <div
+          style={{
+            textAlign: 'center',
+            padding: '64px 20px',
+            backgroundColor: '#F5F5F7',
+            borderRadius: '20px',
+            border: '1px dashed rgba(0,0,0,0.12)',
+          }}
+        >
+          <p style={{ fontSize: '1.125rem', fontWeight: 700, color: '#1D1D1F', marginBottom: '8px' }}>
             등록된 이야기가 없습니다.
           </p>
-          <p style={{ fontSize: '0.9375rem', color: 'var(--text-sub)' }}>첫 번째 군민 이야기를 직접 작성해 보세요.</p>
+          <p style={{ fontSize: '0.875rem', color: '#6E6E73' }}>첫 번째 군민 이야기를 직접 작성해 보세요.</p>
         </div>
       )}
-    </>
+    </div>
   );
 }
