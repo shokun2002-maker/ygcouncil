@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>듣습니다. | 영광군의회 열린소통</title>
+  <meta name="description" content="영광군민이 영광군의회에 생활 속 불편, 정책 아이디어, 지역 현안에 대해 이야기하는 군민 제안 목록">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-area" aria-label="영광군의회 열린소통 메인으로 이동">
+        <div class="brand-symbol">ON</div>
+        <div class="brand-titles">
+          <span class="brand-title">영광군의회 열린소통</span>
+          <span class="brand-sub">군민과 의회가 함께 만드는 영광</span>
+        </div>
+      </a>
+      
+      <div class="header-actions">
+        <button id="btn-kakao" class="btn-kakao-login" aria-label="카카오로 시작하기">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.832 5.19 4.606 6.556-.2.744-.727 2.693-.833 3.109-.13.513.189.507.397.369.164-.109 2.607-1.77 3.654-2.482.71.103 1.44.158 2.176.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z"/>
+          </svg>
+          <span>카카오로 시작하기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subpage Banner Header (Teal Accent) -->
+  <section class="subpage-banner listen-banner">
+    <div class="subpage-banner-container" style="position: relative;">
+      <div class="subpage-title-badge">
+        <span>군민 → 의회 소통</span>
+        <span class="demo-tag-pill" style="background: rgba(255,255,255,0.2); color: white;">시연용</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h1 class="subpage-main-title">듣습니다.</h1>
+          <p class="subpage-main-desc">영광의 이야기를 들려주세요. 의회가 듣겠습니다. 생활 속 불편부터 정책 아이디어까지 군민 여러분의 목소리를 전해주세요.</p>
+        </div>
+        <a href="listen-write.html" class="section-btn-action" style="background: white; color: var(--teal); font-weight: 800; padding: 12px 24px; font-size: 1.0625rem; box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
+          ✍️ 내 이야기 들려주기
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="content-area" style="gap: 32px; padding-top: 36px;">
+    
+    <!-- Category Filter Pills -->
+    <div class="filter-pills" id="listen-category-pills" style="margin-bottom: 0;">
+      <button class="pill-btn active" data-category="전체">전체</button>
+      <button class="pill-btn" data-category="생활환경">생활환경</button>
+      <button class="pill-btn" data-category="교통">교통</button>
+      <button class="pill-btn" data-category="복지">복지</button>
+      <button class="pill-btn" data-category="청년">청년</button>
+      <button class="pill-btn" data-category="교육">교육</button>
+      <button class="pill-btn" data-category="문화·관광">문화·관광</button>
+      <button class="pill-btn" data-category="농업">농업</button>
+      <button class="pill-btn" data-category="지역경제">지역경제</button>
+      <button class="pill-btn" data-category="기타">기타</button>
+    </div>
+
+    <!-- Toolbar: Region Filter & Search & Sorting -->
+    <div class="toolbar-container" style="margin-bottom: 16px;">
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <!-- 11개 읍면 지역 필터 -->
+        <select id="listen-region-select" class="select-control" aria-label="지역 선택">
+          <option value="영광군 전체">📍 영광군 전체 (11개 읍·면)</option>
+          <option value="영광읍">영광읍</option>
+          <option value="백수읍">백수읍</option>
+          <option value="홍농읍">홍농읍</option>
+          <option value="대마면">대마면</option>
+          <option value="묘량면">묘량면</option>
+          <option value="불갑면">불갑면</option>
+          <option value="군서면">군서면</option>
+          <option value="군남면">군남면</option>
+          <option value="염산면">염산면</option>
+          <option value="법성면">법성면</option>
+          <option value="낙월면">낙월면</option>
+        </select>
+
+        <!-- 정렬 옵션 -->
+        <select id="listen-sort-select" class="select-control" aria-label="정렬 순서">
+          <option value="latest">⏱️ 최신순</option>
+          <option value="empathy">♡ 공감순</option>
+          <option value="comments">💬 의견많은순</option>
+        </select>
+      </div>
+
+      <!-- Search Input Box -->
+      <div class="search-box-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="listen-search-input" class="search-input" placeholder="군민 제안 검색 (제목, 내용, 작성자)" aria-label="군민 제안 검색">
+      </div>
+    </div>
+
+    <!-- Active Filter Display Bar & Notice -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--teal); padding-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+      <div style="font-size: 0.9375rem; color: var(--navy); font-weight: 700;">
+        <span>총 <strong id="listen-result-count" style="color: var(--teal);">0</strong>건의 군민 이야기가 있습니다.</span>
+      </div>
+      <span class="demo-tag-pill">※ 본 데이터는 시연용 예시 제안입니다.</span>
+    </div>
+
+    <!-- Dynamic Proposal Cards Grid -->
+    <div id="listens-grid-container" class="cards-grid">
+      <!-- Injected via main.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="listens-empty-state" style="display: none; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius-md); border: 1px dashed var(--border-strong);">
+      <p style="font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 8px;">조건에 해당하는 군민 제안이 없습니다.</p>
+      <p style="font-size: 0.9375rem; color: var(--text-sub); margin-bottom: 20px;">다른 검색어나 지역/카테고리 필터를 선택해 보세요.</p>
+      <a href="listen-write.html" class="section-btn-action" style="display: inline-flex; background: var(--teal);">직접 제안 작성하기</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <b>영광군의회 열린소통</b>
+        <span>묻고, 듣고, 함께 바꿉니다. (우 57036 전라남도 영광군 영광읍 중앙로 179)</span>
+      </div>
+      <div class="footer-nav">
+        <a href="#">이용안내</a>
+        <span>·</span>
+        <a href="#">개인정보처리방침</a>
+        <span>·</span>
+        <a href="admin.html" class="footer-admin-link">관리자</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Modal Window -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal-window">
+      <button id="btn-modal-close" class="btn-modal-close" aria-label="닫기">×</button>
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">안내</h3>
+      </div>
+      <p id="modal-desc" class="modal-desc"></p>
+      
+      <div id="modal-actions" class="modal-actions" style="display: none;">
+        <button id="btn-share-kakao" class="btn-share-option btn-share-kakao">
+          <span>🟡 카카오톡</span>
+        </button>
+        <button id="btn-share-fb" class="btn-share-option btn-share-fb">
+          <span>🟦 페이스북</span>
+        </button>
+        <button id="btn-share-copy" class="btn-share-option btn-share-copy">
+          <span>🔗 링크 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="ask-data.js"></script>
+  <script src="listen-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

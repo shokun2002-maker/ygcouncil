@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이야기 들려주기 | 영광군의회 열린소통</title>
+  <meta name="description" content="영광군민 자유 제안 및 불편사항 이야기 들려주기 작성">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-area" aria-label="영광군의회 열린소통 메인으로 이동">
+        <div class="brand-symbol">ON</div>
+        <div class="brand-titles">
+          <span class="brand-title">영광군의회 열린소통</span>
+          <span class="brand-sub">군민과 의회가 함께 만드는 영광</span>
+        </div>
+      </a>
+      
+      <div class="header-actions">
+        <button id="btn-kakao" class="btn-kakao-login" aria-label="카카오로 시작하기">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.832 5.19 4.606 6.556-.2.744-.727 2.693-.833 3.109-.13.513.189.507.397.369.164-.109 2.607-1.77 3.654-2.482.71.103 1.44.158 2.176.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z"/>
+          </svg>
+          <span>카카오로 시작하기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subpage Banner Header -->
+  <section class="subpage-banner listen-banner">
+    <div class="subpage-banner-container">
+      <div class="subpage-title-badge">
+        <span>군민 → 의회 이야기 접수</span>
+        <span class="demo-tag-pill" style="background: rgba(255,255,255,0.2); color: white;">시연용</span>
+      </div>
+      <h1 class="subpage-main-title">이야기 들려주기</h1>
+      <p class="subpage-main-desc">생활 속에서 느낀 불편이나 영광의 더 나은 미래를 위한 아이디어를 자유롭게 들려주세요.</p>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="ask-detail-container">
+    
+    <div style="margin-bottom: 24px;">
+      <a href="listens.html" class="btn-share" style="font-size: 0.9375rem; font-weight: 700;">← 전체 제안 목록으로 돌아가기</a>
+    </div>
+
+    <!-- Write Card Form Container -->
+    <div id="listen-write-card-wrapper">
+      <article class="ask-detail-card">
+        
+        <div class="ask-detail-header" style="margin-bottom: 24px; padding-bottom: 16px;">
+          <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--navy);">✍️ 군민 제안 작성하기</h2>
+          <p style="font-size: 0.9375rem; color: var(--text-sub); margin-top: 4px;">작성하신 내용은 시연용 시스템(LocalStorage)에 저장되어 군민 제안 목록에 바로 게시됩니다.</p>
+        </div>
+
+        <form id="listen-proposal-form">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <!-- Category -->
+            <div class="admin-form-group">
+              <label class="admin-form-label">어떤 이야기인가요? (카테고리) <span style="color: red;">*</span></label>
+              <select id="write-category-select" class="admin-form-control" required>
+                <option value="">카테고리를 선택해 주세요</option>
+                <option value="생활환경">생활환경</option>
+                <option value="교통">교통</option>
+                <option value="복지">복지</option>
+                <option value="청년">청년</option>
+                <option value="교육">교육</option>
+                <option value="문화·관광">문화·관광</option>
+                <option value="농업">농업</option>
+                <option value="지역경제">지역경제</option>
+                <option value="기타">기타</option>
+              </select>
+            </div>
+
+            <!-- Region -->
+            <div class="admin-form-group">
+              <label class="admin-form-label">어느 지역 이야기인가요? (지역) <span style="color: red;">*</span></label>
+              <select id="write-region-select" class="admin-form-control" required>
+                <option value="">지역을 선택해 주세요</option>
+                <option value="영광군 전체">영광군 전체</option>
+                <option value="영광읍">영광읍</option>
+                <option value="백수읍">백수읍</option>
+                <option value="홍농읍">홍농읍</option>
+                <option value="대마면">대마면</option>
+                <option value="묘량면">묘량면</option>
+                <option value="불갑면">불갑면</option>
+                <option value="군서면">군서면</option>
+                <option value="군남면">군남면</option>
+                <option value="염산면">염산면</option>
+                <option value="법성면">법성면</option>
+                <option value="낙월면">낙월면</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <div class="admin-form-group">
+            <label class="admin-form-label">제안 제목 <span style="color: red;">*</span></label>
+            <input type="text" id="write-title-input" class="admin-form-control" maxlength="80" placeholder="예: 영광읍 중앙시장 보행자 안전 펜스 설치 요청" required />
+            <div class="textarea-char-counter"><span id="title-char-count">0</span> / 80자</div>
+          </div>
+
+          <!-- Content -->
+          <div class="admin-form-group">
+            <label class="admin-form-label">내용을 들려주세요 <span style="color: red;">*</span></label>
+            <textarea id="write-content-input" class="survey-textarea" style="min-height: 220px;" maxlength="2000" placeholder="불편을 느끼신 현재 상황과 어떻게 개선되었으면 하는지를 상세히 적어주시면 영광군의회가 이해하는 데 큰 도움이 됩니다." required></textarea>
+            <div class="textarea-char-counter"><span id="content-char-count">0</span> / 2000자</div>
+          </div>
+
+          <!-- Notice Policy Box -->
+          <div class="policy-agree-box">
+            <div class="policy-agree-title">⚠️ 작성 전 유의사항 안내</div>
+            <ul style="padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 4px;">
+              <li>특정인의 실명, 전화번호, 주소 등 <strong>개인정보를 절대로 포함하지 마세요.</strong></li>
+              <li>욕설, 비방, 허위사실, 광고성 내용은 운영정책에 따라 삭제되거나 게시가 제한될 수 있습니다.</li>
+              <li>본 서비스는 현재 V3 프론트엔드 시연용 브라우저 기반으로 구동됩니다.</li>
+            </ul>
+
+            <label class="policy-checkbox-label">
+              <input type="checkbox" id="policy-agree-check" required />
+              <span>[필수] 위 안내사항을 확인하였으며 이에 동의합니다.</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="submit-action-bar">
+            <button type="submit" class="btn-submit-vote" style="background: var(--teal);">
+              <span> 이야기 전달하기 ➔</span>
+            </button>
+          </div>
+
+        </form>
+
+      </article>
+    </div>
+
+    <!-- Success Completed Screen Box (Hidden Inital) -->
+    <div id="listen-write-success-box" class="submitted-result-box" style="display: none;">
+      <div class="success-badge-header">
+        <div class="success-icon-circle" style="background: var(--teal-light); color: var(--teal);">✓</div>
+        <h3 class="success-title">이야기를 들려주셔서 감사합니다.</h3>
+        <p class="success-desc">보내주신 소중한 군민 의견이 접수되었습니다. 영광군의회가 경청하겠습니다.</p>
+      </div>
+
+      <div style="background: var(--bg-light); padding: 20px; border-radius: var(--radius-md); margin-bottom: 28px; border: 1px solid var(--border);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 0.8125rem; font-weight: 700; color: var(--text-sub);">접수 상태</span>
+          <span class="badge-status status-active">접수 완료</span>
+        </div>
+        <h4 id="success-submitted-title" style="font-size: 1.125rem; font-weight: 800; color: var(--navy);">제안 제목</h4>
+      </div>
+
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a id="btn-view-my-proposal" href="#" class="section-btn-action" style="flex: 1; justify-content: center; background: var(--teal);">내가 작성한 이야기 보기</a>
+        <a href="listens.html" class="section-btn-action" style="flex: 1; justify-content: center; background: var(--navy);">다른 군민 이야기 보기</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <b>영광군의회 열린소통</b>
+        <span>묻고, 듣고, 함께 바꿉니다. (우 57036 전라남도 영광군 영광읍 중앙로 179)</span>
+      </div>
+      <div class="footer-nav">
+        <a href="#">이용안내</a>
+        <span>·</span>
+        <a href="#">개인정보처리방침</a>
+        <span>·</span>
+        <a href="admin.html" class="footer-admin-link">관리자</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Modal Window -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal-window">
+      <button id="btn-modal-close" class="btn-modal-close" aria-label="닫기">×</button>
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">안내</h3>
+      </div>
+      <p id="modal-desc" class="modal-desc"></p>
+      
+      <div id="modal-actions" class="modal-actions" style="display: none;">
+        <button id="btn-share-kakao" class="btn-share-option btn-share-kakao">
+          <span>🟡 카카오톡</span>
+        </button>
+        <button id="btn-share-fb" class="btn-share-option btn-share-fb">
+          <span>🟦 페이스북</span>
+        </button>
+        <button id="btn-share-copy" class="btn-share-option btn-share-copy">
+          <span>🔗 링크 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="ask-data.js"></script>
+  <script src="listen-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

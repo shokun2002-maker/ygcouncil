@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>제안 상세 | 영광군의회 열린소통</title>
+  <meta name="description" content="영광군민 제안 상세 내용, 공감하기 및 군민 의견 수렴">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-area" aria-label="영광군의회 열린소통 메인으로 이동">
+        <div class="brand-symbol">ON</div>
+        <div class="brand-titles">
+          <span class="brand-title">영광군의회 열린소통</span>
+          <span class="brand-sub">군민과 의회가 함께 만드는 영광</span>
+        </div>
+      </a>
+      
+      <div class="header-actions">
+        <button id="btn-kakao" class="btn-kakao-login" aria-label="카카오로 시작하기">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.832 5.19 4.606 6.556-.2.744-.727 2.693-.833 3.109-.13.513.189.507.397.369.164-.109 2.607-1.77 3.654-2.482.71.103 1.44.158 2.176.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z"/>
+          </svg>
+          <span>카카오로 시작하기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="ask-detail-container">
+    
+    <!-- Top Action Links -->
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+      <a href="listens.html" class="btn-share" style="font-size: 0.9375rem; font-weight: 700;">← 전체 제안 목록으로</a>
+      <button id="btn-share-listen-detail" class="btn-share">↗ 공유</button>
+    </div>
+
+    <!-- Invalid ID Error Box -->
+    <div id="listen-detail-error" style="display: none; background: white; padding: 60px 24px; text-align: center; border-radius: var(--radius-lg); border: 1px solid var(--border);">
+      <h2 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 12px;">존재하지 않는 군민 제안입니다.</h2>
+      <p style="color: var(--text-sub); margin-bottom: 24px;">요청하신 제안 정보를 찾을 수 없습니다.</p>
+      <a href="listens.html" class="section-btn-action" style="display: inline-flex; background: var(--teal);">제안 목록 전체보기</a>
+    </div>
+
+    <!-- Main Detail Card Wrapper -->
+    <div id="listen-detail-wrapper">
+      <article class="ask-detail-card">
+        
+        <!-- Detail Header -->
+        <div class="ask-detail-header">
+          <div class="ask-detail-meta">
+            <span class="section-tag listen-tag">듣습니다</span>
+            <span id="detail-listen-category" class="card-category">카테고리</span>
+            <span id="detail-listen-region" class="badge-status status-visit">지역</span>
+            <span id="detail-listen-status" class="badge-status status-review">처리상태</span>
+            <span id="detail-listen-eligible" class="demo-tag-pill" style="display: none; background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A;">🔥 공론화 관심</span>
+            <span class="demo-tag-pill">※ 시연용 예시 제안</span>
+          </div>
+
+          <h1 id="detail-listen-title" class="ask-detail-title">군민 제안 제목이 로딩 중입니다...</h1>
+
+          <div class="ask-detail-info-bar">
+            <span>👤 작성자: <strong id="detail-listen-author">김○○</strong></span>
+            <span>📅 접수일: <strong id="detail-listen-date">-</strong></span>
+            <span>👁️ 조회수: <strong id="detail-listen-views">0</strong>회</span>
+            <span>♡ 공감: <strong id="detail-listen-empathy-count">0</strong>건</span>
+            <span>💬 의견: <strong id="detail-listen-comment-count">0</strong>개</span>
+          </div>
+        </div>
+
+        <!-- Body Content -->
+        <div id="detail-listen-content" style="font-size: 1.0625rem; color: var(--text); line-height: 1.8; margin-bottom: 36px; white-space: pre-line;">
+          <!-- Body Text -->
+        </div>
+
+        <!-- Action: Empathy Large Button -->
+        <div style="margin-bottom: 40px;">
+          <button id="btn-empathy-action" class="btn-empathy-large">
+            <span id="empathy-heart-icon">♡</span>
+            <span id="empathy-btn-text">이 제안에 공감합니다</span>
+            <span id="empathy-badge-count" style="font-size: 1.125rem; opacity: 0.9;">(327)</span>
+          </button>
+          <span style="font-size: 0.8125rem; color: var(--text-sub); display: block; text-align: center; margin-top: 8px;">
+            ※ 클릭 시 공감이 등록되며 다시 누르면 취소할 수 있습니다. (시연용 LocalStorage 저장)
+          </span>
+        </div>
+
+        <!-- Official Council Response (Conditional) -->
+        <div id="admin-response-container" style="display: none;">
+          <div class="admin-response-box">
+            <div class="admin-response-header">
+              <div class="admin-response-title">
+                <span>🏛️ 영광군의회 공식 답변</span>
+              </div>
+              <span class="demo-tag-pill">※ 시연용 답변 예시입니다.</span>
+            </div>
+            <p id="admin-response-text" class="admin-response-text"></p>
+            <div style="font-size: 0.8125rem; color: var(--text-sub); margin-top: 10px; text-align: right;">
+              답변 부서: <strong id="admin-response-dept">-</strong> (<span id="admin-response-date">-</span>)
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Step Box -->
+        <div class="timeline-container">
+          <div class="timeline-title">
+            <span>🗺️ 의회가 이렇게 듣고 있습니다</span>
+          </div>
+          <div id="timeline-steps-list" class="timeline-list">
+            <!-- Injected via main.js -->
+          </div>
+        </div>
+
+        <!-- Related Ask Section (Conditional) -->
+        <div id="related-ask-container" style="display: none;">
+          <div class="related-ask-box">
+            <div class="related-ask-title">
+              <span>📢 이 제안과 관련해 의회가 군민에게 묻고 있습니다!</span>
+            </div>
+            <p style="font-size: 0.9375rem; color: var(--text-sub);">본 군민 제안을 바탕으로 영광군의회에서 실시 중인 공식 안건 수렴에 의견을 남겨주세요.</p>
+            <div id="related-ask-card-wrapper">
+              <!-- Linked Ask Card -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Citizen Comments Section -->
+        <div class="comments-section">
+          <h3 class="comments-title">💬 이 제안에 대한 군민 의견 (<span id="comments-total-count">0</span>)</h3>
+          
+          <!-- Comment Input Form -->
+          <div class="comment-input-box">
+            <form id="comment-write-form">
+              <textarea id="comment-text-input" class="survey-textarea" style="min-height: 80px;" maxlength="500" placeholder="이 제안에 대해 응원이나 보완 의견을 자유롭게 작성해 주세요. (최대 500자)" required></textarea>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size: 0.75rem; color: var(--text-sub);">※ 개인정보(성명, 전화번호 등)를 제외하고 작성해 주세요. (시연용)</span>
+                <button type="submit" class="btn-card-action" style="background: var(--teal); color: white; padding: 8px 18px; font-size: 0.875rem;">의견 남기기</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Comment List -->
+          <div id="comments-list-wrapper" class="comment-list">
+            <!-- Injected via main.js -->
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <b>영광군의회 열린소통</b>
+        <span>묻고, 듣고, 함께 바꿉니다. (우 57036 전라남도 영광군 영광읍 중앙로 179)</span>
+      </div>
+      <div class="footer-nav">
+        <a href="#">이용안내</a>
+        <span>·</span>
+        <a href="#">개인정보처리방침</a>
+        <span>·</span>
+        <a href="admin.html" class="footer-admin-link">관리자</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Modal Window -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal-window">
+      <button id="btn-modal-close" class="btn-modal-close" aria-label="닫기">×</button>
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">안내</h3>
+      </div>
+      <p id="modal-desc" class="modal-desc"></p>
+      
+      <div id="modal-actions" class="modal-actions" style="display: none;">
+        <button id="btn-share-kakao" class="btn-share-option btn-share-kakao">
+          <span>🟡 카카오톡</span>
+        </button>
+        <button id="btn-share-fb" class="btn-share-option btn-share-fb">
+          <span>🟦 페이스북</span>
+        </button>
+        <button id="btn-share-copy" class="btn-share-option btn-share-copy">
+          <span>🔗 링크 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="ask-data.js"></script>
+  <script src="listen-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

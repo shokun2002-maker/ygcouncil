@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>안건 상세 | 영광군의회 열린소통</title>
+  <meta name="description" content="영광군의회 군민 의견수렴 안건 상세 및 투표 참여">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-area" aria-label="영광군의회 열린소통 메인으로 이동">
+        <div class="brand-symbol">ON</div>
+        <div class="brand-titles">
+          <span class="brand-title">영광군의회 열린소통</span>
+          <span class="brand-sub">군민과 의회가 함께 만드는 영광</span>
+        </div>
+      </a>
+      
+      <div class="header-actions">
+        <button id="btn-kakao" class="btn-kakao-login" aria-label="카카오로 시작하기">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.832 5.19 4.606 6.556-.2.744-.727 2.693-.833 3.109-.13.513.189.507.397.369.164-.109 2.607-1.77 3.654-2.482.71.103 1.44.158 2.176.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z"/>
+          </svg>
+          <span>카카오로 시작하기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Detail Container -->
+  <main class="ask-detail-container">
+    
+    <!-- Navigation Back Link -->
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+      <a href="asks.html" class="btn-share" style="font-size: 0.9375rem; font-weight: 700;">← 전체 안건 목록으로</a>
+      <button id="btn-share-detail" class="btn-share">↗ 공유</button>
+    </div>
+
+    <!-- Error State Container (Invalid ID) -->
+    <div id="detail-error-box" style="display: none; background: white; padding: 60px 24px; text-align: center; border-radius: var(--radius-lg); border: 1px solid var(--border);">
+      <h2 style="font-size: 1.5rem; color: var(--navy); margin-bottom: 12px;">존재하지 않거나 마감된 안건입니다.</h2>
+      <p style="color: var(--text-sub); margin-bottom: 24px;">요청하신 의견수렴 안건 정보를 찾을 수 없습니다.</p>
+      <a href="asks.html" class="section-btn-action" style="display: inline-flex;">안건 목록 전체보기</a>
+    </div>
+
+    <!-- Ask Detail Main Card Wrapper -->
+    <div id="detail-content-wrapper">
+      <article class="ask-detail-card">
+        <!-- Header Info -->
+        <div class="ask-detail-header">
+          <div class="ask-detail-meta">
+            <span class="section-tag ask-tag">묻습니다</span>
+            <span id="detail-category" class="card-category">카테고리</span>
+            <span id="detail-status" class="badge-status status-active">의견수렴 중</span>
+            <span class="demo-tag-pill">※ 시연용 예시 안건</span>
+          </div>
+
+          <h1 id="detail-title" class="ask-detail-title">안건 제목이 로딩 중입니다...</h1>
+
+          <div class="ask-detail-info-bar">
+            <span>📅 기간: <strong id="detail-period">-</strong></span>
+            <span>👥 참여자 수: <strong id="detail-count">0</strong>명</span>
+            <span>📍 대상: <strong id="detail-region">영광군 전체</strong></span>
+          </div>
+        </div>
+
+        <!-- Why Ask Box (Background) -->
+        <div class="why-ask-box">
+          <div class="why-ask-title">
+            <span>💡 왜 묻나요?</span>
+          </div>
+          <p id="detail-background" class="why-ask-desc">안건 배경 설명이 들어가는 자리입니다.</p>
+        </div>
+
+        <!-- Detailed Description -->
+        <div style="margin-bottom: 32px; font-size: 1rem; color: var(--text); line-height: 1.7;">
+          <p id="detail-description"></p>
+        </div>
+
+        <!-- Survey Section / Results Section Placeholder -->
+        <div id="survey-form-container" class="survey-section">
+          <!-- Form dynamically injected via main.js -->
+        </div>
+
+      </article>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <b>영광군의회 열린소통</b>
+        <span>묻고, 듣고, 함께 바꿉니다. (우 57036 전라남도 영광군 영광읍 중앙로 179)</span>
+      </div>
+      <div class="footer-nav">
+        <a href="#">이용안내</a>
+        <span>·</span>
+        <a href="#">개인정보처리방침</a>
+        <span>·</span>
+        <a href="admin.html" class="footer-admin-link">관리자</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Modal Window -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal-window">
+      <button id="btn-modal-close" class="btn-modal-close" aria-label="닫기">×</button>
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">안내</h3>
+      </div>
+      <p id="modal-desc" class="modal-desc"></p>
+      
+      <div id="modal-actions" class="modal-actions" style="display: none;">
+        <button id="btn-share-kakao" class="btn-share-option btn-share-kakao">
+          <span>🟡 카카오톡</span>
+        </button>
+        <button id="btn-share-fb" class="btn-share-option btn-share-fb">
+          <span>🟦 페이스북</span>
+        </button>
+        <button id="btn-share-copy" class="btn-share-option btn-share-copy">
+          <span>🔗 링크 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="ask-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

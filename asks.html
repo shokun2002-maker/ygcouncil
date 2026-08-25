@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>묻습니다. | 영광군의회 열린소통</title>
+  <meta name="description" content="영광군의회가 군민에게 정책, 조례, 예산, 지역현안에 대해 묻는 군민 의견수렴 안건 목록">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-area" aria-label="영광군의회 열린소통 메인으로 이동">
+        <div class="brand-symbol">ON</div>
+        <div class="brand-titles">
+          <span class="brand-title">영광군의회 열린소통</span>
+          <span class="brand-sub">군민과 의회가 함께 만드는 영광</span>
+        </div>
+      </a>
+      
+      <div class="header-actions">
+        <button id="btn-kakao" class="btn-kakao-login" aria-label="카카오로 시작하기">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.832 5.19 4.606 6.556-.2.744-.727 2.693-.833 3.109-.13.513.189.507.397.369.164-.109 2.607-1.77 3.654-2.482.71.103 1.44.158 2.176.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z"/>
+          </svg>
+          <span>카카오로 시작하기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subpage Banner Header -->
+  <section class="subpage-banner">
+    <div class="subpage-banner-container">
+      <div class="subpage-title-badge">
+        <span>의회 → 군민 소통</span>
+        <span class="demo-tag-pill">시연용</span>
+      </div>
+      <h1 class="subpage-main-title">묻습니다.</h1>
+      <p class="subpage-main-desc">영광군의회가 군민 여러분의 생각을 묻습니다. 정책 · 조례 · 예산 · 지역현안에 대해 의견을 들려주세요.</p>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="content-area" style="gap: 40px; padding-top: 40px;">
+    
+    <!-- Toolbar: Search & Filters -->
+    <div class="toolbar-container">
+      <div class="filter-pills" id="ask-filter-pills" style="margin-bottom: 0;">
+        <button class="pill-btn active" data-category="전체">전체</button>
+        <button class="pill-btn" data-category="청년정책">청년정책 (정책)</button>
+        <button class="pill-btn" data-category="조례">조례</button>
+        <button class="pill-btn" data-category="지역경제">예산·경제</button>
+        <button class="pill-btn" data-category="지역현안">지역현안</button>
+        <button class="pill-btn" data-category="자유의견">자유의견</button>
+      </div>
+
+      <div class="search-box-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="ask-search-input" class="search-input" placeholder="의견수렴 안건 검색 (제목, 요약)" aria-label="의견수렴 안건 검색">
+      </div>
+    </div>
+
+    <!-- Demo Notice Tag -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); padding-bottom: 12px;">
+      <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--navy);">진행 중인 의견수렴 안건</h2>
+      <span class="demo-tag-pill">※ 본 데이터는 시연용 예시 안건입니다.</span>
+    </div>
+
+    <!-- Dynamic Ask Cards Grid -->
+    <div id="asks-grid-container" class="cards-grid">
+      <!-- JavaScript Rendered -->
+    </div>
+
+    <!-- Empty Result State -->
+    <div id="asks-empty-state" style="display: none; text-align: center; padding: 60px 20px; background: white; border-radius: var(--radius-md); border: 1px dashed var(--border-strong);">
+      <p style="font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 8px;">검색 결과가 없습니다.</p>
+      <p style="font-size: 0.9375rem; color: var(--text-sub);">다른 검색어나 필터를 선택해 보세요.</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <b>영광군의회 열린소통</b>
+        <span>묻고, 듣고, 함께 바꿉니다. (우 57036 전라남도 영광군 영광읍 중앙로 179)</span>
+      </div>
+      <div class="footer-nav">
+        <a href="#">이용안내</a>
+        <span>·</span>
+        <a href="#">개인정보처리방침</a>
+        <span>·</span>
+        <a href="admin.html" class="footer-admin-link">관리자</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Unified Modal Window -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal-window">
+      <button id="btn-modal-close" class="btn-modal-close" aria-label="닫기">×</button>
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">안내</h3>
+      </div>
+      <p id="modal-desc" class="modal-desc"></p>
+      
+      <div id="modal-actions" class="modal-actions" style="display: none;">
+        <button id="btn-share-kakao" class="btn-share-option btn-share-kakao">
+          <span>🟡 카카오톡</span>
+        </button>
+        <button id="btn-share-fb" class="btn-share-option btn-share-fb">
+          <span>🟦 페이스북</span>
+        </button>
+        <button id="btn-share-copy" class="btn-share-option btn-share-copy">
+          <span>🔗 링크 복사</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="ask-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
