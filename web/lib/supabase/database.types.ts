@@ -988,6 +988,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      ensure_member_registration: {
+        Args: {
+          p_tenant_id: string
+        }
+        Returns: Json
+      }
       submit_ask_vote: {
         Args: {
           p_ask_id: string
