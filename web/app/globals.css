@@ -1,38 +1,160 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
 :root {
+  /* Legacy Color Fallbacks */
   --navy: #123B6D;
   --navy-dark: #0B1E36;
   --navy-light: #1E4F8B;
-  --blue: #1769D2;
-  --blue-light: #EBF3FF;
-  --blue-hover: #1355AD;
-  --teal: #16A39A;
-  --teal-light: #E7F8F6;
-  --teal-hover: #11827B;
-  --bg-light: #F6F9FC;
+  --blue: #0066CC;
+  --blue-light: #F0F6FF;
+  --blue-hover: #0052A3;
+  --teal: #00A896;
+  --teal-light: #E6F7F5;
+  --teal-hover: #008778;
+  --bg-light: #FFFFFF;
   --card-bg: #FFFFFF;
-  --text: #172033;
-  --text-sub: #5A687C;
-  --text-muted: #8A98AC;
-  --border: #E5EAF0;
-  --border-strong: #D1DCE8;
+  --text: #1D1D1F;
+  --text-sub: #6E6E73;
+  --text-muted: #86868B;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.16);
+
+  /* Apple-inspired Semantic Tokens */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #FBFBFD;
+
+  --text-primary: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-tertiary: #86868B;
+
+  --accent-primary: #0066CC;
+  --accent-hover: #0052A3;
+  --accent-light: #F0F6FF;
+
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.12);
+
   --kakao-yellow: #FEE500;
   --kakao-text: #191919;
   --warning: #D97706;
   --warning-bg: #FEF3C7;
   --success: #059669;
   --success-bg: #D1FAE5;
-  --info: #2563EB;
-  --info-bg: #DBEAFE;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --danger: #DC2626;
+  --danger-bg: #FEE2E2;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-pill: 9999px;
-  --shadow-sm: 0 2px 8px rgba(18, 59, 109, 0.04);
-  --shadow-md: 0 10px 30px rgba(18, 59, 109, 0.08);
-  --shadow-lg: 0 20px 45px rgba(18, 59, 109, 0.12);
-  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 50px rgba(0, 0, 0, 0.15);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --container-wide: 1200px;
+  --container-reading: 760px;
+  --container-admin: 1400px;
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 220ms ease;
+
+  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Accessibility Focus Ring */
+*:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Apple-inspired Primitives */
+.btn-apple {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-apple-primary {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+}
+
+.btn-apple-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-apple-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-apple-secondary:hover {
+  background-color: #E8E8ED;
+}
+
+.btn-apple-ghost {
+  background-color: transparent;
+  color: var(--accent-primary);
+}
+
+.btn-apple-ghost:hover {
+  background-color: rgba(0, 102, 204, 0.06);
+}
+
+.btn-apple-danger {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.card-apple {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px 32px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.card-apple:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.badge-apple {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 /* Reset & Accessibility Defaults */

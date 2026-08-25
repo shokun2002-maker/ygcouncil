@@ -43,14 +43,28 @@ export default function LoginButton() {
       onClick={handleKakaoLogin}
       disabled={isLoading}
       style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px',
+        height: '44px',
+        padding: '0 18px',
+        borderRadius: '12px',
+        backgroundColor: '#FEE500',
+        color: '#191919',
+        fontWeight: 700,
+        fontSize: '0.9375rem',
+        border: 'none',
+        cursor: isLoading ? 'wait' : 'pointer',
         opacity: isLoading ? 0.7 : 1,
-        cursor: isLoading ? 'wait' : 'pointer'
+        transition: 'all 150ms ease',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
       }}
     >
       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
         <path d="M12 3C6.477 3 2 6.477 2 10.765c0 2.766 1.832 5.19 4.606 6.556-.2.744-.727 2.693-.833 3.109-.13.513.189.507.397.369.164-.109 2.607-1.77 3.654-2.482.71.103 1.44.158 2.176.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z" />
       </svg>
-      <span>{isLoading ? '카카오로 연결 중...' : '카카오로 시작하기'}</span>
+      <span>{isLoading ? '연결 중...' : '카카오로 시작하기'}</span>
     </button>
   );
 }
