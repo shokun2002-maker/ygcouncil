@@ -33,7 +33,7 @@ export default async function AdminOutcomesPage() {
             </p>
           </div>
           <div style={{ backgroundColor: '#F5F5F7', padding: '8px 16px', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.06)', fontSize: '0.875rem', color: '#1D1D1F', fontWeight: 600 }}>
-            👤 {user.displayName} <span style={{ color: '#0066CC', fontSize: '0.8125rem' }}>({user.role})</span>
+            {user.displayName} <span style={{ color: '#0066CC', fontSize: '0.8125rem' }}>({user.role})</span>
           </div>
         </div>
 

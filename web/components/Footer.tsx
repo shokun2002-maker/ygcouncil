@@ -6,11 +6,11 @@ export default function Footer() {
     <footer
       style={{
         backgroundColor: '#F5F5F7',
-        borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-        padding: '48px 24px',
-        marginTop: '64px',
+        borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+        padding: '56px 24px 48px',
+        marginTop: '80px',
         color: '#6E6E73',
-        fontSize: '0.875rem',
+        fontSize: '0.9375rem',
         fontFamily: 'var(--font-main)',
       }}
     >
@@ -20,7 +20,7 @@ export default function Footer() {
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: '24px',
+          gap: '32px',
         }}
       >
         <div
@@ -29,30 +29,32 @@ export default function Footer() {
             justifyContent: 'space-between',
             alignItems: 'flex-start',
             flexWrap: 'wrap',
-            gap: '16px',
+            gap: '24px',
           }}
         >
-          <div>
-            <div style={{ fontSize: '1rem', fontWeight: 700, color: '#1D1D1F', marginBottom: '6px' }}>
-              🏛️ 영광군의회 열린소통 ON
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1D1D1F', letterSpacing: '-0.3px' }}>
+              영광군의회 열린소통 ON
             </div>
-            <p style={{ color: '#6E6E73', fontSize: '0.875rem', lineHeight: 1.6 }}>
-              군민의 목소리가 의회의 변화가 됩니다. 묻고, 듣고, 함께 바꿉니다.<br />
+            <p style={{ color: '#6E6E73', fontSize: '1rem', lineHeight: 1.65 }}>
+              군민의 목소리가 의회의 변화가 됩니다. 묻고, 듣고, 함께 바꿉니다.
+            </p>
+            <p style={{ color: '#86868B', fontSize: '0.9375rem', lineHeight: 1.5 }}>
               (우 57036) 전라남도 영광군 영광읍 중앙로 179 영광군의회
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <Link href="/" style={{ color: '#6E6E73', textDecoration: 'none' }}>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center', fontSize: '0.9375rem' }}>
+            <Link href="/" style={{ color: '#424245', textDecoration: 'none', fontWeight: 500 }}>
               이용안내
             </Link>
             <span style={{ color: '#C7C7CC' }}>·</span>
-            <Link href="/" style={{ color: '#6E6E73', textDecoration: 'none', fontWeight: 600 }}>
+            <Link href="/" style={{ color: '#424245', textDecoration: 'none', fontWeight: 600 }}>
               개인정보처리방침
             </Link>
             <span style={{ color: '#C7C7CC' }}>·</span>
             <Link href="/admin" style={{ color: '#0066CC', textDecoration: 'none', fontWeight: 700 }}>
-              관리자 모드 ➔
+              관리자 모드
             </Link>
           </div>
         </div>
@@ -60,12 +62,14 @@ export default function Footer() {
         <div
           style={{
             borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-            paddingTop: '20px',
+            paddingTop: '24px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '12px',
             color: '#86868B',
-            fontSize: '0.8125rem',
+            fontSize: '0.875rem',
           }}
         >
           <span>Copyright © 2026 Yeonggwang County Council. All rights reserved.</span>

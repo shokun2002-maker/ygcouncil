@@ -42,7 +42,7 @@ export default function AskDetailClient({
         setSelectedOptions(selectedOptions.filter((id) => id !== optId));
       } else {
         if (selectedOptions.length >= max) {
-          alert(`⚠️ 이 안건은 최대 ${max}개까지 선택 가능합니다.`);
+          alert(`이 안건은 최대 ${max}개까지 선택 가능합니다.`);
           return;
         }
         setSelectedOptions([...selectedOptions, optId]);
@@ -54,24 +54,24 @@ export default function AskDetailClient({
     e.preventDefault();
 
     if (!currentUser) {
-      alert('🔒 투표 참여는 카카오 로그인이 필요합니다.');
+      alert('투표 참여는 카카오 로그인이 필요합니다.');
       return;
     }
 
     if (!currentUser.isVerifiedResident) {
-      alert('🪪 투표 참여는 영광군민 인증이 완료된 계정만 가능합니다.\n[군민인증 신청하기] 화면으로 이동합니다.');
+      alert('투표 참여는 영광군민 인증이 완료된 계정만 가능합니다.\n[군민인증 신청하기] 화면으로 이동합니다.');
       window.location.href = '/verification';
       return;
     }
 
     if (ask.surveyType === 'opinion') {
       if (!opinionText.trim()) {
-        alert('⚠️ 의견 내용을 입력해 주세요.');
+        alert('의견 내용을 입력해 주세요.');
         return;
       }
     } else {
       if (selectedOptions.length === 0) {
-        alert('⚠️ 수렴 항목을 최소 1개 이상 선택해 주세요.');
+        alert('수렴 항목을 최소 1개 이상 선택해 주세요.');
         return;
       }
     }
@@ -92,7 +92,7 @@ export default function AskDetailClient({
       if (error) {
         console.error('Vote submission error:', error);
         if (error.message.includes('이미 이 의견수렴에 참여')) {
-          alert('⚠️ 이미 이 의견수렴에 참여하셨습니다.');
+          alert('이미 이 의견수렴에 참여하셨습니다.');
         } else {
           alert(`투표 제출 실패: ${error.message}`);
         }
@@ -132,98 +132,98 @@ export default function AskDetailClient({
 
   return (
     <>
-      {/* Top Back & Action Navigation */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+      {/* Top Navigation */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
         <Link
           href="/asks"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            color: '#6E6E73',
-            fontSize: '0.9375rem',
+            color: '#424245',
+            fontSize: '1rem',
             fontWeight: 600,
             textDecoration: 'none',
           }}
         >
-          ← 목록으로 돌아가기
+          목록으로 돌아가기
         </Link>
         <button
           type="button"
           className="btn-apple btn-apple-secondary"
           onClick={() => setIsShareModalOpen(true)}
-          style={{ height: '36px', padding: '0 14px', fontSize: '0.875rem' }}
+          style={{ height: '40px', padding: '0 16px', fontSize: '0.9375rem' }}
         >
           공유하기
         </button>
       </div>
 
       {/* Main Question Article */}
-      <article style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <article style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
         {/* Question Header */}
-        <header style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0066CC', backgroundColor: '#F0F6FF', padding: '4px 10px', borderRadius: '6px' }}>
+        <header style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0066CC', backgroundColor: '#F0F6FF', padding: '4px 12px', borderRadius: '6px' }}>
               의견수렴 · {ask.category}
             </span>
             <span className="badge-apple" style={{ backgroundColor: '#D1FAE5', color: '#059669' }}>
               {ask.statusText}
             </span>
-            <span style={{ fontSize: '0.8125rem', color: '#86868B' }}>
-              ※ 시연용 안건
-            </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
               fontWeight: 800,
               lineHeight: 1.25,
-              letterSpacing: '-0.5px',
+              letterSpacing: '-0.03em',
               color: '#1D1D1F',
             }}
           >
             {ask.title}
           </h1>
 
+          {/* Typography-First Label + Value Metadata */}
           <div
             style={{
               display: 'flex',
-              gap: '16px',
+              gap: '24px',
               flexWrap: 'wrap',
-              fontSize: '0.875rem',
+              fontSize: '1rem',
               color: '#6E6E73',
-              paddingTop: '12px',
+              paddingTop: '16px',
               borderTop: '1px solid rgba(0,0,0,0.06)',
             }}
           >
-            <span>📅 기간: <strong style={{ color: '#1D1D1F' }}>{ask.startDate} ~ {ask.endDate}</strong></span>
-            <span>👥 참여자: <strong style={{ color: '#0066CC' }}>{results.totalParticipants}명</strong></span>
-            <span>📍 대상: <strong style={{ color: '#1D1D1F' }}>{ask.region}</strong></span>
+            <span>기간 <strong style={{ color: '#1D1D1F', fontWeight: 600 }}>{ask.startDate} ~ {ask.endDate}</strong></span>
+            <span style={{ color: '#C7C7CC' }}>·</span>
+            <span>참여 <strong style={{ color: '#0066CC', fontWeight: 700 }}>{results.totalParticipants}명</strong></span>
+            <span style={{ color: '#C7C7CC' }}>·</span>
+            <span>대상 <strong style={{ color: '#1D1D1F', fontWeight: 600 }}>{ask.region}</strong></span>
           </div>
         </header>
 
         {/* Question Description Body */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
           {ask.background && (
             <div
               style={{
                 backgroundColor: '#F5F5F7',
-                padding: '24px 28px',
+                padding: '28px 32px',
                 borderRadius: '16px',
                 border: '1px solid rgba(0, 0, 0, 0.06)',
               }}
             >
-              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#1D1D1F', marginBottom: '8px' }}>
-                💡 추진 배경 및 경과
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#1D1D1F', marginBottom: '10px' }}>
+                추진 배경 및 경과
               </h3>
-              <p style={{ fontSize: '0.9375rem', color: '#6E6E73', lineHeight: 1.65, whiteSpace: 'pre-line' }}>
+              <p style={{ fontSize: '1.0625rem', color: '#424245', lineHeight: 1.7, whiteSpace: 'pre-line' }}>
                 {ask.background}
               </p>
             </div>
           )}
 
-          <div style={{ fontSize: '1.0625rem', color: '#1D1D1F', lineHeight: 1.7, whiteSpace: 'pre-line' }}>
+          <div style={{ fontSize: '1.1875rem', color: '#1D1D1F', lineHeight: 1.75, whiteSpace: 'pre-line' }}>
             {ask.description}
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function AskDetailClient({
               backgroundColor: '#FFFBEB',
               border: '1px solid #FCD34D',
               borderRadius: '16px',
-              padding: '20px 24px',
+              padding: '24px 28px',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -244,12 +244,12 @@ export default function AskDetailClient({
             }}
           >
             <div>
-              <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>🔒 의견수렴 참여는 군민인증이 필요합니다</strong>
-              <p style={{ color: '#B45309', fontSize: '0.875rem', marginTop: '4px' }}>
+              <strong style={{ color: '#92400E', fontSize: '1rem' }}>의견수렴 참여는 군민인증이 필요합니다</strong>
+              <p style={{ color: '#B45309', fontSize: '0.9375rem', marginTop: '4px' }}>
                 카카오 간편 로그인 후 영광군민 인증을 완료하시면 투표에 참여하실 수 있습니다.
               </p>
             </div>
-            <Link href="/" className="btn-apple" style={{ backgroundColor: '#FEE500', color: '#191919', height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
+            <Link href="/" className="btn-apple" style={{ backgroundColor: '#FEE500', color: '#191919', height: '44px', padding: '0 20px', fontSize: '0.9375rem' }}>
               카카오 로그인
             </Link>
           </div>
@@ -259,7 +259,7 @@ export default function AskDetailClient({
               backgroundColor: '#F0F6FF',
               border: '1px solid #93C5FD',
               borderRadius: '16px',
-              padding: '20px 24px',
+              padding: '24px 28px',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -268,34 +268,33 @@ export default function AskDetailClient({
             }}
           >
             <div>
-              <strong style={{ color: '#1E40AF', fontSize: '0.9375rem' }}>🪪 투표 참여를 위해 영광군민 인증이 필요합니다</strong>
-              <p style={{ color: '#1E3A8A', fontSize: '0.875rem', marginTop: '4px' }}>
+              <strong style={{ color: '#1E40AF', fontSize: '1rem' }}>투표 참여를 위해 영광군민 인증이 필요합니다</strong>
+              <p style={{ color: '#1E3A8A', fontSize: '0.9375rem', marginTop: '4px' }}>
                 현재 카카오 로그인 상태({currentUser.displayName})이나 군민 미인증 상태입니다.
               </p>
             </div>
-            <Link href="/verification" className="btn-apple btn-apple-primary" style={{ height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
-              군민인증 신청 ➔
+            <Link href="/verification" className="btn-apple btn-apple-primary" style={{ height: '44px', padding: '0 20px', fontSize: '0.9375rem' }}>
+              군민인증 신청하기
             </Link>
           </div>
         ) : null}
 
-        {/* Apple-style Vote Container */}
+        {/* Vote Container */}
         <div
           style={{
             backgroundColor: '#FFFFFF',
             border: '1px solid rgba(0, 0, 0, 0.08)',
             borderRadius: '24px',
-            padding: '36px 32px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
+            padding: '40px 36px',
           }}
         >
           {!hasVoted ? (
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1D1D1F' }}>
-                  🗳️ 군민 의견 투표
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: '#1D1D1F' }}>
+                  군민 의견 투표
                 </h3>
-                <p style={{ fontSize: '0.875rem', color: '#6E6E73' }}>
+                <p style={{ fontSize: '1rem', color: '#6E6E73' }}>
                   {ask.surveyType === 'yes-no' && '안건에 대해 찬성 또는 반대를 선택해 주세요.'}
                   {ask.surveyType === 'single' && '다음 항목 중 가장 적절한 한 가지를 선택해 주세요.'}
                   {ask.surveyType === 'multiple' && `필요하다고 생각하는 항목을 선택해 주세요. (최대 ${ask.maxSelectCount || 2}개)`}
@@ -305,7 +304,7 @@ export default function AskDetailClient({
 
               {/* surveyType: yes-no */}
               {ask.surveyType === 'yes-no' && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                   {ask.options.map((opt) => {
                     const isSelected = selectedOptions.includes(opt.id);
                     return (
@@ -317,19 +316,17 @@ export default function AskDetailClient({
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          gap: '10px',
                           borderRadius: '14px',
                           border: isSelected ? '2px solid #0066CC' : '1px solid rgba(0, 0, 0, 0.12)',
                           backgroundColor: isSelected ? '#F0F6FF' : '#FFFFFF',
                           color: isSelected ? '#0066CC' : '#1D1D1F',
-                          fontSize: '1.0625rem',
+                          fontSize: '1.125rem',
                           fontWeight: 700,
                           cursor: 'pointer',
                           transition: 'all 150ms ease',
                         }}
                       >
-                        <span>{opt.label.includes('찬성') ? '👍' : '👎'}</span>
-                        <span>{opt.label}</span>
+                        {opt.label}
                       </div>
                     );
                   })}
@@ -338,7 +335,7 @@ export default function AskDetailClient({
 
               {/* surveyType: single / multiple */}
               {(ask.surveyType === 'single' || ask.surveyType === 'multiple') && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {ask.options.map((opt) => {
                     const isSelected = selectedOptions.includes(opt.id);
                     return (
@@ -346,33 +343,33 @@ export default function AskDetailClient({
                         key={opt.id}
                         onClick={() => handleSelectOption(opt.id)}
                         style={{
-                          minHeight: '56px',
-                          padding: '16px 20px',
+                          minHeight: '60px',
+                          padding: '18px 24px',
                           borderRadius: '14px',
                           border: isSelected ? '2px solid #0066CC' : '1px solid rgba(0, 0, 0, 0.12)',
                           backgroundColor: isSelected ? '#F0F6FF' : '#FFFFFF',
                           color: isSelected ? '#0066CC' : '#1D1D1F',
-                          fontSize: '0.9375rem',
+                          fontSize: '1.0625rem',
                           fontWeight: isSelected ? 700 : 500,
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '12px',
+                          gap: '14px',
                           cursor: 'pointer',
                           transition: 'all 150ms ease',
                         }}
                       >
                         <div
                           style={{
-                            width: '20px',
-                            height: '20px',
+                            width: '22px',
+                            height: '22px',
                             borderRadius: ask.surveyType === 'single' ? '50%' : '6px',
-                            border: isSelected ? '6px solid #0066CC' : '2px solid #C7C7CC',
+                            border: isSelected ? '7px solid #0066CC' : '2px solid #C7C7CC',
                             backgroundColor: '#FFFFFF',
                             boxSizing: 'border-box',
                             flexShrink: 0,
                           }}
                         />
-                        <span style={{ lineHeight: 1.4 }}>{opt.label}</span>
+                        <span style={{ lineHeight: 1.45 }}>{opt.label}</span>
                       </div>
                     );
                   })}
@@ -390,18 +387,18 @@ export default function AskDetailClient({
                     onChange={(e) => setOpinionText(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '16px',
+                      padding: '18px',
                       borderRadius: '14px',
                       border: '1px solid rgba(0, 0, 0, 0.12)',
-                      fontSize: '0.9375rem',
-                      lineHeight: 1.6,
+                      fontSize: '1rem',
+                      lineHeight: 1.65,
                       color: '#1D1D1F',
                       outline: 'none',
                       resize: 'vertical',
                       boxSizing: 'border-box',
                     }}
                   />
-                  <div style={{ textAlign: 'right', fontSize: '0.8125rem', color: '#86868B' }}>
+                  <div style={{ textAlign: 'right', fontSize: '0.875rem', color: '#86868B' }}>
                     {opinionText.length} / 1000자
                   </div>
                 </div>
@@ -409,9 +406,9 @@ export default function AskDetailClient({
 
               {/* allowComment (선택 한 줄 의견) */}
               {ask.allowComment && ask.surveyType !== 'opinion' && (
-                <div style={{ paddingTop: '20px', borderTop: '1px dashed rgba(0, 0, 0, 0.12)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <label style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1D1D1F' }}>
-                    💬 의견을 조금 더 들려주세요 (선택사항)
+                <div style={{ paddingTop: '24px', borderTop: '1px dashed rgba(0, 0, 0, 0.12)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <label style={{ fontSize: '1rem', fontWeight: 700, color: '#1D1D1F' }}>
+                    의견을 조금 더 들려주세요 (선택사항)
                   </label>
                   <textarea
                     rows={3}
@@ -421,18 +418,18 @@ export default function AskDetailClient({
                     onChange={(e) => setExtraComment(e.target.value)}
                     style={{
                       width: '100%',
-                      padding: '14px 16px',
+                      padding: '16px',
                       borderRadius: '12px',
                       border: '1px solid rgba(0, 0, 0, 0.12)',
-                      fontSize: '0.875rem',
-                      lineHeight: 1.5,
+                      fontSize: '0.9375rem',
+                      lineHeight: 1.6,
                       color: '#1D1D1F',
                       outline: 'none',
                       resize: 'vertical',
                       boxSizing: 'border-box',
                     }}
                   />
-                  <div style={{ textAlign: 'right', fontSize: '0.8125rem', color: '#86868B' }}>
+                  <div style={{ textAlign: 'right', fontSize: '0.875rem', color: '#86868B' }}>
                     {extraComment.length} / 500자
                   </div>
                 </div>
@@ -446,41 +443,40 @@ export default function AskDetailClient({
                   disabled={isSubmitting || !currentUser?.isVerifiedResident}
                   style={{
                     width: '100%',
-                    height: '52px',
-                    fontSize: '1rem',
+                    height: '56px',
+                    fontSize: '1.0625rem',
                     opacity: !currentUser?.isVerifiedResident ? 0.5 : 1,
                     cursor: !currentUser?.isVerifiedResident ? 'not-allowed' : 'pointer',
                   }}
                 >
-                  {isSubmitting ? '의견 보내는 중...' : '의견 제출하기 ➔'}
+                  {isSubmitting ? '의견 보내는 중...' : '의견 제출하기'}
                 </button>
               </div>
             </form>
           ) : (
             /* Results View */
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-              <div style={{ textAlign: 'center', padding: '24px 16px', backgroundColor: '#F0F6FF', borderRadius: '16px' }}>
-                <div style={{ fontSize: '2rem', marginBottom: '8px' }}>✓</div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0066CC', marginBottom: '6px' }}>
-                  의견수렴 참여가 완료되었습니다.
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ textAlign: 'center', padding: '32px 24px', backgroundColor: '#F0F6FF', borderRadius: '16px' }}>
+                <h3 style={{ fontSize: '1.375rem', fontWeight: 800, color: '#0066CC', marginBottom: '8px' }}>
+                  의견수렴 참여가 완료되었습니다
                 </h3>
-                <p style={{ fontSize: '0.875rem', color: '#6E6E73' }}>
+                <p style={{ fontSize: '1rem', color: '#6E6E73' }}>
                   소중한 의견을 보내주셔서 감사합니다. 영광군의회가 귀기울여 듣겠습니다.
                 </p>
               </div>
 
               {results.visible && results.options.length > 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <h4 style={{ fontSize: '1.0625rem', fontWeight: 800, color: '#1D1D1F' }}>
-                    📊 실시간 군민 의견 집계 현황
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  <h4 style={{ fontSize: '1.1875rem', fontWeight: 800, color: '#1D1D1F' }}>
+                    실시간 군민 의견 집계 현황
                   </h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     {results.options.map((opt) => {
                       const pct = Math.round((opt.voteCount / totalVotesSum) * 100) || 0;
                       const isSelected = selectedOptions.includes(opt.optionId);
                       return (
-                        <div key={opt.optionId} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9375rem', color: '#1D1D1F' }}>
+                        <div key={opt.optionId} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1rem', color: '#1D1D1F' }}>
                             <span>
                               {opt.label}{' '}
                               {isSelected && <strong style={{ color: '#0066CC' }}>(내가 선택함)</strong>}
@@ -489,8 +485,8 @@ export default function AskDetailClient({
                               {pct}% ({opt.voteCount}표)
                             </span>
                           </div>
-                          {/* Apple Progress Bar */}
-                          <div style={{ width: '100%', height: '8px', backgroundColor: '#F5F5F7', borderRadius: '999px', overflow: 'hidden' }}>
+                          {/* Progress Bar */}
+                          <div style={{ width: '100%', height: '10px', backgroundColor: '#F5F5F7', borderRadius: '999px', overflow: 'hidden' }}>
                             <div
                               style={{
                                 width: `${pct}%`,
@@ -508,8 +504,8 @@ export default function AskDetailClient({
                 </div>
               )}
 
-              <div style={{ textAlign: 'center', fontSize: '0.875rem', color: '#86868B', paddingTop: '16px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-                👥 실제 영광군민 <strong>{results.totalParticipants}명</strong>의 군민이 참여했습니다.
+              <div style={{ textAlign: 'center', fontSize: '0.9375rem', color: '#86868B', paddingTop: '20px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+                실제 영광군민 <strong style={{ color: '#1D1D1F' }}>{results.totalParticipants}명</strong>의 군민이 참여했습니다.
               </div>
             </div>
           )}

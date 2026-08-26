@@ -32,7 +32,7 @@ export default function Modal({
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
-      alert('✅ 주소가 클립보드에 복사되었습니다.');
+      alert('주소가 클립보드에 복사되었습니다.');
     } catch {
       alert('주소 복사에 실패했습니다.');
     }

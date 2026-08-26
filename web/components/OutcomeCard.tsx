@@ -46,13 +46,13 @@ export default function OutcomeCard({ item }: OutcomeCardProps) {
 
       {/* Mini Pipeline Steps */}
       {pipelineSteps.length > 0 && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#F5F5F7', padding: '8px 12px', borderRadius: '10px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: '#F5F5F7', padding: '8px 14px', borderRadius: '10px', overflowX: 'auto' }}>
           {pipelineSteps.map((st, idx) => (
             <React.Fragment key={idx}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: st.status === 'completed' ? '#0066CC' : '#86868B', whiteSpace: 'nowrap' }}>
-                {st.status === 'completed' ? '✓' : '●'} {st.label}
+              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: st.status === 'completed' ? '#0066CC' : '#86868B', whiteSpace: 'nowrap' }}>
+                {st.label}
               </span>
-              {idx < pipelineSteps.length - 1 && <span style={{ fontSize: '0.75rem', color: '#C7C7CC' }}>➔</span>}
+              {idx < pipelineSteps.length - 1 && <span style={{ fontSize: '0.75rem', color: '#C7C7CC' }}>·</span>}
             </React.Fragment>
           ))}
         </div>
@@ -67,7 +67,7 @@ export default function OutcomeCard({ item }: OutcomeCardProps) {
           className="btn-apple btn-apple-primary"
           style={{ height: '36px', padding: '0 16px', fontSize: '0.8125rem', backgroundColor: '#0066CC' }}
         >
-          과정 및 성과 보기 ➔
+          과정 및 성과 보기
         </Link>
       </div>
     </article>

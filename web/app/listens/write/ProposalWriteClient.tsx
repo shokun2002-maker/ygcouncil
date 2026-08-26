@@ -26,34 +26,34 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
     e.preventDefault();
 
     if (!currentUser) {
-      alert('🔒 제안 작성은 카카오 로그인이 필요합니다.');
+      alert('제안 작성은 카카오 로그인이 필요합니다.');
       return;
     }
 
     if (!currentUser.isVerifiedResident) {
-      alert('🪪 제안 작성은 영광군민 인증이 완료된 계정만 가능합니다.\n[군민인증 신청하기] 화면으로 이동합니다.');
+      alert('제안 작성은 영광군민 인증이 완료된 계정만 가능합니다.\n[군민인증 신청하기] 화면으로 이동합니다.');
       window.location.href = '/verification';
       return;
     }
 
     if (!category) {
-      alert('⚠️ 카테고리를 선택해 주세요.');
+      alert('카테고리를 선택해 주세요.');
       return;
     }
     if (!selectedRegionId) {
-      alert('⚠️ 해당 읍·면 지역을 선택해 주세요.');
+      alert('해당 읍·면 지역을 선택해 주세요.');
       return;
     }
     if (!title.trim()) {
-      alert('⚠️ 제안 제목을 입력해 주세요.');
+      alert('제안 제목을 입력해 주세요.');
       return;
     }
     if (!content.trim()) {
-      alert('⚠️ 제안 내용을 입력해 주세요.');
+      alert('제안 내용을 입력해 주세요.');
       return;
     }
     if (!policyAgreed) {
-      alert('⚠️ 작성 전 유의사항 안내 동의에 체크해 주세요.');
+      alert('작성 전 유의사항 안내 동의에 체크해 주세요.');
       return;
     }
 
@@ -91,13 +91,13 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            color: '#6E6E73',
-            fontSize: '0.9375rem',
+            color: '#424245',
+            fontSize: '1rem',
             fontWeight: 600,
             textDecoration: 'none',
           }}
         >
-          ← 목록으로 돌아가기
+          목록으로 돌아가기
         </Link>
       </div>
 
@@ -108,7 +108,7 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
             backgroundColor: '#FFFBEB',
             border: '1px solid #FCD34D',
             borderRadius: '16px',
-            padding: '20px 24px',
+            padding: '24px 28px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -118,12 +118,12 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
           }}
         >
           <div>
-            <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>🔒 제안 작성은 군민인증이 필요합니다</strong>
-            <p style={{ color: '#B45309', fontSize: '0.875rem', marginTop: '4px' }}>
+            <strong style={{ color: '#92400E', fontSize: '1rem' }}>제안 작성은 군민인증이 필요합니다</strong>
+            <p style={{ color: '#B45309', fontSize: '0.9375rem', marginTop: '4px' }}>
               카카오 간편 로그인 후 영광군민 인증을 완료하시면 제안을 등록하실 수 있습니다.
             </p>
           </div>
-          <Link href="/" className="btn-apple" style={{ backgroundColor: '#FEE500', color: '#191919', height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
+          <Link href="/" className="btn-apple" style={{ backgroundColor: '#FEE500', color: '#191919', height: '44px', padding: '0 20px', fontSize: '0.9375rem' }}>
             카카오 로그인
           </Link>
         </div>
@@ -133,7 +133,7 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
             backgroundColor: '#F0F6FF',
             border: '1px solid #93C5FD',
             borderRadius: '16px',
-            padding: '20px 24px',
+            padding: '24px 28px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -143,13 +143,13 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
           }}
         >
           <div>
-            <strong style={{ color: '#1E40AF', fontSize: '0.9375rem' }}>🪪 제안 작성을 위해 영광군민 인증이 필요합니다</strong>
-            <p style={{ color: '#1E3A8A', fontSize: '0.875rem', marginTop: '4px' }}>
+            <strong style={{ color: '#1E40AF', fontSize: '1rem' }}>제안 작성을 위해 영광군민 인증이 필요합니다</strong>
+            <p style={{ color: '#1E3A8A', fontSize: '0.9375rem', marginTop: '4px' }}>
               현재 카카오 로그인 상태({currentUser.displayName})이나 군민 미인증 상태입니다.
             </p>
           </div>
-          <Link href="/verification" className="btn-apple btn-apple-primary" style={{ height: '40px', padding: '0 16px', fontSize: '0.875rem' }}>
-            군민인증 신청 ➔
+          <Link href="/verification" className="btn-apple btn-apple-primary" style={{ height: '44px', padding: '0 20px', fontSize: '0.9375rem' }}>
+            군민인증 신청하기
           </Link>
         </div>
       ) : null}
@@ -161,18 +161,17 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
             border: '1px solid rgba(0, 0, 0, 0.08)',
             borderRadius: '24px',
             padding: '40px 36px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
           }}
         >
           {/* Header */}
           <div style={{ marginBottom: '32px' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#00A896', backgroundColor: '#E6F7F5', padding: '4px 10px', borderRadius: '6px' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#00A896', backgroundColor: '#E6F7F5', padding: '4px 12px', borderRadius: '6px' }}>
               이야기 들려주기
             </span>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#1D1D1F', marginTop: '8px', letterSpacing: '-0.5px' }}>
+            <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#1D1D1F', marginTop: '12px', letterSpacing: '-0.03em' }}>
               영광의 이야기를 들려주세요.
             </h1>
-            <p style={{ color: '#6E6E73', fontSize: '0.9375rem', marginTop: '6px', lineHeight: 1.5 }}>
+            <p style={{ color: '#6E6E73', fontSize: '1.0625rem', marginTop: '8px', lineHeight: 1.6 }}>
               생활 속 불편사항, 정책 아이디어, 우리 동네 이야기를 자유롭게 제안해 보세요.
             </p>
           </div>
@@ -182,13 +181,13 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
             style={{
               backgroundColor: '#F5F5F7',
               borderRadius: '16px',
-              padding: '20px 24px',
+              padding: '24px 28px',
               border: '1px solid rgba(0, 0, 0, 0.06)',
               marginBottom: '32px',
             }}
           >
-            <strong style={{ fontSize: '0.875rem', color: '#1D1D1F' }}>📌 작성 시 유의사항 (개인정보 보호)</strong>
-            <ul style={{ paddingLeft: '18px', marginTop: '8px', fontSize: '0.8125rem', color: '#6E6E73', lineHeight: 1.6 }}>
+            <strong style={{ fontSize: '1rem', color: '#1D1D1F' }}>작성 시 유의사항 (개인정보 보호)</strong>
+            <ul style={{ paddingLeft: '20px', marginTop: '10px', fontSize: '0.9375rem', color: '#6E6E73', lineHeight: 1.7 }}>
               <li>주민등록번호, 전화번호, 상세주소 등 개인 식별 정보를 본문에 입력하지 마세요.</li>
               <li>특정인에 대한 비방, 명예훼손, 광고성 내용은 예고 없이 숨김 처리될 수 있습니다.</li>
               <li>작성해주신 소중한 제안은 영광군의회 관계 부서에서 적극 검토합니다.</li>
@@ -196,11 +195,11 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Category & Region */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                <label style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1D1D1F' }}>
                   카테고리 선택 <span style={{ color: '#DC2626' }}>*</span>
                 </label>
                 <select
@@ -208,11 +207,11 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
                   onChange={(e) => setCategory(e.target.value)}
                   style={{
                     width: '100%',
-                    height: '44px',
-                    padding: '0 14px',
+                    height: '48px',
+                    padding: '0 16px',
                     borderRadius: '12px',
                     border: '1px solid rgba(0, 0, 0, 0.12)',
-                    fontSize: '0.875rem',
+                    fontSize: '0.9375rem',
                     color: '#1D1D1F',
                     outline: 'none',
                     backgroundColor: '#FFFFFF',
@@ -228,7 +227,7 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+                <label style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1D1D1F' }}>
                   해당 읍·면 지역 <span style={{ color: '#DC2626' }}>*</span>
                 </label>
                 <select
@@ -236,11 +235,11 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
                   onChange={(e) => setSelectedRegionId(e.target.value)}
                   style={{
                     width: '100%',
-                    height: '44px',
-                    padding: '0 14px',
+                    height: '48px',
+                    padding: '0 16px',
                     borderRadius: '12px',
                     border: '1px solid rgba(0, 0, 0, 0.12)',
-                    fontSize: '0.875rem',
+                    fontSize: '0.9375rem',
                     color: '#1D1D1F',
                     outline: 'none',
                     backgroundColor: '#FFFFFF',
@@ -258,7 +257,7 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
 
             {/* Title */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+              <label style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1D1D1F' }}>
                 제안 제목 (최대 80자) <span style={{ color: '#DC2626' }}>*</span>
               </label>
               <input
@@ -269,24 +268,24 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
                 onChange={(e) => setTitle(e.target.value)}
                 style={{
                   width: '100%',
-                  height: '44px',
+                  height: '48px',
                   padding: '0 16px',
                   borderRadius: '12px',
                   border: '1px solid rgba(0, 0, 0, 0.12)',
-                  fontSize: '0.9375rem',
+                  fontSize: '1rem',
                   color: '#1D1D1F',
                   outline: 'none',
                   boxSizing: 'border-box',
                 }}
               />
-              <div style={{ textAlign: 'right', fontSize: '0.8125rem', color: '#86868B' }}>
+              <div style={{ textAlign: 'right', fontSize: '0.875rem', color: '#86868B' }}>
                 {title.length} / 80자
               </div>
             </div>
 
             {/* Content Textarea */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#1D1D1F' }}>
+              <label style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#1D1D1F' }}>
                 제안 내용 (최대 2,000자) <span style={{ color: '#DC2626' }}>*</span>
               </label>
               <textarea
@@ -297,29 +296,29 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
                 onChange={(e) => setContent(e.target.value)}
                 style={{
                   width: '100%',
-                  padding: '16px',
+                  padding: '18px',
                   borderRadius: '14px',
                   border: '1px solid rgba(0, 0, 0, 0.12)',
-                  fontSize: '0.9375rem',
-                  lineHeight: 1.6,
+                  fontSize: '1rem',
+                  lineHeight: 1.65,
                   color: '#1D1D1F',
                   outline: 'none',
                   resize: 'vertical',
                   boxSizing: 'border-box',
                 }}
               />
-              <div style={{ textAlign: 'right', fontSize: '0.8125rem', color: '#86868B' }}>
+              <div style={{ textAlign: 'right', fontSize: '0.875rem', color: '#86868B' }}>
                 {content.length} / 2000자
               </div>
             </div>
 
             {/* Privacy Agreement Checkbox */}
-            <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: '#1D1D1F', cursor: 'pointer' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.9375rem', color: '#1D1D1F', cursor: 'pointer' }}>
               <input
                 type="checkbox"
                 checked={policyAgreed}
                 onChange={(e) => setPolicyAgreed(e.target.checked)}
-                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
               />
               <span>위 유의사항 및 개인정보 보호 지침 안내를 확인하였으며 동의합니다.</span>
             </label>
@@ -332,33 +331,30 @@ export default function ProposalWriteClient({ currentUser, regions }: ProposalWr
               style={{
                 backgroundColor: '#00A896',
                 width: '100%',
-                height: '52px',
-                fontSize: '1rem',
+                height: '56px',
+                fontSize: '1.0625rem',
                 opacity: !currentUser?.isVerifiedResident ? 0.5 : 1,
                 cursor: !currentUser?.isVerifiedResident ? 'not-allowed' : 'pointer',
               }}
             >
-              {isSubmitting ? '이야기를 보내는 중...' : '의회에 제안 등록하기 ➔'}
+              {isSubmitting ? '이야기를 보내는 중...' : '의회에 제안 등록하기'}
             </button>
           </form>
         </div>
       ) : (
         /* Completion State */
-        <div style={{ backgroundColor: '#FFFFFF', padding: '64px 32px', textAlign: 'center', borderRadius: '24px', border: '1px solid rgba(0, 0, 0, 0.08)', boxShadow: '0 4px 20px rgba(0,0,0,0.04)' }}>
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#E6F7F5', color: '#00A896', fontSize: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-            ✓
-          </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1D1D1F', marginBottom: '12px' }}>
-            이야기를 들려주셔서 감사합니다.
+        <div style={{ backgroundColor: '#FFFFFF', padding: '64px 32px', textAlign: 'center', borderRadius: '24px', border: '1px solid rgba(0, 0, 0, 0.08)' }}>
+          <h2 style={{ fontSize: '1.625rem', fontWeight: 800, color: '#1D1D1F', marginBottom: '12px' }}>
+            이야기를 들려주셔서 감사합니다
           </h2>
-          <p style={{ color: '#6E6E73', fontSize: '1rem', marginBottom: '32px', lineHeight: 1.6 }}>
+          <p style={{ color: '#6E6E73', fontSize: '1.0625rem', marginBottom: '32px', lineHeight: 1.6 }}>
             등록해 주신 소중한 제안은 영광군의회에 정상 접수되어 담당 부서 및 상임위원회에서 적극 검토할 예정입니다.
           </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href={`/listens/${submittedProposalId}`} className="btn-apple btn-apple-primary" style={{ backgroundColor: '#00A896' }}>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href={`/listens/${submittedProposalId}`} className="btn-apple btn-apple-primary" style={{ backgroundColor: '#00A896', height: '48px', padding: '0 24px', fontSize: '1rem' }}>
               내가 작성한 이야기 보기
             </Link>
-            <Link href="/listens" className="btn-apple btn-apple-secondary">
+            <Link href="/listens" className="btn-apple btn-apple-secondary" style={{ height: '48px', padding: '0 24px', fontSize: '1rem' }}>
               전체 제안 목록으로 이동
             </Link>
           </div>

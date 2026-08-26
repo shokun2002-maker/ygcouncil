@@ -13,7 +13,6 @@ export default function AuthErrorPage() {
         boxShadow: 'var(--shadow-md)',
         textAlign: 'center'
       }}>
-        <div style={{ fontSize: '3rem', marginBottom: '16px' }}>⚠️</div>
         <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--gray-900)', marginBottom: '12px' }}>
           로그인 처리 중 문제가 발생했습니다
         </h1>

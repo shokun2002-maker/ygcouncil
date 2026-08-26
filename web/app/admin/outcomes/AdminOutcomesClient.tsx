@@ -26,7 +26,7 @@ export default function AdminOutcomesClient({
     e.preventDefault();
 
     if (!title.trim() || !summary.trim() || !result.trim()) {
-      alert('⚠️ 성과 제목, 요약, 결과를 모두 입력해 주세요.');
+      alert('성과 제목, 요약, 결과를 모두 입력해 주세요.');
       return;
     }
 
@@ -99,7 +99,7 @@ export default function AdminOutcomesClient({
                   </td>
                   <td style={{ padding: '12px 16px', color: '#86868B', fontSize: '0.8125rem' }}>{item.outcomeAt}</td>
                   <td style={{ padding: '12px 16px', fontSize: '0.8125rem', color: '#6E6E73' }}>
-                    {item.sourceProposalId ? '💬 시민 제안' : ''} {item.sourceAskId ? ' 🙋‍♂️ 군민 의견수렴' : ''}
+                    {item.sourceProposalId ? '시민 제안' : ''} {item.sourceAskId ? ' 군민 의견수렴' : ''}
                   </td>
                 </tr>
               ))}
@@ -325,7 +325,7 @@ export default function AdminOutcomesClient({
               opacity: isSubmitting ? 0.6 : 1,
             }}
           >
-            {isSubmitting ? '성과 등록 중...' : '의정 성과 등록하기 ➔'}
+            {isSubmitting ? '성과 등록 중...' : '의정 성과 등록하기'}
           </button>
         </form>
       </div>

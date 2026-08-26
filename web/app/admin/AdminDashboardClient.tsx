@@ -51,7 +51,7 @@ export default function AdminDashboardClient({
           }}
         >
           <div>
-            <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>⚠️ 검토 및 조치가 필요한 항목이 있습니다</strong>
+            <strong style={{ color: '#92400E', fontSize: '0.9375rem' }}>검토 및 조치가 필요한 항목이 있습니다</strong>
             <p style={{ color: '#B45309', fontSize: '0.875rem', marginTop: '4px' }}>
               거주인증 신청 대기 <strong style={{ color: '#92400E' }}>{metrics.verificationsPendingCount}건</strong> / 임시저장 성과 <strong style={{ color: '#92400E' }}>{metrics.outcomesDraftCount}건</strong>
             </p>
@@ -59,19 +59,19 @@ export default function AdminDashboardClient({
           <div style={{ display: 'flex', gap: '8px' }}>
             {metrics.verificationsPendingCount > 0 && (
               <Link href="/admin/verifications" className="btn-apple btn-apple-primary" style={{ backgroundColor: '#D97706', height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}>
-                인증 검토하기 ➔
+                인증 검토하기
               </Link>
             )}
             {metrics.outcomesDraftCount > 0 && (
               <Link href="/admin/outcomes" className="btn-apple btn-apple-secondary" style={{ height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}>
-                성과 관리하기 ➔
+                성과 관리하기
               </Link>
             )}
           </div>
         </div>
       ) : (
         <div style={{ backgroundColor: '#F5F5F7', padding: '16px 20px', borderRadius: '12px', color: '#6E6E73', fontSize: '0.875rem' }}>
-          ✓ 현재 바로 처리해야 할 대기 안건이 없습니다. (Clean State)
+          현재 바로 처리해야 할 대기 안건이 없습니다. (Clean State)
         </div>
       )}
 
@@ -127,7 +127,7 @@ export default function AdminDashboardClient({
               className="btn-apple btn-apple-primary"
               style={{ backgroundColor: '#0066CC', height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}
             >
-              인증 관리 ➔
+              인증 관리
             </Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', textAlign: 'center' }}>
@@ -163,7 +163,7 @@ export default function AdminDashboardClient({
               className="btn-apple btn-apple-secondary"
               style={{ height: '36px', padding: '0 14px', fontSize: '0.8125rem' }}
             >
-              성과 관리 ➔
+              성과 관리
             </Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', textAlign: 'center' }}>
@@ -229,7 +229,7 @@ export default function AdminDashboardClient({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.875rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
               <span style={{ color: '#6E6E73' }}>Supabase DB</span>
-              <strong style={{ color: '#059669' }}>✓ 정상 연결</strong>
+              <strong style={{ color: '#059669' }}>정상 연결</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
               <span style={{ color: '#6E6E73' }}>영광군 행정구역</span>
@@ -237,7 +237,7 @@ export default function AdminDashboardClient({
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
               <span style={{ color: '#6E6E73' }}>보안 RLS / GRANT</span>
-              <strong style={{ color: '#059669' }}>✓ 적용됨</strong>
+              <strong style={{ color: '#059669' }}>적용됨</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '4px' }}>
               <span style={{ color: '#6E6E73' }}>시연용 RPC (Demo)</span>

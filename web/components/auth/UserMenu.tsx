@@ -100,7 +100,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                 background: user.isVerifiedResident ? '#ECFDF5' : '#EFF6FF'
               }}
             >
-              {user.isVerifiedResident ? '✓ 군민인증 상태보기' : '🪪 군민인증 신청하기'}
+              {user.isVerifiedResident ? '군민인증 상태보기' : '군민인증 신청하기'}
             </Link>
 
             {(user.role === 'admin' || user.role === 'council_staff') && (
@@ -117,7 +117,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                   borderRadius: '6px'
                 }}
               >
-                🏛️ 군민인증 관리 (관리자)
+                군민인증 관리 (관리자)
               </Link>
             )}
           </div>

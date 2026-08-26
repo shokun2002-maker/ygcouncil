@@ -34,7 +34,7 @@ export default function AskCard({ item }: AskCardProps) {
 
         <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(0, 0, 0, 0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <span style={{ fontSize: '0.8125rem', color: '#86868B', fontWeight: 500 }}>
-            👥 참여 {item.participantCount}명 · ~{item.endDate}
+            참여 {item.participantCount}명 · ~{item.endDate}
           </span>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
@@ -50,7 +50,7 @@ export default function AskCard({ item }: AskCardProps) {
               className="btn-apple btn-apple-primary"
               style={{ height: '36px', padding: '0 16px', fontSize: '0.8125rem' }}
             >
-              의견 참여하기 ➔
+              의견 참여하기
             </Link>
           </div>
         </div>

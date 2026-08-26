@@ -44,7 +44,7 @@ export default function ListenCard({ item }: ListenCardProps) {
 
         <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(0, 0, 0, 0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <span style={{ fontSize: '0.8125rem', color: '#86868B', fontWeight: 500 }}>
-            ♡ 공감 {item.empathyCount} · 💬 의견 {item.commentCount}
+            공감 {item.empathyCount}명 · 의견 {item.commentCount}개
           </span>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
@@ -60,7 +60,7 @@ export default function ListenCard({ item }: ListenCardProps) {
               className="btn-apple"
               style={{ height: '36px', padding: '0 16px', fontSize: '0.8125rem', backgroundColor: '#E6F7F5', color: '#00A896', fontWeight: 700 }}
             >
-              이야기 보기 ➔
+              이야기 보기
             </Link>
           </div>
         </div>

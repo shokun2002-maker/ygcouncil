@@ -42,7 +42,7 @@ export default async function DevProposalCommentCheckPage() {
               {comments.map((c) => (
                 <li key={c.commentId} style={{ background: '#F8FAFC', padding: '10px 14px', borderRadius: '6px' }}>
                   <div style={{ fontSize: '0.8125rem', color: '#64748B', display: 'flex', justifyContent: 'space-between' }}>
-                    <span>👤 {c.authorDisplay}</span>
+                    <span>{c.authorDisplay}</span>
                     <span>{c.createdAt}</span>
                   </div>
                   <div style={{ marginTop: '4px', fontSize: '0.9375rem', color: '#0F172A' }}>{c.content}</div>
